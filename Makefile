@@ -3,7 +3,7 @@ all: mutants
 .PHONY: all check clean coverage format install lint mutants tests
 
 module = geci_plots
-codecov_token = 6c56bccb-1758-4ed9-8161-97c845591c26
+codecov_token = ff0e4c6d-f104-4657-ba1e-80fd9d1d33a0
 
 define lint
 	pylint \
