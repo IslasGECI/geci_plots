@@ -2,7 +2,7 @@ all: mutants
 
 .PHONY: all check clean coverage format install lint mutants tests
 
-module = dummy_transformations
+module = geci_plots
 codecov_token = 6c56bccb-1758-4ed9-8161-97c845591c26
 
 define lint
@@ -24,7 +24,8 @@ clean:
 	rm --force .mutmut-cache
 	rm --recursive --force ${module}.egg-info
 	rm --recursive --force ${module}/__pycache__
-	rm --recursive --force test/__pycache__
+	rm --recursive --force tests/__pycache__
+	rm --force --recursive geci_plots/__pycache__/
 
 coverage: install
 	pytest --cov=${module} --cov-report=xml --verbose && \
