@@ -1,10 +1,13 @@
-
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
-    name="dummy_transformations",
+    name="geci_plots",
     version="0.1.0",
-    packages=["dummy_transformations"],
-    author="Fernando Alvarez",
-    python_requires='>=3.6'
+    packages=["geci_plots"],
+    install_requires=[
+        "matplotlib",
+        "numpy",
+        "pandas",
+    ],
+    author="Ciencia de Datos • GECI",
 )

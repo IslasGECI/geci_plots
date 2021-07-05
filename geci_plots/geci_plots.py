@@ -1,0 +1,418 @@
+#!/usr/bin/env python
+
+from mpl_toolkits.axes_grid1.anchored_artists import AnchoredSizeBar
+
+import matplotlib
+import matplotlib.font_manager as fm
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+matplotlib.rcParams["figure.dpi"] = 300
+matplotlib.rcParams["font.family"] = "STIXGeneral"
+matplotlib.rcParams["mathtext.fontset"] = "stix"
+matplotlib.use("Agg")
+
+
+cmap = plt.get_cmap("tab10")
+zones_colors = cmap(np.arange(8))
+
+islet_markers = {
+    "Asuncion": "o",
+    "Coronado": "^",
+    "Morro Prieto and Zapato": "s",
+    "Guadalupe": "X",
+    "Natividad": "p",
+    "San Benito": "h",
+    "San Jeronimo": "D",
+    "San Martin": "P",
+    "San Roque": "*",
+    "Todos Santos": ">",
+}
+
+islet_colors = {
+    "Asuncion": "black",
+    "Coronado": "red",
+    "Morro Prieto and Zapato": "peru",
+    "Guadalupe": "gold",
+    "Natividad": "green",
+    "San Benito": "blue",
+    "San Jeronimo": "purple",
+    "San Martin": "hotpink",
+    "San Roque": "lightgreen",
+    "Todos Santos": "skyblue",
+}
+
+
+def geci_plot(figsize=(11, 8)):
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.spines["right"].set_visible(False)
+    ax.spines["top"].set_visible(False)
+    plt.yticks(rotation=90)
+    return fig, ax
+
+
+def plot_histogram_with_limits(x, bins, limits=[], plot_options={}, lines_options={}):
+    _, ax = geci_plot()
+    ax.hist(x, bins=bins, **plot_options)
+    for lines in limits:
+        ax.axvline(x=lines, **lines_options)
+    return ax
+
+
+def roundup(x, multiplo):
+    return np.ceil(x / multiplo) * multiplo
+
+
+def fix_date(date):
+    return (
+        date.replace("Abr", "Apr").replace("Ene", "Jan").replace("Ago", "Aug").replace("Dic", "Dec")
+    )
+
+
+def set_map_tick_labels(fontsize=15):
+    ejes = plt.gca()
+    y_min, y_max = ejes.get_ylim()
+    plt.yticks(
+        [
+            int(limite)
+            for i_limite, limite in enumerate(np.linspace(y_min, y_max, 5))
+            if i_limite > 0
+        ],
+        [
+            f"{limite:.0f} mN" if i_limite == 4 else int(limite)
+            for i_limite, limite in enumerate(np.linspace(y_min, y_max, 5))
+            if i_limite > 0
+        ],
+        fontsize=fontsize,
+    )
+
+    ejes = plt.gca()
+    x_min, x_max = ejes.get_xlim()
+    plt.xticks(
+        [
+            int(limite)
+            for i_limite, limite in enumerate(np.linspace(x_min, x_max, 5))
+            if i_limite > 0
+        ],
+        [
+            f"{limite:.0f} mE" if i_limite == 4 else int(limite)
+            for i_limite, limite in enumerate(np.linspace(x_min, x_max, 5))
+            if i_limite > 0
+        ],
+        fontsize=fontsize,
+    )
+
+
+def set_scale_bar(ax, length, width, loc="lower right", fontsize=10):
+    fontprops = fm.FontProperties(size=fontsize)
+    scalebar = AnchoredSizeBar(
+        ax.transData,
+        length,
+        f"{length} m",
+        loc,
+        pad=0.1,
+        color="black",
+        frameon=False,
+        size_vertical=width,
+        fontproperties=fontprops,
+    )
+    ax.add_artist(scalebar)
+
+
+def plot_location_plot(ax, linea_costa, margen_x, margen_y, box_length=500):
+    axins = ax.inset_axes([0.05, 0.50, 0.2, 0.45])
+    axins.fill(
+        linea_costa.x, linea_costa.y, facecolor="#fffae6", edgecolor="black", linewidth=1, zorder=0
+    )
+
+    margen_subplot_x = np.array(margen_x) + np.array([-box_length, box_length])
+    margen_subplot_y = np.array(margen_y) + np.array([-box_length, box_length])
+
+    axins.set_xticklabels("")
+    axins.set_yticklabels("")
+    axins.set_facecolor("#E6FFFF")
+    axins.set_xticks([])
+    axins.set_yticks([])
+    axins.plot(
+        [
+            margen_subplot_x[1],
+            margen_subplot_x[0],
+            margen_subplot_x[0],
+            margen_subplot_x[1],
+            margen_subplot_x[1],
+        ],
+        [
+            margen_subplot_y[0],
+            margen_subplot_y[0],
+            margen_subplot_y[1],
+            margen_subplot_y[1],
+            margen_subplot_y[0],
+        ],
+        "red",
+        linewidth=2,
+    )
+
+    for axis in ["top", "bottom", "left", "right"]:
+        axins.spines[axis].set_linewidth(2)
+
+
+def rounded_ticks_array(superior_limit, min_value):
+    ticks_array = np.arange(
+        np.floor(min_value - min_value * 0.15),
+        roundup(superior_limit * 1.2, 10 ** order_magnitude(superior_limit)),
+        roundup(superior_limit * 0.2, 10 ** order_magnitude(superior_limit)),
+    )
+    return ticks_array
+
+
+def ticks_positions_array(x):
+    ticks_positions = np.linspace(1, len(x), len(x))
+    ticks_positions[-1] = ticks_positions[-1] + 0.05
+    return ticks_positions
+
+
+def sort_monthly_dataframe(df, date_format="GECI", column_key="Date"):
+    if date_format == "GECI":
+        df[column_key] = df.Date.apply(lambda fecha: fix_date(str(fecha)))
+        df[column_key] = pd.to_datetime(df[column_key], format="%Y/%b")
+    elif date_format == "ISO-8601":
+        df[column_key] = pd.to_datetime(df[column_key], format="%Y-%m")
+    df = df.sort_values(by=[column_key]).reset_index(drop=True)
+    return df.set_index([column_key])
+
+
+def order_magnitude(x):
+    return int(np.floor(np.log10(np.max(x))))
+
+
+def generate_monthly_ticks(df, bar_gap=2):
+    ticks_labels = df.index.strftime("%b - %Y")
+    ticks_positions = np.linspace(1, len(df), len(df)) * bar_gap
+    return [ticks_positions, ticks_labels]
+
+
+def generate_weekly_ticks(df, bar_gap=2):
+    ticks_labels = df.index.strftime("%d - %b")
+    ticks_positions = np.linspace(1, len(df), len(df)) * bar_gap
+    return [ticks_positions, ticks_labels]
+
+
+def select_date_interval(df, initial_date, final_date=pd.Timestamp.today()):
+    return df.loc[initial_date:final_date]
+
+
+def annotated_bar_plot(
+    ax,
+    df,
+    x_ticks,
+    fontsize=15,
+    bar_label_size=15,
+    bar_gap=2,
+    x_pos=-0.5,
+    y_pos=200,
+    column_key="Effort",
+):
+    data_length = len(df)
+    ax.bar(x_ticks[0], df[column_key], alpha=1, width=0.9, zorder=0)
+    plt.xticks(x_ticks[0], x_ticks[1], rotation=90, size=fontsize)
+    ax.set_ylim(0, roundup(df[column_key].max(), 10 ** order_magnitude(df[column_key])))
+    annotate_bars_with_values(df[column_key], x_ticks, x_pos, y_pos, bar_label_size)
+    ax.tick_params(labelsize=fontsize)
+    plt.xlim(0.5, data_length * bar_gap + 1)
+
+
+def add_text(i, data_array, x_ticks, x_pos=-0.5, y_pos=200, fontsize=15):
+    plt.text(
+        x=x_ticks[0][i] + x_pos,
+        y=data_array.iloc[i] + y_pos,
+        s=data_array.iloc[i],
+        size=fontsize,
+    )
+
+
+def annotate_plot_with_values(data_array, x_ticks, x_pos=-0.5, y_pos=200, fontsize=15):
+    for i in range(len(data_array)):
+        if data_array.iloc[i] < np.mean(data_array):
+            add_text(i, data_array, x_ticks, x_pos, -y_pos * 1.3, fontsize)
+        else:
+            add_text(i, data_array, x_ticks, x_pos, y_pos, fontsize)
+
+
+def annotate_bars_with_values(data_array, x_ticks, x_pos=-0.5, y_pos=200, fontsize=15):
+    for i in range(len(data_array)):
+        add_text(i, data_array, x_ticks, x_pos, y_pos, fontsize)
+
+
+def plot_points_with_labels(
+    ax, df, x_ticks, fontsize=15, label_fontsize=15, x_pos=-0.4, y_pos=5, column_key="Effort"
+):
+    ax.plot(x_ticks[0], df[column_key], c="black", marker="D", label=column_key)
+    annotate_plot_with_values(df[column_key], x_ticks, x_pos, y_pos, label_fontsize)
+    ax.set_ylim(0, roundup(df[column_key].max() * 1.5, 10 ** order_magnitude(df[column_key])))
+    ax.spines["top"].set_visible(False)
+    ax.tick_params(labelsize=fontsize)
+
+
+def annotated_bar_plot_by_zone(
+    ax, df, x_ticks, fontsize=15, bar_label_size=15, bar_gap=2, x_pos=-0.5, y_pos=200
+):
+    data_length = len(df)
+    bottom = data_length * [0]
+    zones = df.keys()
+    for i in zones:
+        plt.bar(x_ticks[0], df[i], bottom=bottom, label=f"Zone {i}", color=zones_colors[i - 1])
+        bottom = bottom + df[i]
+    plt.xticks(x_ticks[0], x_ticks[1], rotation=90, size=fontsize)
+    annotate_bars_with_values(bottom, x_ticks, x_pos, y_pos, fontsize=bar_label_size)
+    ax.set_ylim(0, roundup(bottom.max() * 1.3, 10 ** order_magnitude(bottom)))
+    ax.tick_params(labelsize=fontsize)
+    plt.legend(ncol=4, frameon=False, fontsize=fontsize, loc="upper center")
+    plt.xlim(0.5, data_length * bar_gap + 1)
+
+
+def plot_comparative_annual_effort_by_zone(
+    ax, df, fontsize=15, bar_label_size=15, bar_gap=3, column_key="Effort"
+):
+    seasons = df.Season.unique()
+    x_ticks_labels = df.Zone.unique()
+    n_bars = len(x_ticks_labels)
+    x_ticks = [df.Zone.unique() * bar_gap, df.Zone.unique()]
+    gap_seasons = 0
+    for i in seasons:
+        seasonal_data = df[column_key][df["Season"] == i]
+        plt.bar(x_ticks[0] + gap_seasons, seasonal_data, label=f"{i}")
+        annotate_bars_with_values(
+            seasonal_data, x_ticks, x_pos=-0.55 + gap_seasons, y_pos=200, fontsize=bar_label_size
+        )
+        gap_seasons += 1
+    ax.set_ylabel("Annual effort per zone (night traps)", fontsize=fontsize)
+    ax.set_xlabel("Zones", fontsize=fontsize)
+    ax.set_ylim(0, roundup(df[column_key].max(), 10 ** order_magnitude(df[column_key])))
+    ax.tick_params(labelsize=fontsize)
+    plt.legend(ncol=4, frameon=False, fontsize=fontsize)
+    plt.xticks(x_ticks[0] + 0.5, x_ticks[1], size=fontsize)
+    plt.xlim(1, n_bars * bar_gap + 2)
+
+
+def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsize=15):
+    bbox_props = dict(boxstyle="round,pad=0.3,rounding_size=0.5", fc="w", ec="k", lw=0.72)
+    kw = dict(
+        arrowprops=dict(arrowstyle="-"),
+        bbox=bbox_props,
+        zorder=0,
+        ha="center",
+        va="center",
+        size=fontsize,
+    )
+    for i, p in enumerate(wedges):
+        ang = (p.theta2 - p.theta1) / 2.0 + p.theta1
+        y = np.sin(np.deg2rad(ang))
+        x = np.cos(np.deg2rad(ang))
+        horizontalalignment = {-1: "right", 1: "left"}[int(np.sign(x))]
+        connectionstyle = "angle,angleA=0,angleB={}".format(ang)
+        kw["arrowprops"].update({"connectionstyle": connectionstyle})
+        ax.annotate(
+            box_labels[i],
+            xy=(x, y),
+            xytext=(scale_x * np.sign(x), scale_y * y),
+            horizontalalignment=horizontalalignment,
+            **kw,
+        )
+
+
+def filter_by_season_and_zone(df, season, zone):
+    return df[(df.Season == season) & (df.Zone == zone)]
+
+
+def generate_pie_labels(n, f_percent, m_percent, ni_percent):
+    return "Zone {:.0f}\n H:{:.2f}% M:{:.2f}% NI:{:.2f}%".format(
+        n, f_percent, m_percent, ni_percent
+    )
+
+
+def calculate_values_for_pie_chart(df, season_one, season_two):
+    data_season_one = []
+    data_season_two = []
+    labels_season_one = []
+    labels_season_two = []
+    zones = df.Zone.unique().astype(int)
+    for i in zones:
+        data_season_1 = filter_by_season_and_zone(df, season_one, i)
+        data_season_2 = filter_by_season_and_zone(df, season_two, i)
+        data_season_one.append(
+            [
+                data_season_1["Female_captures"].values[0],
+                data_season_1["Male_captures"].values[0],
+                data_season_1["Not_available"].values[0],
+            ]
+        )
+        data_season_two.append(
+            [
+                data_season_2["Female_captures"].values[0],
+                data_season_2["Male_captures"].values[0],
+                data_season_2["Not_available"].values[0],
+            ]
+        )
+        labels_season_one.append(
+            generate_pie_labels(
+                i,
+                data_season_1["Female_percent"].values[0],
+                data_season_1["Male_percent"].values[0],
+                data_season_1["NA_percent"].values[0],
+            )
+        )
+        labels_season_two.append(
+            generate_pie_labels(
+                i,
+                data_season_2["Female_percent"].values[0],
+                data_season_2["Male_percent"].values[0],
+                data_season_2["NA_percent"].values[0],
+            )
+        )
+    return np.array([data_season_one, data_season_two]), np.array(
+        [labels_season_one, labels_season_two]
+    )
+
+
+def historic_mean_effort(df, column_key):
+    return df[column_key].mean()
+
+
+def plot_mean_effort_line(ax, mean_effort):
+    ax.plot([-100, 1000], [mean_effort, mean_effort], "-r", label="Mean effort")
+
+
+def set_axis_labels(ax, variable):
+    ax.set_xlabel("Temporadas", fontsize=25, labelpad=10)
+    if variable == "Masa_del_individuo":
+        ax.set_ylabel(f'{variable.replace("_"," ")} (gr)', fontsize=25, labelpad=10)
+    else:
+        ax.set_ylabel(f'{variable.replace("_"," ")} (cm)', fontsize=25, labelpad=10)
+
+
+def create_box_plot(boxplotdata):
+    fig, ax = geci_plot()  # graf + grande y se remueva barras
+    ax.boxplot(boxplotdata)
+    return fig, ax
+
+
+def set_box_plot_style(ax, df, seasons):
+    ticks_positions = ticks_positions_array(seasons)
+    upper_limit = roundup(np.max(df), 10)
+    plt.ylim(0, upper_limit)
+    rounded_ticks = rounded_ticks_array(upper_limit, 0)
+    plt.yticks(rounded_ticks, size=20)
+    ax.tick_params(axis="y", labelsize=20, labelrotation=90)
+    ax.tick_params(axis="x", labelsize=20)
+    plt.xticks(ticks_positions, seasons, size=20, color="k")
+
+
+def create_box_plot_data(data_feature, column_name):
+    boxsplotdata = []
+    seasons = data_feature["Temporada"].unique()
+    for i in seasons:
+        mask = data_feature["Temporada"] == i
+        data_feature_per_season = data_feature[mask][column_name]
+        boxsplotdata.append(data_feature_per_season)
+    return boxsplotdata, seasons
