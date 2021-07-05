@@ -1,4 +1,4 @@
-from geci_plots import create_box_plot_data  # noqa
+from geci_plots import create_box_plot_data
 import numpy as np
 import pandas as pd
 
