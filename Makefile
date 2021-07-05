@@ -16,8 +16,10 @@ endef
 
 check:
 	black --check --line-length 100 ${module}
+	black --check --line-length 100 setup.py
 	black --check --line-length 100 tests
 	flake8 --max-line-length 100 ${module}
+	flake8 --max-line-length 100 setup.py
 	flake8 --max-line-length 100 tests
 
 clean:
