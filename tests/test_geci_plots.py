@@ -1,4 +1,4 @@
-from geci_plots import *
+from geci_plots import *  # noqa
 import numpy as np
 import pandas as pd
 
