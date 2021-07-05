@@ -331,49 +331,28 @@ def generate_pie_labels(n, f_percent, m_percent, ni_percent):
     )
 
 
-def calculate_values_for_pie_chart(df, season_one, season_two):
-    data_season_one = []
-    data_season_two = []
-    labels_season_one = []
-    labels_season_two = []
+def calculate_values_for_pie_chart(df, season, first_column, second_column):
+    seasons = []
+    labels = []
     zones = df.Zone.unique().astype(int)
     for i in zones:
-        data_season_1 = filter_by_season_and_zone(df, season_one, i)
-        data_season_2 = filter_by_season_and_zone(df, season_two, i)
-        data_season_one.append(
+        data_filtered = filter_by_season_and_zone(df, season, i)
+        seasons.append(
             [
-                data_season_1["Female_captures"].values[0],
-                data_season_1["Male_captures"].values[0],
-                data_season_1["Not_available"].values[0],
+                data_filtered[first_column].values[0],
+                data_filtered[second_column].values[0],
+                data_filtered["NA_percent"].values[0],
             ]
         )
-        data_season_two.append(
-            [
-                data_season_2["Female_captures"].values[0],
-                data_season_2["Male_captures"].values[0],
-                data_season_2["Not_available"].values[0],
-            ]
-        )
-        labels_season_one.append(
+        labels.append(
             generate_pie_labels(
                 i,
-                data_season_1["Female_percent"].values[0],
-                data_season_1["Male_percent"].values[0],
-                data_season_1["NA_percent"].values[0],
+                data_filtered[first_column].values[0],
+                data_filtered[second_column].values[0],
+                data_filtered["NA_percent"].values[0],
             )
         )
-        labels_season_two.append(
-            generate_pie_labels(
-                i,
-                data_season_2["Female_percent"].values[0],
-                data_season_2["Male_percent"].values[0],
-                data_season_2["NA_percent"].values[0],
-            )
-        )
-    return np.array([data_season_one, data_season_two]), np.array(
-        [labels_season_one, labels_season_two]
-    )
-
+    return np.array(seasons), np.array(labels)
 
 def historic_mean_effort(df, column_key):
     return df[column_key].mean()
