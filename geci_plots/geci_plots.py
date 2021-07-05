@@ -2,11 +2,11 @@
 
 from mpl_toolkits.axes_grid1.anchored_artists import AnchoredSizeBar
 
+import matplotlib
 import matplotlib.font_manager as fm
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib
 
 matplotlib.rcParams["figure.dpi"] = 300
 matplotlib.rcParams["font.family"] = "STIXGeneral"
@@ -53,7 +53,7 @@ def geci_plot(figsize=(11, 8)):
 
 
 def plot_histogram_with_limits(x, bins, limits=[], plot_options={}, lines_options={}):
-    fig, ax = geci_plot()
+    _, ax = geci_plot()
     ax.hist(x, bins=bins, **plot_options)
     for lines in limits:
         ax.axvline(x=lines, **lines_options)
@@ -212,7 +212,6 @@ def annotated_bar_plot(
     x_pos=-0.5,
     y_pos=200,
     column_key="Effort",
-    mean_effort=True,
 ):
     data_length = len(df)
     ax.bar(x_ticks[0], df[column_key], alpha=1, width=0.9, zorder=0)
