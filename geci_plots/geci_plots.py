@@ -15,7 +15,7 @@ matplotlib.use("Agg")
 
 
 cmap = plt.get_cmap("tab10")
-zones_colors = cmap(np.arange(8))
+zones_colors = cmap(np.arange(9))
 
 islet_markers = {
     "Asuncion": "o",
@@ -254,15 +254,21 @@ def plot_points_with_labels(
     ax.tick_params(labelsize=fontsize)
 
 
-def annotated_bar_plot_by_zone(
-    ax, df, x_ticks, fontsize=15, bar_label_size=15, bar_gap=2, x_pos=-0.5, y_pos=200
+def annotated_bar_plot_by_columns(
+    ax, df, x_ticks, colors_array=zones_colors, fontsize=15, bar_label_size=15, bar_gap=2, x_pos=-0.5, y_pos=200
 ):
     data_length = len(df)
     bottom = data_length * [0]
-    zones = df.keys()
-    for i in zones:
-        plt.bar(x_ticks[0], df[i], bottom=bottom, label=f"Zone {i}", color=zones_colors[i - 1])
-        bottom = bottom + df[i]
+    columns_keys = df.keys().values
+    for i in range(len(columns_keys)):
+        plt.bar(
+            x_ticks[0],
+            df[columns_keys[i]],
+            bottom=bottom,
+            label="{}".format(columns_keys[i].replace("_", " ")),
+            color=colors_array[i],
+        )
+        bottom = bottom + df[columns_keys[i]]
     plt.xticks(x_ticks[0], x_ticks[1], rotation=90, size=fontsize)
     annotate_bars_with_values(bottom, x_ticks, x_pos, y_pos, fontsize=bar_label_size)
     ax.set_ylim(0, roundup(bottom.max() * 1.3, 10 ** order_magnitude(bottom)))
@@ -330,10 +336,12 @@ def generate_pie_labels_for_sex(n, f_percent, m_percent, ni_percent):
         n, f_percent, m_percent, ni_percent
     )
 
+
 def generate_pie_labels_for_age(n, j_percent, a_percent, ni_percent):
     return "Zone {:.0f}\n J:{:.2f}% A:{:.2f}% NI:{:.2f}%".format(
         n, j_percent, a_percent, ni_percent
     )
+
 
 def calculate_values_for_sex_pie_chart(df, season):
     seasons = []
@@ -357,6 +365,7 @@ def calculate_values_for_sex_pie_chart(df, season):
             )
         )
     return np.array(seasons), np.array(labels)
+
 
 def calculate_values_for_age_pie_chart(df, season):
     seasons = []
