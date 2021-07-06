@@ -325,13 +325,17 @@ def filter_by_season_and_zone(df, season, zone):
     return df[(df.Season == season) & (df.Zone == zone)]
 
 
-def generate_pie_labels(n, f_percent, m_percent, ni_percent):
+def generate_pie_labels_for_sex(n, f_percent, m_percent, ni_percent):
     return "Zone {:.0f}\n H:{:.2f}% M:{:.2f}% NI:{:.2f}%".format(
         n, f_percent, m_percent, ni_percent
     )
 
+def generate_pie_labels_for_age(n, j_percent, a_percent, ni_percent):
+    return "Zone {:.0f}\n J:{:.2f}% A:{:.2f}% NI:{:.2f}%".format(
+        n, j_percent, a_percent, ni_percent
+    )
 
-def calculate_values_for_pie_chart(df, season, first_column, second_column):
+def calculate_values_for_sex_pie_chart(df, season):
     seasons = []
     labels = []
     zones = df.Zone.unique().astype(int)
@@ -339,20 +343,44 @@ def calculate_values_for_pie_chart(df, season, first_column, second_column):
         data_filtered = filter_by_season_and_zone(df, season, i)
         seasons.append(
             [
-                data_filtered[first_column].values[0],
-                data_filtered[second_column].values[0],
-                data_filtered["NA_percent"].values[0],
+                data_filtered["Female_captures"].values[0],
+                data_filtered["Male_captures"].values[0],
+                data_filtered["Not_available"].values[0],
             ]
         )
         labels.append(
-            generate_pie_labels(
+            generate_pie_labels_for_sex(
                 i,
-                data_filtered[first_column].values[0],
-                data_filtered[second_column].values[0],
+                data_filtered["First_class_percent"].values[0],
+                data_filtered["Second_class_percent"].values[0],
                 data_filtered["NA_percent"].values[0],
             )
         )
     return np.array(seasons), np.array(labels)
+
+def calculate_values_for_age_pie_chart(df, season):
+    seasons = []
+    labels = []
+    zones = df.Zone.unique().astype(int)
+    for i in zones:
+        data_filtered = filter_by_season_and_zone(df, season, i)
+        seasons.append(
+            [
+                data_filtered["Juvenile_captures"].values[0],
+                data_filtered["Adult_captures"].values[0],
+                data_filtered["Not_available"].values[0],
+            ]
+        )
+        labels.append(
+            generate_pie_labels_for_age(
+                i,
+                data_filtered["First_class_percent"].values[0],
+                data_filtered["Second_class_percent"].values[0],
+                data_filtered["NA_percent"].values[0],
+            )
+        )
+    return np.array(seasons), np.array(labels)
+
 
 def historic_mean_effort(df, column_key):
     return df[column_key].mean()
