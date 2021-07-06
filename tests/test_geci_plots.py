@@ -16,6 +16,7 @@ def test_create_box_plot_data():
     for i in range(3):
         pd.testing.assert_series_equal(obtained_box_plot_data[i], expected_box_plot_data[i])
 
+
 def test_roundup():
     expected_rounded = 20
     multiplier = 10
