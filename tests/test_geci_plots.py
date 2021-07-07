@@ -1,4 +1,4 @@
-from geci_plots import create_box_plot_data
+from geci_plots import create_box_plot_data, roundup
 import numpy as np
 import pandas as pd
 
@@ -15,3 +15,11 @@ def test_create_box_plot_data():
     np.testing.assert_array_equal(obtained_seasons, expected_seasons)
     for i in range(3):
         pd.testing.assert_series_equal(obtained_box_plot_data[i], expected_box_plot_data[i])
+
+
+def test_roundup():
+    expected_rounded = 20
+    multiplier = 10
+    number_to_be_rounded = 11
+    obtained_rounded = roundup(number_to_be_rounded, multiplier)
+    assert expected_rounded == obtained_rounded
