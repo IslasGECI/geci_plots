@@ -255,7 +255,15 @@ def plot_points_with_labels(
 
 
 def annotated_bar_plot_by_columns(
-    ax, df, x_ticks, colors_array=zones_colors, fontsize=15, bar_label_size=15, bar_gap=2, x_pos=-0.5, y_pos=200
+    ax,
+    df,
+    x_ticks,
+    colors_array=zones_colors,
+    fontsize=15,
+    bar_label_size=15,
+    bar_gap=2,
+    x_pos=-0.5,
+    y_pos=200,
 ):
     data_length = len(df)
     bottom = data_length * [0]
