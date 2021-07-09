@@ -11,6 +11,7 @@ define lint
         --disable=missing-class-docstring \
         --disable=missing-function-docstring \
         --disable=missing-module-docstring \
+		--good-names=_,ax,df,i,j,k,kw,n,p,x,y \
         ${1}
 endef
 
