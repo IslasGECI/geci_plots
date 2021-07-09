@@ -1,11 +1,13 @@
 import numpy as np
 import pandas as pd
+from pandas._testing import assert_frame_equal
 from geci_plots import (
     create_box_plot_data,
     historic_mean_effort,
     filter_by_season_and_zone,
     ticks_positions_array,
     roundup,
+    order_magnitude,
 )
 
 
@@ -33,6 +35,7 @@ def test_historic_mean_effort():
 def test_filter_by_season_and_zone():
     test_for_data = pd.DataFrame({"Season": np.array([1, 1, 1, 1]), "Zone": [2, 2, 2, 2]})
     obtained_data = filter_by_season_and_zone(test_for_data, 1, 2)
+    assert_frame_equal(test_for_data, obtained_data)
 
 
 def test_ticks_positions_array():
@@ -48,3 +51,10 @@ def test_roundup():
     number_to_be_rounded = 11
     obtained_rounded = roundup(number_to_be_rounded, multiplier)
     assert expected_rounded == obtained_rounded
+
+
+def test_order_magnitude():
+    test_for_data = np.array([1.0, 30.0, 60.0])
+    expected_order_magnitude = np.array(1)
+    obtained_order_magnitude = order_magnitude(test_for_data)
+    np.testing.assert_equal(expected_order_magnitude, obtained_order_magnitude)
