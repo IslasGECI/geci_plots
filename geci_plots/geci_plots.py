@@ -60,8 +60,8 @@ def plot_histogram_with_limits(x, bins, limits=[], plot_options={}, lines_option
     return ax
 
 
-def roundup(x, multiplo):
-    return np.ceil(x / multiplo) * multiplo
+def roundup(x, multiplier):
+    return np.ceil(x / multiplier) * multiplier
 
 
 def fix_date(date):

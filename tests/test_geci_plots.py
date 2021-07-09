@@ -5,6 +5,7 @@ from geci_plots import (
     historic_mean_effort,
     filter_by_season_and_zone,
     ticks_positions_array,
+    roundup,
 )
 
 
@@ -39,3 +40,11 @@ def test_ticks_positions_array():
     expected_tick_position = np.array([1.0, 2.0, 3.05])
     obtained_tick_position = ticks_positions_array(test_tick)
     np.testing.assert_equal(expected_tick_position, obtained_tick_position)
+
+
+def test_roundup():
+    expected_rounded = 20
+    multiplier = 10
+    number_to_be_rounded = 11
+    obtained_rounded = roundup(number_to_be_rounded, multiplier)
+    assert expected_rounded == obtained_rounded
