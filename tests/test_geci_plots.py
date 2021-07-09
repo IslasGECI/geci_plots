@@ -8,6 +8,7 @@ from geci_plots import (
     ticks_positions_array,
     roundup,
     order_magnitude,
+    rounded_ticks_array,
 )
 
 
@@ -58,3 +59,11 @@ def test_order_magnitude():
     expected_order_magnitude = np.array(1)
     obtained_order_magnitude = order_magnitude(test_for_data)
     np.testing.assert_equal(expected_order_magnitude, obtained_order_magnitude)
+
+
+def test_rounded_ticks_array():
+    superior_limit = 365
+    min_value = 1
+    expected_rounded_ticks_array = np.array([0.0, 100.0, 200.0, 300.0, 400.0])
+    obtained_rounded_ticks_array = rounded_ticks_array(superior_limit, min_value)
+    np.testing.assert_equal(expected_rounded_ticks_array, obtained_rounded_ticks_array)
