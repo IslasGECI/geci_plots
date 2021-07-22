@@ -374,6 +374,22 @@ def calculate_values_for_sex_pie_chart(df, season):
         )
     return np.array(seasons), np.array(labels)
 
+def calculate_percent(df, column_key="Male_captures", new_column_key="Male_percent"):
+    df[new_column_key] = df[column_key] / df.Total_captures * 100
+
+
+def prepare_cats_by_zone_and_sex(df):
+    calculate_percent(df, column_key="Male_captures", new_column_key="Second_class_percent")
+    calculate_percent(df, column_key="Female_captures", new_column_key="First_class_percent")
+    calculate_percent(df, column_key="Not_available", new_column_key="NA_percent")
+    return df
+
+
+def prepare_cats_by_zone_and_age(df):
+    calculate_percent(df, column_key="Juvenile_captures", new_column_key="First_class_percent")
+    calculate_percent(df, column_key="Adult_captures", new_column_key="Second_class_percent")
+    calculate_percent(df, column_key="Not_available", new_column_key="NA_percent")
+    return df
 
 def calculate_values_for_age_pie_chart(df, season):
     seasons = []

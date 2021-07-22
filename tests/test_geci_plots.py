@@ -14,6 +14,11 @@ from geci_plots import (
     rounded_ticks_array,
     heatmap,
     annotate_heatmap,
+    prepare_cats_by_zone_and_age,
+    prepare_cats_by_zone_and_sex,
+    annotate_pie_chart,
+    calculate_values_for_age_pie_chart,
+    calculate_values_for_sex_pie_chart,
 )
 
 random_state = np.random.RandomState(1)
@@ -84,4 +89,28 @@ def test_heatmap():
     fig, ax = plt.subplots()
     image, color_bar = heatmap(data_to_plot, x_labels, y_labels, 20, ax)
     annotate_heatmap(image, valfmt="{x:.1f}", size=15)
+    return fig
+
+@pytest.mark.mpl_image_compare(tolerance=0, savefig_kwargs={"dpi": 300})
+def test_calculate_values_for_age_pie_chart():
+    data_ages = pd.read_csv("tests/data/annual_age_data.csv")
+    data_ages = data_ages.dropna()
+    data_ages = prepare_cats_by_zone_and_age(data_ages)
+    season = 2021
+    fig, ax = plt.subplots()
+    pie_values, pie_labels = calculate_values_for_age_pie_chart(data_ages, season)
+    wedges_zones, texts = ax.pie(pie_values.sum(axis=1))
+    annotate_pie_chart(ax,wedges_zones, pie_labels)
+    return fig
+
+@pytest.mark.mpl_image_compare(tolerance=0, savefig_kwargs={"dpi": 300})
+def test_calculate_values_for_sex_pie_chart():
+    data_ages = pd.read_csv("tests/data/annual_sex_data.csv")
+    data_ages = data_ages.dropna()
+    data_ages = prepare_cats_by_zone_and_sex(data_ages)
+    season = 2021
+    fig, ax = plt.subplots()
+    pie_values, pie_labels = calculate_values_for_sex_pie_chart(data_ages, season)
+    wedges_zones, texts = ax.pie(pie_values.sum(axis=1))
+    annotate_pie_chart(ax,wedges_zones, pie_labels)
     return fig
