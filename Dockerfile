@@ -8,4 +8,5 @@ RUN pip install \
     mutmut \
     pylint \
     pytest \
-    pytest-cov
+    pytest-cov \
+    pytest-mpl
