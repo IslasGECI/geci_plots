@@ -1,6 +1,16 @@
 all: mutants
 
-.PHONY: all check clean coverage format install lint mutants tests
+.PHONY: \
+	all \
+	check \
+	clean \
+	coverage \
+	format \
+	install \
+	linter \
+	mutants \
+	setup \
+	tests
 
 module = geci_plots
 codecov_token = ff0e4c6d-f104-4657-ba1e-80fd9d1d33a0
@@ -32,7 +42,7 @@ clean:
 	rm --force --recursive geci_plots/__pycache__/
 
 
-coverage: install
+coverage: setup
 	pytest --cov=${module} --cov-report=xml --verbose && \
 	codecov --token=${codecov_token}
 
@@ -48,12 +58,12 @@ linter:
 	$(call lint, ${module})
 	$(call lint, tests)
 
-mutants: install
+mutants: setup
 	mutmut run --paths-to-mutate ${module}
 
-tests: install setup
-	pytest --mpl --verbose
-
-setup:
+setup: install
 	mkdir --parents tests/baseline
 	pytest --mpl-generate-path tests/baseline/
+
+tests:
+	pytest --mpl --verbose
