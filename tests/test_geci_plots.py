@@ -93,6 +93,7 @@ def test_heatmap():
     annotate_heatmap(image, valfmt="{x:.1f}", size=15)
     return fig
 
+
 @pytest.mark.mpl_image_compare(tolerance=0, savefig_kwargs={"dpi": 300})
 def test_calculate_values_for_age_pie_chart():
     data_ages = pd.read_csv("tests/data/annual_age_data.csv")
@@ -102,8 +103,9 @@ def test_calculate_values_for_age_pie_chart():
     fig, ax = plt.subplots()
     pie_values, pie_labels = calculate_values_for_age_pie_chart(data_ages, season)
     wedges_zones, texts = ax.pie(pie_values.sum(axis=1))
-    annotate_pie_chart(ax,wedges_zones, pie_labels)
+    annotate_pie_chart(ax, wedges_zones, pie_labels)
     return fig
+
 
 @pytest.mark.mpl_image_compare(tolerance=0, savefig_kwargs={"dpi": 300})
 def test_calculate_values_for_sex_pie_chart():
@@ -114,8 +116,9 @@ def test_calculate_values_for_sex_pie_chart():
     fig, ax = plt.subplots()
     pie_values, pie_labels = calculate_values_for_sex_pie_chart(data_ages, season)
     wedges_zones, texts = ax.pie(pie_values.sum(axis=1))
-    annotate_pie_chart(ax,wedges_zones, pie_labels)
+    annotate_pie_chart(ax, wedges_zones, pie_labels)
     return fig
+
 
 @pytest.mark.mpl_image_compare(tolerance=0, savefig_kwargs={"dpi": 300})
 def test_plot_comparative_annual_effort_by_zone():
