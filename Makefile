@@ -49,5 +49,9 @@ linter:
 mutants: install
 	mutmut run --paths-to-mutate ${module}
 
-tests: install
-	pytest --verbose
+tests: install set_tests
+	pytest --mpl --verbose
+
+set_tests:
+	mkdir --parents tests/baseline
+	pytest --mpl-generate-path tests/baseline/

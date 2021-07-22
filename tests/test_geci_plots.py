@@ -1,5 +1,8 @@
 import numpy as np
 import pandas as pd
+import pytest
+import matplotlib.pyplot as plt
+
 from pandas._testing import assert_frame_equal
 from geci_plots import (
     create_box_plot_data,
@@ -9,8 +12,10 @@ from geci_plots import (
     roundup,
     order_magnitude,
     rounded_ticks_array,
+    heatmap,
+    annotate_heatmap,
 )
-
+random_state = np.random.RandomState(1)
 
 def test_create_box_plot_data():
     df_test = pd.DataFrame({"Temporada": [2000, 2001, 2002, 2001], "Longitud": [10, 20, 30, 40]})
@@ -67,3 +72,14 @@ def test_rounded_ticks_array():
     expected_rounded_ticks_array = np.array([0.0, 100.0, 200.0, 300.0, 400.0])
     obtained_rounded_ticks_array = rounded_ticks_array(superior_limit, min_value)
     np.testing.assert_equal(expected_rounded_ticks_array, obtained_rounded_ticks_array)
+
+
+@pytest.mark.mpl_image_compare(tolerance=0, savefig_kwargs={"dpi": 300})
+def test_heatmap():
+    data_to_plot = random_state.rand(5,5)
+    x_labels = np.linspace(10,20,5)
+    y_labels = np.linspace(10,20,5)
+    fig, ax = plt.subplots()
+    image, color_bar = heatmap(data_to_plot, x_labels, y_labels, 20, ax)
+    texts = annotate_heatmap(image, valfmt="{x:.1f}", size=15)
+    return fig
