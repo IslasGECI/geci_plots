@@ -1,15 +1,30 @@
 import numpy as np
 import pandas as pd
+import pytest
+import matplotlib.pyplot as plt
+
 from pandas._testing import assert_frame_equal
 from geci_plots import (
+    annotate_heatmap,
+    annotate_pie_chart,
+    calculate_values_for_age_pie_chart,
+    calculate_values_for_sex_pie_chart,
     create_box_plot_data,
-    historic_mean_effort,
     filter_by_season_and_zone,
-    ticks_positions_array,
-    roundup,
+    heatmap,
+    historic_mean_effort,
     order_magnitude,
+    plot_comparative_annual_effort_by_zone,
+    prepare_cats_by_zone_and_age,
+    prepare_cats_by_zone_and_sex,
     rounded_ticks_array,
+    roundup,
+    ticks_positions_array,
+    geci_plot,
+    sort_monthly_dataframe,
 )
+
+random_state = np.random.RandomState(1)
 
 
 def test_create_box_plot_data():
@@ -67,3 +82,60 @@ def test_rounded_ticks_array():
     expected_rounded_ticks_array = np.array([0.0, 100.0, 200.0, 300.0, 400.0])
     obtained_rounded_ticks_array = rounded_ticks_array(superior_limit, min_value)
     np.testing.assert_equal(expected_rounded_ticks_array, obtained_rounded_ticks_array)
+
+
+@pytest.mark.mpl_image_compare(tolerance=0, savefig_kwargs={"dpi": 300})
+def test_heatmap():
+    data_to_plot = random_state.rand(5, 5)
+    x_labels = np.linspace(10, 20, 5)
+    y_labels = np.linspace(10, 20, 5)
+    fig, ax = plt.subplots()
+    image, color_bar = heatmap(data_to_plot, x_labels, y_labels, 20, ax)
+    annotate_heatmap(image, valfmt="{x:.1f}", size=15)
+    return fig
+
+
+@pytest.mark.mpl_image_compare(tolerance=0, savefig_kwargs={"dpi": 300})
+def test_calculate_values_for_age_pie_chart():
+    data_ages = pd.read_csv("tests/data/annual_age_data.csv")
+    data_ages = data_ages.dropna()
+    data_ages = prepare_cats_by_zone_and_age(data_ages)
+    season = 2021
+    fig, ax = plt.subplots()
+    pie_values, pie_labels = calculate_values_for_age_pie_chart(data_ages, season)
+    wedges_zones, texts = ax.pie(pie_values.sum(axis=1))
+    annotate_pie_chart(ax, wedges_zones, pie_labels)
+    return fig
+
+
+@pytest.mark.mpl_image_compare(tolerance=0, savefig_kwargs={"dpi": 300})
+def test_calculate_values_for_sex_pie_chart():
+    data_ages = pd.read_csv("tests/data/annual_sex_data.csv")
+    data_ages = data_ages.dropna()
+    data_ages = prepare_cats_by_zone_and_sex(data_ages)
+    season = 2021
+    fig, ax = plt.subplots()
+    pie_values, pie_labels = calculate_values_for_sex_pie_chart(data_ages, season)
+    wedges_zones, texts = ax.pie(pie_values.sum(axis=1))
+    annotate_pie_chart(ax, wedges_zones, pie_labels)
+    return fig
+
+
+@pytest.mark.mpl_image_compare(tolerance=0, savefig_kwargs={"dpi": 300})
+def test_plot_comparative_annual_effort_by_zone():
+    data_captures = pd.read_csv("tests/data/annual_captures_data.csv")
+    data_captures = data_captures[data_captures["Season"].isin([2020, 2021])]
+    fig, ax = geci_plot()
+    plot_comparative_annual_effort_by_zone(ax, data_captures, fontsize=25, bar_label_size=17)
+    return fig
+
+
+def test_sort_monthly_dataframe():
+    expected_sorted_dataframe = np.array([[3], [2], [4], [5]])
+
+    dataframe = pd.DataFrame(
+        {"Date": ["1995/Jun", "1995/May", "1995/Jul", "1995/Dic"], "value": [2, 3, 4, 5]}
+    )
+    obtained_sorted_dataframe = sort_monthly_dataframe(dataframe)
+
+    np.testing.assert_equal(expected_sorted_dataframe, obtained_sorted_dataframe)
