@@ -21,6 +21,7 @@ from geci_plots import (
     roundup,
     ticks_positions_array,
     geci_plot,
+    sort_monthly_dataframe,
 )
 
 random_state = np.random.RandomState(1)
@@ -127,3 +128,14 @@ def test_plot_comparative_annual_effort_by_zone():
     fig, ax = geci_plot()
     plot_comparative_annual_effort_by_zone(ax, data_captures, fontsize=25, bar_label_size=17)
     return fig
+
+
+def test_sort_monthly_dataframe():
+    expected_sorted_dataframe = np.array([[3], [2], [4], [5]])
+
+    dataframe = pd.DataFrame(
+        {"Date": ["1995/Jun", "1995/May", "1995/Jul", "1995/Dic"], "value": [2, 3, 4, 5]}
+    )
+    obtained_sorted_dataframe = sort_monthly_dataframe(dataframe)
+
+    np.testing.assert_equal(expected_sorted_dataframe, obtained_sorted_dataframe)
