@@ -470,24 +470,16 @@ def heatmap(
     if not ax:
         ax = plt.gca()
 
-    # Plot the heatmap
     im = ax.imshow(data, **kwargs)
 
-    # Create colorbar
     cbar = ax.figure.colorbar(im, ax=ax, **cbar_kw)
     cbar.ax.set_ylabel(cbarlabel, rotation=90, va="bottom", labelpad=30, size=15)
 
-    # We want to show all ticks...
     ax.set_xticks(np.arange(data.shape[1]))
     ax.set_yticks(np.arange(data.shape[0]))
-    # ... and label them with the respective list entries.
     ax.set_xticklabels(col_labels, size=labels_size)
     ax.set_yticklabels(row_labels, size=labels_size)
-
-    # Let the horizontal axes labeling appear on top.
     ax.tick_params(top=True, bottom=False, labeltop=True, labelbottom=False)
-
-    # Rotate the tick labels and set their alignment.
     plt.setp(ax.get_xticklabels(), rotation=-30, ha="right", rotation_mode="anchor")
 
     ax.spines["right"].set_visible(False)
@@ -532,24 +524,14 @@ def annotate_heatmap(
 
     if not isinstance(data, (list, np.ndarray)):
         data = im.get_array()
-
-    # Normalize the threshold to the images color range.
     if threshold is not None:
         threshold = im.norm(threshold)
     else:
         threshold = im.norm(data.max()) / 2.0
-
-    # Set default alignment to center, but allow it to be
-    # overwritten by textkw.
     kw = dict(horizontalalignment="center", verticalalignment="center")
     kw.update(textkw)
-
-    # Get the formatter in case a string is supplied
     if isinstance(valfmt, str):
         valfmt = matplotlib.ticker.StrMethodFormatter(valfmt)
-
-    # Loop over the data and create a `Text` for each "pixel".
-    # Change the text's color depending on the data.
     texts = []
     for i in range(data.shape[0]):
         for j in range(data.shape[1]):
