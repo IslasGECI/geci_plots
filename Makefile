@@ -28,7 +28,9 @@ clean:
 	rm --recursive --force ${module}.egg-info
 	rm --recursive --force ${module}/__pycache__
 	rm --recursive --force tests/__pycache__
+	rm --recursive --force tests/baseline/
 	rm --force --recursive geci_plots/__pycache__/
+
 
 coverage: install
 	pytest --cov=${module} --cov-report=xml --verbose && \
