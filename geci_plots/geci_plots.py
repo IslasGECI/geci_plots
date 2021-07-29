@@ -8,10 +8,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-matplotlib.rcParams["figure.dpi"] = 300
-matplotlib.rcParams["font.family"] = "STIXGeneral"
-matplotlib.rcParams["mathtext.fontset"] = "stix"
-matplotlib.use("Agg")
+
+def _setup_matplotlib():
+    matplotlib.rcParams["figure.dpi"] = 300
+    matplotlib.rcParams["font.family"] = "STIXGeneral"
+    matplotlib.rcParams["mathtext.fontset"] = "stix"
+    matplotlib.use("Agg")
 
 
 cmap = plt.get_cmap("tab10")
@@ -45,6 +47,7 @@ islet_colors = {
 
 
 def geci_plot(figsize=(11, 8)):
+    _setup_matplotlib()
     fig, ax = plt.subplots(figsize=figsize)
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)
