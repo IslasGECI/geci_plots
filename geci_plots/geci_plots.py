@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+
 def _setup_matplotlib():
     matplotlib.rcParams["figure.dpi"] = 300
     matplotlib.rcParams["font.family"] = "STIXGeneral"
