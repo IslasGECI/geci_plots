@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="geci_plots",
-    version="0.3.0",
+    version="0.4.0",
     packages=["geci_plots"],
     install_requires=[
         "matplotlib",

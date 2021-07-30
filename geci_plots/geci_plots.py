@@ -8,10 +8,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-matplotlib.rcParams["figure.dpi"] = 300
-matplotlib.rcParams["font.family"] = "STIXGeneral"
-matplotlib.rcParams["mathtext.fontset"] = "stix"
-matplotlib.use("Agg")
+
+def _setup_matplotlib():
+    matplotlib.rcParams["figure.dpi"] = 300
+    matplotlib.rcParams["font.family"] = "STIXGeneral"
+    matplotlib.rcParams["mathtext.fontset"] = "stix"
+    matplotlib.use("Agg")
 
 
 cmap = plt.get_cmap("tab10")
@@ -45,6 +47,7 @@ islet_colors = {
 
 
 def geci_plot(figsize=(11, 8)):
+    _setup_matplotlib()
     fig, ax = plt.subplots(figsize=figsize)
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)
@@ -451,6 +454,16 @@ def set_box_plot_style(ax, df, seasons):
 
 
 def create_box_plot_data(data_feature, column_name):
+    """This functions takes a DataFrame and reurns array for boxplot
+
+    Args:
+        data_feature (DataFrame): DataFrame with colum "Temporada" and column_name
+        column_name (string): Name of the column you want to plot
+
+    Returns:
+        array: array prepared for input in plt.boxplot
+        array: unique seasons
+    """
     boxsplotdata = []
     seasons = data_feature["Temporada"].unique()
     for i in seasons:
