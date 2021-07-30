@@ -454,6 +454,16 @@ def set_box_plot_style(ax, df, seasons):
 
 
 def create_box_plot_data(data_feature, column_name):
+    """This functions takes a DataFrame and reurns array for boxplot
+
+    Args:
+        data_feature (DataFrame): DataFrame with colum "Temporada" and column_name
+        column_name (string): Name of the column you want to plot
+
+    Returns:
+        array: array prepared for input in plt.boxplot
+        array: unique seasons
+    """
     boxsplotdata = []
     seasons = data_feature["Temporada"].unique()
     for i in seasons:

@@ -7,21 +7,25 @@ from pandas._testing import assert_frame_equal
 from geci_plots import (
     annotate_heatmap,
     annotate_pie_chart,
+    annotated_bar_plot,
     calculate_values_for_age_pie_chart,
     calculate_values_for_sex_pie_chart,
     create_box_plot_data,
     filter_by_season_and_zone,
+    geci_plot,
+    generate_monthly_ticks,
     heatmap,
     historic_mean_effort,
     order_magnitude,
     plot_comparative_annual_effort_by_zone,
+    plot_points_with_labels,
     prepare_cats_by_zone_and_age,
     prepare_cats_by_zone_and_sex,
     rounded_ticks_array,
     roundup,
-    ticks_positions_array,
-    geci_plot,
+    select_date_interval,
     sort_monthly_dataframe,
+    ticks_positions_array,
 )
 
 random_state = np.random.RandomState(1)
@@ -139,3 +143,16 @@ def test_sort_monthly_dataframe():
     obtained_sorted_dataframe = sort_monthly_dataframe(dataframe)
 
     np.testing.assert_equal(expected_sorted_dataframe, obtained_sorted_dataframe)
+
+@pytest.mark.mpl_image_compare(tolerance=0, savefig_kwargs={"dpi": 300})
+def test_annotated_bar_plot():
+    data_captures = pd.read_csv("tests/data/monthly_data.csv")
+    data_captures = sort_monthly_dataframe(data_captures, date_format="ISO-8601")
+    data_captures = data_captures.resample("MS").sum()
+    data_captures = select_date_interval(data_captures, "2021-01-01")
+    x_ticks = generate_monthly_ticks(data_captures)
+    fig, ax = geci_plot()
+    annotated_bar_plot(ax, data_captures, x_ticks, column_key="Captures", y_pos=1)
+    ax2 = ax.twinx()
+    plot_points_with_labels(ax2, data_captures, x_ticks, column_key="Effort", y_pos=1500)
+    return fig
