@@ -212,6 +212,7 @@ def test_islet_markers():
     }
     assert expected_islet_markers == islet_markers
 
+
 def test_islet_colors():
     expected_islet_colors = {
         "Asuncion": "black",
