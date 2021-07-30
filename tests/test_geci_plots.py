@@ -148,14 +148,23 @@ def test_plot_comparative_annual_effort_by_zone():
 
 
 def test_sort_monthly_dataframe():
-    expected_sorted_dataframe = np.array([[3], [2], [4], [5]])
-
+    expected_sorted_dataframe = pd.DataFrame(
+        {
+            "Date": pd.DatetimeIndex(["1995-05-01", "1995-06-01", "1995-07-01", "1995-12-01"]),
+            "value": [3, 2, 4, 5],
+        }
+    )
+    expected_sorted_dataframe = expected_sorted_dataframe.set_index(["Date"])
     dataframe = pd.DataFrame(
         {"Date": ["1995/Jun", "1995/May", "1995/Jul", "1995/Dic"], "value": [2, 3, 4, 5]}
     )
-    obtained_sorted_dataframe = sort_monthly_dataframe(dataframe)
-
-    np.testing.assert_equal(expected_sorted_dataframe, obtained_sorted_dataframe)
+    obtained_sorted_dataframe = sort_monthly_dataframe(dataframe, date_format="GECI")
+    pd._testing.assert_frame_equal(expected_sorted_dataframe, obtained_sorted_dataframe)
+    dataframe = pd.DataFrame(
+        {"Date": ["1995-06", "1995-05", "1995-07", "1995-12"], "value": [2, 3, 4, 5]}
+    )
+    obtained_sorted_dataframe = sort_monthly_dataframe(dataframe, date_format="ISO-8601")
+    pd._testing.assert_frame_equal(expected_sorted_dataframe, obtained_sorted_dataframe)
 
 
 @pytest.mark.mpl_image_compare(tolerance=0, savefig_kwargs={"dpi": 300})
