@@ -144,6 +144,7 @@ def test_sort_monthly_dataframe():
 
     np.testing.assert_equal(expected_sorted_dataframe, obtained_sorted_dataframe)
 
+
 @pytest.mark.mpl_image_compare(tolerance=0, savefig_kwargs={"dpi": 300})
 def test_annotated_bar_plot():
     data_captures = pd.read_csv("tests/data/monthly_data.csv")
