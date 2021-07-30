@@ -119,9 +119,22 @@ def test_calculate_values_for_sex_pie_chart():
     data_ages = prepare_cats_by_zone_and_sex(data_ages)
     season = 2021
     fig, ax = plt.subplots()
-    pie_values, pie_labels = calculate_values_for_sex_pie_chart(data_ages, season)
-    wedges_zones, texts = ax.pie(pie_values.sum(axis=1))
-    annotate_pie_chart(ax, wedges_zones, pie_labels)
+    obtained_pie_values, obtained_pie_labels = calculate_values_for_sex_pie_chart(data_ages, season)
+    expected_pie_values = np.array([[2, 33, 3], [5, 23, 3], [14, 84, 7], [23, 13, 0], [12, 22, 1]])
+    expected_pie_labels = np.array(
+        [
+            "Zone 1\n H:5.26% M:86.84% NI:7.89%",
+            "Zone 2\n H:16.13% M:74.19% NI:9.68%",
+            "Zone 3\n H:13.33% M:80.00% NI:6.67%",
+            "Zone 4\n H:63.89% M:36.11% NI:0.00%",
+            "Zone 5\n H:34.29% M:62.86% NI:2.86%",
+        ],
+        dtype="<U34",
+    )
+    np.testing.assert_array_equal(obtained_pie_values, expected_pie_values)
+    np.testing.assert_array_equal(obtained_pie_labels, expected_pie_labels)
+    wedges_zones, texts = ax.pie(obtained_pie_values.sum(axis=1))
+    annotate_pie_chart(ax, wedges_zones, obtained_pie_labels)
     return fig
 
 
@@ -152,6 +165,20 @@ def test_annotated_bar_plot():
     data_captures = data_captures.resample("MS").sum()
     data_captures = select_date_interval(data_captures, "2021-01-01")
     x_ticks = generate_monthly_ticks(data_captures)
+    expected_ticks_positions = np.array([2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0])
+    expected_ticks_labels = np.array(
+        [
+            "Jan - 2021",
+            "Feb - 2021",
+            "Mar - 2021",
+            "Apr - 2021",
+            "May - 2021",
+            "Jun - 2021",
+            "Jul - 2021",
+        ]
+    )
+    np.testing.assert_array_equal(x_ticks[0], expected_ticks_positions)
+    np.testing.assert_array_equal(x_ticks[1].values, expected_ticks_labels)
     fig, ax = geci_plot()
     annotated_bar_plot(ax, data_captures, x_ticks, column_key="Captures", y_pos=1)
     ax2 = ax.twinx()
