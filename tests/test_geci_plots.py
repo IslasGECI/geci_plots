@@ -16,6 +16,8 @@ from geci_plots import (
     generate_monthly_ticks,
     heatmap,
     historic_mean_effort,
+    islet_colors,
+    islet_markers,
     order_magnitude,
     plot_comparative_annual_effort_by_zone,
     plot_points_with_labels,
@@ -193,3 +195,34 @@ def test_annotated_bar_plot():
     ax2 = ax.twinx()
     plot_points_with_labels(ax2, data_captures, x_ticks, column_key="Effort", y_pos=1500)
     return fig
+
+
+def test_islet_markers():
+    expected_islet_markers = {
+        "Asuncion": "o",
+        "Coronado": "^",
+        "Morro Prieto and Zapato": "s",
+        "Guadalupe": "X",
+        "Natividad": "p",
+        "San Benito": "h",
+        "San Jeronimo": "D",
+        "San Martin": "P",
+        "San Roque": "*",
+        "Todos Santos": ">",
+    }
+    assert expected_islet_markers == islet_markers
+
+def test_islet_colors():
+    expected_islet_colors = {
+        "Asuncion": "black",
+        "Coronado": "red",
+        "Morro Prieto and Zapato": "peru",
+        "Guadalupe": "gold",
+        "Natividad": "green",
+        "San Benito": "blue",
+        "San Jeronimo": "purple",
+        "San Martin": "hotpink",
+        "San Roque": "lightgreen",
+        "Todos Santos": "skyblue",
+    }
+    assert expected_islet_colors == islet_colors
