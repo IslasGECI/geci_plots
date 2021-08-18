@@ -343,7 +343,7 @@ def filter_by_season_and_zone(df, season, zone):
 
 
 def generate_pie_labels_for_sex(n, f_percent, m_percent, ni_percent):
-    return "Zone {:.0f}\n H:{:.2f}% M:{:.2f}% NI:{:.2f}%".format(
+    return "Zone {:.0f}\n F:{:.2f}% M:{:.2f}% NI:{:.2f}%".format(
         n, f_percent, m_percent, ni_percent
     )
 
