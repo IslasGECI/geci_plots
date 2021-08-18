@@ -125,11 +125,11 @@ def test_calculate_values_for_sex_pie_chart():
     expected_pie_values = np.array([[2, 33, 3], [5, 23, 3], [14, 84, 7], [23, 13, 0], [12, 22, 1]])
     expected_pie_labels = np.array(
         [
-            "Zone 1\n H:5.26% M:86.84% NI:7.89%",
-            "Zone 2\n H:16.13% M:74.19% NI:9.68%",
-            "Zone 3\n H:13.33% M:80.00% NI:6.67%",
-            "Zone 4\n H:63.89% M:36.11% NI:0.00%",
-            "Zone 5\n H:34.29% M:62.86% NI:2.86%",
+            "Zone 1\n F:5.26% M:86.84% NI:7.89%",
+            "Zone 2\n F:16.13% M:74.19% NI:9.68%",
+            "Zone 3\n F:13.33% M:80.00% NI:6.67%",
+            "Zone 4\n F:63.89% M:36.11% NI:0.00%",
+            "Zone 5\n F:34.29% M:62.86% NI:2.86%",
         ],
         dtype="<U34",
     )
