@@ -244,7 +244,8 @@ def annotate_plot_with_values(data_array, x_ticks, x_pos=-0.5, y_pos=200, fontsi
 
 def annotate_bars_with_values(data_array, x_ticks, x_pos=-0.5, y_pos=200, fontsize=15):
     for i in range(len(data_array)):
-        add_text(i, data_array, x_ticks, x_pos, y_pos, fontsize)
+        if data_array.iloc[i] != 0:
+            add_text(i, data_array, x_ticks, x_pos, y_pos, fontsize)
 
 
 def plot_points_with_labels(
