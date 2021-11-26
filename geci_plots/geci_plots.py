@@ -312,7 +312,6 @@ def plot_comparative_annual_effort_by_zone(
     plt.legend(ncol=4, frameon=False, fontsize=fontsize)
     xticks_lim = n_bars * bar_gap + 2
     plt.xticks([*x_ticks[0], xticks_lim], [*x_ticks[1], ""], size=fontsize)
-    plt.xticks(x_ticks[0] + 0.5, x_ticks[1], size=fontsize)
     plt.xlim(1, n_bars * bar_gap + 2)
 
 
