@@ -281,7 +281,8 @@ def annotated_bar_plot_by_columns(
             color=colors_array[i],
         )
         bottom = bottom + df[columns_keys[i]]
-    plt.xticks(x_ticks[0], x_ticks[1], rotation=90, size=fontsize)
+    xticks_lim = x_ticks[0][-1] + 1 
+    plt.xticks([*x_ticks[0], xticks_lim], [*x_ticks[1], ""], rotation=90, size=fontsize)
     annotate_bars_with_values(bottom, x_ticks, x_pos, y_pos, fontsize=bar_label_size)
     ax.set_ylim(0, roundup(bottom.max() * 1.3, 10 ** order_magnitude(bottom)))
     ax.tick_params(labelsize=fontsize)
@@ -309,7 +310,8 @@ def plot_comparative_annual_effort_by_zone(
     ax.set_ylim(0, roundup(df[column_key].max(), 10 ** order_magnitude(df[column_key])))
     ax.tick_params(labelsize=fontsize)
     plt.legend(ncol=4, frameon=False, fontsize=fontsize)
-    plt.xticks(x_ticks[0] + 0.5, x_ticks[1], size=fontsize)
+    xticks_lim = n_bars * bar_gap + 2
+    plt.xticks([*x_ticks[0], xticks_lim], [*x_ticks[1], ""], size=fontsize)
     plt.xlim(1, n_bars * bar_gap + 2)
 
 
