@@ -56,11 +56,11 @@ def geci_plot(figsize=(11, 8)):
 
 
 def plot_histogram_with_limits(x, bins, limits=[], plot_options={}, lines_options={}):
-    _, ax = geci_plot()
+    fig, ax = geci_plot()
     ax.hist(x, bins=bins, **plot_options)
     for lines in limits:
         ax.axvline(x=lines, **lines_options)
-    return ax
+    return fig
 
 
 def roundup(x, multiplier):
