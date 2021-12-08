@@ -55,11 +55,11 @@ def geci_plot(figsize=(11, 8)):
     return fig, ax
 
 
-def plot_histogram_with_limits(x, bins, limits=[], plot_options={}, lines_options={}):
+def plot_histogram_with_limits(x, bins, limits=[], plot_options={}, colors=["r", "g"]):
     fig, ax = geci_plot()
     ax.hist(x, bins=bins, **plot_options)
-    for lines in limits:
-        ax.axvline(x=lines, **lines_options)
+    for lines, color in zip(limits, colors):
+        ax.axvline(x=lines, c = color)
     return fig
 
 
