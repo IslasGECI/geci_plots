@@ -59,7 +59,7 @@ def plot_histogram_with_limits(x, bins, limits=[], plot_options={}, colors=["r",
     fig, ax = geci_plot()
     ax.hist(x, bins=bins, **plot_options)
     for lines, color in zip(limits, colors):
-        ax.axvline(x=lines, c = color)
+        ax.axvline(x=lines, c=color)
     return fig
 
 
@@ -281,7 +281,7 @@ def annotated_bar_plot_by_columns(
             color=colors_array[i],
         )
         bottom = bottom + df[columns_keys[i]]
-    xticks_lim = x_ticks[0][-1] + 1 
+    xticks_lim = x_ticks[0][-1] + 1
     plt.xticks([*x_ticks[0], xticks_lim], [*x_ticks[1], ""], rotation=90, size=fontsize)
     annotate_bars_with_values(bottom, x_ticks, x_pos, y_pos, fontsize=bar_label_size)
     ax.set_ylim(0, roundup(bottom.max() * 1.3, 10 ** order_magnitude(bottom)))
