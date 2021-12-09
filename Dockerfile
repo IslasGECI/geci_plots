@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.9
 WORKDIR /workdir
 COPY . .
 RUN pip install \
@@ -6,7 +6,6 @@ RUN pip install \
     codecov \
     flake8 \
     mutmut \
-    parser \
     pylint \
     pytest \
     pytest-cov \
