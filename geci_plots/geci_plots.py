@@ -315,6 +315,17 @@ def plot_comparative_annual_effort_by_zone(
     plt.xlim(1, n_bars * bar_gap + 2)
 
 
+def calculate_anotations_positions_for_wedges(wedges):
+    x = np.array([np.cos(np.deg2rad(central_wedge_angle(p))) for p in wedges])
+    y = np.array([np.sin(np.deg2rad(central_wedge_angle(p)))for p in wedges])
+    return x,y
+
+def scale_anotations_y_positions(y_positions, scale_y):
+    return np.linspace(np.min(y_positions) - scale_y, np.max(y_positions) + scale_y, len(y_positions))
+
+def central_wedge_angle(wedge):
+    return (wedge.theta2 - wedge.theta1) / 2.0 + wedge.theta1
+
 def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsize=15):
     bbox_props = dict(boxstyle="round,pad=0.3,rounding_size=0.5", fc="w", ec="k", lw=0.72)
     kw = dict(
@@ -325,17 +336,17 @@ def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsi
         va="center",
         size=fontsize,
     )
+    x,y = calculate_anotations_positions_for_wedges(wedges)
+    y = scale_anotations_y_positions(y, scale_y)
     for i, p in enumerate(wedges):
-        ang = (p.theta2 - p.theta1) / 2.0 + p.theta1
-        y = np.sin(np.deg2rad(ang))
-        x = np.cos(np.deg2rad(ang))
+        central_angle = central_wedge_angle(wedge)
         horizontalalignment = {-1: "right", 1: "left"}[int(np.sign(x))]
-        connectionstyle = "angle,angleA=0,angleB={}".format(ang)
+        connectionstyle = "angle,angleA=0,angleB={}".format(central_angle)
         kw["arrowprops"].update({"connectionstyle": connectionstyle})
         ax.annotate(
             box_labels[i],
             xy=(x, y),
-            xytext=(scale_x * np.sign(x), scale_y * y),
+            xytext=(scale_x * np.sign(x), y),
             horizontalalignment=horizontalalignment,
             **kw,
         )
