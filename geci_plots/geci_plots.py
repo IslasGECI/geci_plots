@@ -316,8 +316,8 @@ def plot_comparative_annual_effort_by_zone(
 
 
 def calculate_anotations_positions_for_wedges(wedges):
-    x = np.array([np.cos(np.deg2rad(central_wedge_angle(p))) for p in wedges])
-    y = np.array([np.sin(np.deg2rad(central_wedge_angle(p)))for p in wedges])
+    x = np.array([np.cos(np.deg2rad(central_wedge_angle(wedge))) for i, wedge in enumerate(wedges)])
+    y = np.array([np.sin(np.deg2rad(central_wedge_angle(wedge))) for i, wedge in enumerate(wedges)])
     return x,y
 
 def calculate_anotations_positions_for_wedges_2(angle):
@@ -363,7 +363,7 @@ def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsi
         ax.annotate(
             box_labels[i],
             xy=(x, y),
-            xytext=(scale_x * x_sign, x_sign * scale_y + y),
+            xytext=(scale_x * x_sign, scale_y + y),
             horizontalalignment=horizontalalignment,
             **kw,
         )
