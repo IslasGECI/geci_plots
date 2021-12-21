@@ -359,7 +359,8 @@ def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsi
         x_sign = np.sign(x)
         horizontalalignment = {-1: "right", 1: "left"}[int(x_sign)]
         vertical_scaling = {True: -1, False: +1}[y <= 0]
-        connectionstyle = "angle,angleA=0,angleB={}".format(central_angle)
+        #connectionstyle = "angle,angleA=0,angleB={}".format(central_angle)
+        connectionstyle = "arc3,rad=0.3"
         kw["arrowprops"].update({"connectionstyle": connectionstyle})
         ax.annotate(
             box_labels[i],
