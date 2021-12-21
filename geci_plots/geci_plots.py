@@ -339,7 +339,7 @@ def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsi
     x,y = calculate_anotations_positions_for_wedges(wedges)
     x_negative_mask = x <= 0
     x_positive_mask = x >= 0
-    y_text_left =  scale_anotations_y_positions(y[x_negative_mask], scale_y)
+    y_text_left = scale_anotations_y_positions(y[x_negative_mask], scale_y)
     y_text_right = scale_anotations_y_positions(y[x_positive_mask], scale_y)
     y_text = y.copy()
     y_text[x_negative_mask] = y_text_left
@@ -356,10 +356,11 @@ def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsi
         ax.annotate(
             box_labels[i],
             xy=(x, y),
-            xytext=(scale_x * np.sign(x), y + scale_y),
+            xytext=(scale_x * np.sign(x), y_text[i]),
             horizontalalignment=horizontalalignment,
             **kw,
         )
+    return 
 
 def filter_by_season_and_zone(df, season, zone):
     return df[(df.Season == season) & (df.Zone == zone)]
