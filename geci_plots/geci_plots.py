@@ -356,7 +356,7 @@ def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsi
         ax.annotate(
             box_labels[i],
             xy=(x, y),
-            xytext=(scale_x * np.sign(x), y_text[i]),
+            xytext=(scale_x * np.sign(x), y + scale_y),
             horizontalalignment=horizontalalignment,
             **kw,
         )
