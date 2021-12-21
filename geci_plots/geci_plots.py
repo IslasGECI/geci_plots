@@ -320,6 +320,12 @@ def calculate_anotations_positions_for_wedges(wedges):
     y = np.array([np.sin(np.deg2rad(central_wedge_angle(p)))for p in wedges])
     return x,y
 
+def calculate_anotations_positions_for_wedges_2(angle):
+    x = np.cos(np.deg2rad(central_wedge_angle(angle)))
+    y = np.sin(np.deg2rad(central_wedge_angle(angle)))
+    return x,y
+
+
 def scale_anotations_y_positions(y_positions, scale_y):
     return np.linspace(np.min(y_positions) - scale_y, np.max(y_positions) + scale_y, len(y_positions))
 
@@ -348,16 +354,16 @@ def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsi
     for i, wedge in enumerate(wedges):
         #central_angle = central_wedge_angle(wedge)
         #horizontalalignment = {-1: "right", 1: "left"}[int(np.sign(x[i]))]
-        ang = (wedge.theta2 - wedge.theta1) / 2.0 + wedge.theta1
-        y = np.sin(np.deg2rad(ang))
-        x = np.cos(np.deg2rad(ang))
-        horizontalalignment = {-1: "right", 1: "left"}[int(np.sign(x))]
+        ang = central_wedge_angle(wedge)
+        x,y = calculate_anotations_positions_for_wedges_2
+        x_sign = int(np.sign(x))
+        horizontalalignment = {-1: "right", 1: "left"}[x_sign]
         connectionstyle = "angle,angleA=0,angleB={}".format(ang)
         kw["arrowprops"].update({"connectionstyle": connectionstyle})
         ax.annotate(
             box_labels[i],
             xy=(x, y),
-            xytext=(scale_x * np.sign(x), y_text[i]),
+            xytext=(scale_x * x_sign, x_sign * scale_y + y),
             horizontalalignment=horizontalalignment,
             **kw,
         )
