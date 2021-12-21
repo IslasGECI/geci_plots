@@ -344,6 +344,7 @@ def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsi
     y_text = y.copy()
     y_text[x_negative_mask] = y_text_left
     y_text[x_positive_mask] = y_text_right
+    y_returned = []
     for i, wedge in enumerate(wedges):
         #central_angle = central_wedge_angle(wedge)
         #horizontalalignment = {-1: "right", 1: "left"}[int(np.sign(x[i]))]
@@ -360,7 +361,8 @@ def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsi
             horizontalalignment=horizontalalignment,
             **kw,
         )
-    return 
+        y_returned.append(y)
+    return y_text, y_returned
 
 def filter_by_season_and_zone(df, season, zone):
     return df[(df.Season == season) & (df.Zone == zone)]
