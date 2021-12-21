@@ -321,8 +321,8 @@ def calculate_anotations_positions_for_wedges(wedges):
     return x,y
 
 def calculate_anotations_positions_for_wedges_2(angle):
-    x = np.cos(np.deg2rad(central_wedge_angle(angle)))
-    y = np.sin(np.deg2rad(central_wedge_angle(angle)))
+    x = np.cos(np.deg2rad(angle))
+    y = np.sin(np.deg2rad(angle))
     return x,y
 
 
