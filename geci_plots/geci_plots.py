@@ -321,7 +321,7 @@ def calculate_anotations_positions_for_wedges(wedges):
     return x,y
 
 def scale_anotations_y_positions(y_positions, scale_y):
-    return np.linspace(np.min(y_positions) - scale_y, np.max(y_positions) + scale_y, len(y_positions))
+    return np.repeat(np.linspace(np.min(y_positions) - scale_y, np.max(y_positions) + scale_y, 4), 2)
 
 def central_wedge_angle(wedge):
     return (wedge.theta2 - wedge.theta1) / 2.0 + wedge.theta1
@@ -337,7 +337,7 @@ def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsi
         size=fontsize,
     )
     x,y = calculate_anotations_positions_for_wedges(wedges)
-    y = scale_anotations_y_positions(y, scale_y)
+    y_text = scale_anotations_y_positions(y, scale_y)
     for i, wedge in enumerate(wedges):
         central_angle = central_wedge_angle(wedge)
         horizontalalignment = {-1: "right", 1: "left"}[int(np.sign(x[i]))]
@@ -346,7 +346,7 @@ def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsi
         ax.annotate(
             box_labels[i],
             xy=(x[i], y[i]),
-            xytext=(scale_x * np.sign(x[i]), y[i]),
+            xytext=(scale_x * np.sign(x[i]), y_text[i]),
             horizontalalignment=horizontalalignment,
             **kw,
         )
