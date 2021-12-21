@@ -354,8 +354,8 @@ def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsi
     for i, wedge in enumerate(wedges):
         #central_angle = central_wedge_angle(wedge)
         #horizontalalignment = {-1: "right", 1: "left"}[int(np.sign(x[i]))]
-        ang = central_wedge_angle(wedge)
-        x,y = calculate_anotations_positions_for_wedges_2
+        central_angle = central_wedge_angle(wedge)
+        x,y = calculate_anotations_positions_for_wedges_2(central_angle)
         x_sign = np.sign(x)
         horizontalalignment = {-1: "right", 1: "left"}[int(x_sign)]
         connectionstyle = "angle,angleA=0,angleB={}".format(ang)
