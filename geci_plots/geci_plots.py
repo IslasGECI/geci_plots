@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 
-def _setup_matplotlib():
+def setup_matplotlib():
     matplotlib.rcParams["figure.dpi"] = 300
     matplotlib.rcParams["font.family"] = "STIXGeneral"
     matplotlib.rcParams["mathtext.fontset"] = "stix"
@@ -47,7 +47,7 @@ islet_colors = {
 
 
 def geci_plot(figsize=(11, 8)):
-    _setup_matplotlib()
+    setup_matplotlib()
     fig, ax = plt.subplots(figsize=figsize)
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)
@@ -315,6 +315,23 @@ def plot_comparative_annual_effort_by_zone(
     plt.xlim(1, n_bars * bar_gap + 2)
 
 
+def calculate_anotations_positions_for_wedges(wedges):
+    x = np.array([np.cos(np.deg2rad(central_wedge_angle(wedge))) for i, wedge in enumerate(wedges)])
+    y = np.array([np.sin(np.deg2rad(central_wedge_angle(wedge))) for i, wedge in enumerate(wedges)])
+    return x,y
+
+def calculate_anotations_positions_for_wedges_2(angle):
+    x = np.cos(np.deg2rad(angle))
+    y = np.sin(np.deg2rad(angle))
+    return x,y
+
+
+def scale_anotations_y_positions(y_positions, scale_y):
+    return np.linspace(np.min(y_positions) - scale_y, np.max(y_positions) + scale_y, len(y_positions))
+
+def central_wedge_angle(wedge):
+    return (wedge.theta2 - wedge.theta1) / 2.0 + wedge.theta1
+
 def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsize=15):
     bbox_props = dict(boxstyle="round,pad=0.3,rounding_size=0.5", fc="w", ec="k", lw=0.72)
     kw = dict(
@@ -325,21 +342,32 @@ def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsi
         va="center",
         size=fontsize,
     )
-    for i, p in enumerate(wedges):
-        ang = (p.theta2 - p.theta1) / 2.0 + p.theta1
-        y = np.sin(np.deg2rad(ang))
-        x = np.cos(np.deg2rad(ang))
-        horizontalalignment = {-1: "right", 1: "left"}[int(np.sign(x))]
-        connectionstyle = "angle,angleA=0,angleB={}".format(ang)
+    x,y = calculate_anotations_positions_for_wedges(wedges)
+    x_negative_mask = x <= 0
+    x_positive_mask = x >= 0
+    y_text_left = scale_anotations_y_positions(y[x_negative_mask], scale_y)
+    y_text_right = scale_anotations_y_positions(y[x_positive_mask], scale_y)
+    y_text = y.copy()
+    y_text[x_negative_mask] = y_text_left
+    y_text[x_positive_mask] = y_text_right
+    y_returned = []
+    for i, wedge in enumerate(wedges):
+        central_angle = central_wedge_angle(wedge)
+        x,y = calculate_anotations_positions_for_wedges_2(central_angle)
+        x_sign = np.sign(x)
+        horizontalalignment = {-1: "right", 1: "left"}[int(x_sign)]
+        vertical_scaling = {True: -1, False: +1}[y <= 0]
+        connectionstyle = "arc3,rad=0.1"
         kw["arrowprops"].update({"connectionstyle": connectionstyle})
         ax.annotate(
             box_labels[i],
             xy=(x, y),
-            xytext=(scale_x * np.sign(x), scale_y * y),
+            xytext=(scale_x * x_sign, scale_y * vertical_scaling + y),
             horizontalalignment=horizontalalignment,
             **kw,
         )
-
+        y_returned.append(y)
+    return y_text, y_returned
 
 def filter_by_season_and_zone(df, season, zone):
     return df[(df.Season == season) & (df.Zone == zone)]
