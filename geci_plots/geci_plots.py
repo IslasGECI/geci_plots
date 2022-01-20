@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 
-def _setup_matplotlib():
+def setup_matplotlib():
     plt.style.use("geci_plots/geci_styles.mplstyle")
 
 
