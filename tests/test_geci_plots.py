@@ -227,3 +227,7 @@ def test_islet_colors():
         "Todos Santos": "skyblue",
     }
     assert expected_islet_colors == islet_colors
+
+
+def test_plot_histogram_with_limits():
+    pass
