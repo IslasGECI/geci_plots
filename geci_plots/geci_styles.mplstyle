@@ -1,0 +1,11 @@
+### FIGURE
+figure.dpi: 100
+
+### FONTS
+font.family: STIXGeneral
+
+## LaTeX          
+mathtext.fontset: stix
+
+### BACKENDS
+backend: Agg

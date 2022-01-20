@@ -10,10 +10,7 @@ import pandas as pd
 
 
 def _setup_matplotlib():
-    matplotlib.rcParams["figure.dpi"] = 300
-    matplotlib.rcParams["font.family"] = "STIXGeneral"
-    matplotlib.rcParams["mathtext.fontset"] = "stix"
-    matplotlib.use("Agg")
+    plt.style.use("geci_plots/geci_styles.mplstyle")
 
 
 cmap = plt.get_cmap("tab10")
