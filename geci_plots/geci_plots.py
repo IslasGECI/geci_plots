@@ -10,7 +10,7 @@ import pandas as pd
 
 
 def setup_matplotlib():
-    plt.style.use("geci_plots/geci_styles.mplstyle")
+    plt.style.use("geci_plots/geci_plots/geci_styles.mplstyle")
 
 
 cmap = plt.get_cmap("tab10")
