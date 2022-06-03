@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 
-def _setup_matplotlib():
+def setup_matplotlib():
     matplotlib.rcParams["figure.dpi"] = 300
     matplotlib.rcParams["font.family"] = "STIXGeneral"
     matplotlib.rcParams["mathtext.fontset"] = "stix"
@@ -47,7 +47,7 @@ islet_colors = {
 
 
 def geci_plot(figsize=(11, 8)):
-    _setup_matplotlib()
+    setup_matplotlib()
     fig, ax = plt.subplots(figsize=figsize)
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)
@@ -244,7 +244,8 @@ def annotate_plot_with_values(data_array, x_ticks, x_pos=-0.5, y_pos=200, fontsi
 
 def annotate_bars_with_values(data_array, x_ticks, x_pos=-0.5, y_pos=200, fontsize=15):
     for i in range(len(data_array)):
-        add_text(i, data_array, x_ticks, x_pos, y_pos, fontsize)
+        if data_array.iloc[i] != 0:
+            add_text(i, data_array, x_ticks, x_pos, y_pos, fontsize)
 
 
 def plot_points_with_labels(
@@ -280,7 +281,8 @@ def annotated_bar_plot_by_columns(
             color=colors_array[i],
         )
         bottom = bottom + df[columns_keys[i]]
-    plt.xticks(x_ticks[0], x_ticks[1], rotation=90, size=fontsize)
+    xticks_lim = x_ticks[0][-1] + 1
+    plt.xticks([*x_ticks[0], xticks_lim], [*x_ticks[1], ""], rotation=90, size=fontsize)
     annotate_bars_with_values(bottom, x_ticks, x_pos, y_pos, fontsize=bar_label_size)
     ax.set_ylim(0, roundup(bottom.max() * 1.3, 10 ** order_magnitude(bottom)))
     ax.tick_params(labelsize=fontsize)
@@ -308,8 +310,31 @@ def plot_comparative_annual_effort_by_zone(
     ax.set_ylim(0, roundup(df[column_key].max(), 10 ** order_magnitude(df[column_key])))
     ax.tick_params(labelsize=fontsize)
     plt.legend(ncol=4, frameon=False, fontsize=fontsize)
-    plt.xticks(x_ticks[0] + 0.5, x_ticks[1], size=fontsize)
+    xticks_lim = n_bars * bar_gap + 2
+    plt.xticks([*x_ticks[0], xticks_lim], [*x_ticks[1], ""], size=fontsize)
     plt.xlim(1, n_bars * bar_gap + 2)
+
+
+def calculate_anotations_positions_for_wedges(wedges):
+    x = np.array([np.cos(np.deg2rad(central_wedge_angle(wedge))) for i, wedge in enumerate(wedges)])
+    y = np.array([np.sin(np.deg2rad(central_wedge_angle(wedge))) for i, wedge in enumerate(wedges)])
+    return x, y
+
+
+def calculate_anotations_positions_for_wedges_2(angle):
+    x = np.cos(np.deg2rad(angle))
+    y = np.sin(np.deg2rad(angle))
+    return x, y
+
+
+def scale_anotations_y_positions(y_positions, scale_y):
+    return np.linspace(
+        np.min(y_positions) - scale_y, np.max(y_positions) + scale_y, len(y_positions)
+    )
+
+
+def central_wedge_angle(wedge):
+    return (wedge.theta2 - wedge.theta1) / 2.0 + wedge.theta1
 
 
 def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsize=15):
@@ -322,20 +347,32 @@ def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsi
         va="center",
         size=fontsize,
     )
-    for i, p in enumerate(wedges):
-        ang = (p.theta2 - p.theta1) / 2.0 + p.theta1
-        y = np.sin(np.deg2rad(ang))
-        x = np.cos(np.deg2rad(ang))
-        horizontalalignment = {-1: "right", 1: "left"}[int(np.sign(x))]
-        connectionstyle = "angle,angleA=0,angleB={}".format(ang)
+    x, y = calculate_anotations_positions_for_wedges(wedges)
+    x_negative_mask = x <= 0
+    x_positive_mask = x >= 0
+    y_text_left = scale_anotations_y_positions(y[x_negative_mask], scale_y)
+    y_text_right = scale_anotations_y_positions(y[x_positive_mask], scale_y)
+    y_text = y.copy()
+    y_text[x_negative_mask] = y_text_left
+    y_text[x_positive_mask] = y_text_right
+    y_returned = []
+    for i, wedge in enumerate(wedges):
+        central_angle = central_wedge_angle(wedge)
+        x, y = calculate_anotations_positions_for_wedges_2(central_angle)
+        x_sign = np.sign(x)
+        horizontalalignment = {-1: "right", 1: "left"}[int(x_sign)]
+        vertical_scaling = {True: -1, False: +1}[y <= 0]
+        connectionstyle = "arc3,rad=0.1"
         kw["arrowprops"].update({"connectionstyle": connectionstyle})
         ax.annotate(
             box_labels[i],
             xy=(x, y),
-            xytext=(scale_x * np.sign(x), scale_y * y),
+            xytext=(scale_x * x_sign, scale_y * vertical_scaling + y),
             horizontalalignment=horizontalalignment,
             **kw,
         )
+        y_returned.append(y)
+    return y_text, y_returned
 
 
 def filter_by_season_and_zone(df, season, zone):
@@ -343,7 +380,7 @@ def filter_by_season_and_zone(df, season, zone):
 
 
 def generate_pie_labels_for_sex(n, f_percent, m_percent, ni_percent):
-    return "Zone {:.0f}\n H:{:.2f}% M:{:.2f}% NI:{:.2f}%".format(
+    return "Zone {:.0f}\n F:{:.2f}% M:{:.2f}% NI:{:.2f}%".format(
         n, f_percent, m_percent, ni_percent
     )
 
