@@ -281,7 +281,7 @@ def annotated_bar_plot_by_columns(
             color=colors_array[i],
         )
         bottom = bottom + df[columns_keys[i]]
-    xticks_lim = x_ticks[0][-1] + 1 
+    xticks_lim = x_ticks[0][-1] + 1
     plt.xticks([*x_ticks[0], xticks_lim], [*x_ticks[1], ""], rotation=90, size=fontsize)
     annotate_bars_with_values(bottom, x_ticks, x_pos, y_pos, fontsize=bar_label_size)
     ax.set_ylim(0, roundup(bottom.max() * 1.3, 10 ** order_magnitude(bottom)))
@@ -318,19 +318,24 @@ def plot_comparative_annual_effort_by_zone(
 def calculate_anotations_positions_for_wedges(wedges):
     x = np.array([np.cos(np.deg2rad(central_wedge_angle(wedge))) for i, wedge in enumerate(wedges)])
     y = np.array([np.sin(np.deg2rad(central_wedge_angle(wedge))) for i, wedge in enumerate(wedges)])
-    return x,y
+    return x, y
+
 
 def calculate_anotations_positions_for_wedges_2(angle):
     x = np.cos(np.deg2rad(angle))
     y = np.sin(np.deg2rad(angle))
-    return x,y
+    return x, y
 
 
 def scale_anotations_y_positions(y_positions, scale_y):
-    return np.linspace(np.min(y_positions) - scale_y, np.max(y_positions) + scale_y, len(y_positions))
+    return np.linspace(
+        np.min(y_positions) - scale_y, np.max(y_positions) + scale_y, len(y_positions)
+    )
+
 
 def central_wedge_angle(wedge):
     return (wedge.theta2 - wedge.theta1) / 2.0 + wedge.theta1
+
 
 def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsize=15):
     bbox_props = dict(boxstyle="round,pad=0.3,rounding_size=0.5", fc="w", ec="k", lw=0.72)
@@ -342,7 +347,7 @@ def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsi
         va="center",
         size=fontsize,
     )
-    x,y = calculate_anotations_positions_for_wedges(wedges)
+    x, y = calculate_anotations_positions_for_wedges(wedges)
     x_negative_mask = x <= 0
     x_positive_mask = x >= 0
     y_text_left = scale_anotations_y_positions(y[x_negative_mask], scale_y)
@@ -353,7 +358,7 @@ def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsi
     y_returned = []
     for i, wedge in enumerate(wedges):
         central_angle = central_wedge_angle(wedge)
-        x,y = calculate_anotations_positions_for_wedges_2(central_angle)
+        x, y = calculate_anotations_positions_for_wedges_2(central_angle)
         x_sign = np.sign(x)
         horizontalalignment = {-1: "right", 1: "left"}[int(x_sign)]
         vertical_scaling = {True: -1, False: +1}[y <= 0]
@@ -368,6 +373,7 @@ def annotate_pie_chart(ax, wedges, box_labels, scale_x=1.35, scale_y=1.4, fontsi
         )
         y_returned.append(y)
     return y_text, y_returned
+
 
 def filter_by_season_and_zone(df, season, zone):
     return df[(df.Season == season) & (df.Zone == zone)]
