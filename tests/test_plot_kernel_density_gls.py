@@ -1,0 +1,17 @@
+import geci_test_tools as gtt
+
+from geci_plots.plot_kernel_density_gls import plot_kernel_density_gls
+
+
+def test_plot_kernel_density_gls():
+    gls_data_path = "tests/data/gls-albatros-guadalupe.csv"
+    global_shapefile_data_path = "tests/data/division_politica_paises.shp"
+    path_rose_wind = "tests/data/rosewind.png"
+    selected_contour = "50_contour"
+    result_map_path = "tests/kernel_50_percent_gls_albatros.png"
+
+    gtt.if_exist_remove(result_map_path)
+    plot_kernel_density_gls(
+        gls_data_path, global_shapefile_data_path, path_rose_wind, selected_contour, result_map_path
+    )
+    gtt.assert_exist(result_map_path)
