@@ -468,9 +468,9 @@ def plot_mean_effort_line(ax, mean_effort):
 def set_axis_labels(ax, variable):
     ax.set_xlabel("Temporadas", fontsize=25, labelpad=10)
     if variable == "Masa_del_individuo":
-        ax.set_ylabel(f'{variable.replace("_"," ")} (gr)', fontsize=25, labelpad=10)
+        ax.set_ylabel(f'{variable.replace("_", " ")} (gr)', fontsize=25, labelpad=10)
     else:
-        ax.set_ylabel(f'{variable.replace("_"," ")} (cm)', fontsize=25, labelpad=10)
+        ax.set_ylabel(f'{variable.replace("_", " ")} (cm)', fontsize=25, labelpad=10)
 
 
 def create_box_plot(boxplotdata):
