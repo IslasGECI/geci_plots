@@ -3,7 +3,6 @@ from geci_plots import plt
 
 from geci_plots.plot_kernel_density_gls import (
     adapt_gls_data,
-    _plot_kernel_density_gls,
     X_plot_kernel_density_gls,
 )
 
