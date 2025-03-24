@@ -1,4 +1,4 @@
-from geci_plots.plot_kernel_density_gls import _plot_kernel_density_gls
+from geci_plots.plot_kernel_density_gls import adapt_gls_data, X_plot_kernel_density_gls
 import pandas as pd
 import typer
 import matplotlib.pyplot as plt
@@ -14,8 +14,9 @@ def plot_kernel_density_gls(
     selected_contour: str = typer.Option(),
     result_map_path: str = typer.Option(),
 ):
-    _plot_kernel_density_gls(
-        gls_data_path, global_shapefile_data_path, path_rose_wind, selected_contour, result_map_path
+    gls_data = adapt_gls_data(gls_data_path)
+    X_plot_kernel_density_gls(
+        gls_data, global_shapefile_data_path, path_rose_wind, selected_contour, result_map_path
     )
 
 
