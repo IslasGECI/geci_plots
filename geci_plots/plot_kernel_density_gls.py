@@ -18,8 +18,8 @@ def adapt_gls_data(gls_data_path):
     return gls_data
 
 
-def _plot_kernel_density_gls(
-    gls_data, global_shapefile_data_path, path_rose_wind, selected_contour, result_map_path
+def X_plot_kernel_density_gls(
+    gls_data, global_shapefile_data_path, path_rose_wind, selected_contour
 ):
     hot = mpl.colormaps["hot_r"]
     new_hot = hot(np.linspace(0, 1, 256))
@@ -78,4 +78,13 @@ def _plot_kernel_density_gls(
     new_size = (round(width / rescale_factor), round(height / rescale_factor))
     resized_rose_wind = rose_wind.resize(new_size)
     fig.figimage(resized_rose_wind, img_x, img_y, zorder=100)
+    return ax
+
+
+def _plot_kernel_density_gls(
+    gls_data, global_shapefile_data_path, path_rose_wind, selected_contour, result_map_path
+):
+    X_plot_kernel_density_gls(
+        gls_data, global_shapefile_data_path, path_rose_wind, selected_contour
+    )
     plt.savefig(result_map_path)
