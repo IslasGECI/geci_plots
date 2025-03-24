@@ -4,7 +4,7 @@ from geci_plots.plot_kernel_density_gls import plot_kernel_density_gls
 
 
 def test_plot_kernel_density_gls():
-    gls_data_path = "tests/data/gls-albatros-guadalupe.csv"
+    gls_data_path = "tests/data/gls_albatros_tests.csv"
     global_shapefile_data_path = "tests/data/division_politica_paises.shp"
     path_rose_wind = "tests/data/rosewind.png"
     selected_contour = "50_contour"
