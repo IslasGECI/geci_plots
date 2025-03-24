@@ -1,6 +1,7 @@
 from geci_plots import np, plt
 from geoambiental import PointArray, get_kernel_density_geographic
 import matplotlib.pyplot as mpl
+from matplotlib import cm
 from matplotlib.colors import ListedColormap
 import matplotlib.ticker as ticker
 
@@ -27,6 +28,9 @@ def plot_kernel_density_gls(
     ]
 
     albatros_gls_data = pd.read_csv(gls_data_path)
+    albatros_gls_data.rename(
+        columns={"Latitude": "latitude", "Longitude": "longitude"}, inplace=True
+    )
     global_shapefile = gpd.read_file(global_shapefile_data_path)
     rose_wind = Image.open(path_rose_wind)
 
@@ -45,6 +49,7 @@ def plot_kernel_density_gls(
     global_shapefile.plot(ax=ax, color=land_color, edgecolor="black", linewidth=0.3)
     global_shapefile_translated.plot(ax=ax, color=land_color, edgecolor="black", linewidth=0.3)
 
+    plt.plot(albatros_gls_data["longitude"], albatros_gls_data["latitude"], ".b", markersize=3)
     if selected_contour == "All_contours":
         plt.contourf(kernel[0], kernel[1], normalized_kernel, 100, cmap=new_hor_r)
     elif selected_contour == "50_contour":
@@ -55,7 +60,6 @@ def plot_kernel_density_gls(
             [0, np.max(normalized_kernel) / 2, np.max(normalized_kernel)],
             colors=colors,
         )
-    plt.plot(albatros_gls_data["longitude"], albatros_gls_data["latitude"], ".b", markersize=3)
 
     sea_color = "#E6FFFF"
     plt.gca().set_facecolor(sea_color)
