@@ -30,7 +30,8 @@ def test_plot_kernel_density():
     result_map_path = "tests/kernel_50_percent_gps_albatros.png"
 
     gtt.if_exist_remove(result_map_path)
-    _plot_kernel_density_gls(
-        gls_data_path, global_shapefile_data_path, path_rose_wind, selected_contour, result_map_path
+    gls_data = adapt_gls_data(gls_data_path)
+    X_plot_kernel_density_gls(
+        gls_data, global_shapefile_data_path, path_rose_wind, selected_contour, result_map_path
     )
     gtt.assert_exist(result_map_path)
