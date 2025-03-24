@@ -15,5 +15,8 @@ requires = [
 	"matplotlib",
 	"numpy",
 	"pandas",
+	"typer[all]"
 ]
 requires-python=">=3.9"
+[tool.flit.scripts]
+geci-plot-cli = "geci_plots.cli:cli"
