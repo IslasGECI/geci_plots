@@ -37,6 +37,28 @@ def test_plot_kernel_density_gls():
     assert result.exit_code == 0
     gtt.assert_exist(result_map_path)
 
+    gls_data_path = "tests/data/trips_geographic_points_tests.csv"
+    result_map_path = "tests/kernel_50_percent_gps_albatros.png"
+    gtt.if_exist_remove(result_map_path)
+    result = runner.invoke(
+        cli,
+        [
+            "plot-kernel-density-gls",
+            "--gls-data-path",
+            gls_data_path,
+            "--global-shapefile-data-path",
+            global_shapefile_data_path,
+            "--path-rose-wind",
+            path_rose_wind,
+            "--selected-contour",
+            selected_contour,
+            "--result-map-path",
+            result_map_path,
+        ],
+    )
+    assert result.exit_code == 0
+    gtt.assert_exist(result_map_path)
+
 
 def test_version():
     result = runner.invoke(cli, ["version"])
