@@ -3,7 +3,7 @@ from geci_plots import plt
 
 from geci_plots.plot_kernel_density_gls import (
     adapt_gls_data,
-    X_plot_kernel_density_gls,
+    _plot_kernel_density_gls,
 )
 
 
@@ -16,9 +16,7 @@ def test_plot_kernel_density_gls():
 
     gtt.if_exist_remove(result_map_path)
     gls_data = adapt_gls_data(gls_data_path)
-    X_plot_kernel_density_gls(
-        gls_data, global_shapefile_data_path, path_rose_wind, selected_contour
-    )
+    _plot_kernel_density_gls(gls_data, global_shapefile_data_path, path_rose_wind, selected_contour)
     plt.savefig(result_map_path)
     gtt.assert_exist(result_map_path)
 
@@ -32,8 +30,6 @@ def test_plot_kernel_density():
 
     gtt.if_exist_remove(result_map_path)
     gls_data = adapt_gls_data(gls_data_path)
-    X_plot_kernel_density_gls(
-        gls_data, global_shapefile_data_path, path_rose_wind, selected_contour
-    )
+    _plot_kernel_density_gls(gls_data, global_shapefile_data_path, path_rose_wind, selected_contour)
     plt.savefig(result_map_path)
     gtt.assert_exist(result_map_path)
