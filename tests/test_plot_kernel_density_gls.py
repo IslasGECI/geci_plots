@@ -1,4 +1,3 @@
-import geci_test_tools as gtt
 import matplotlib as plt
 
 from geci_plots.plot_kernel_density_gls import (

@@ -1,5 +1,4 @@
 from geci_plots.plot_kernel_density_gls import adapt_gls_data, _plot_kernel_density_gls
-import pandas as pd
 import typer
 import matplotlib.pyplot as plt
 

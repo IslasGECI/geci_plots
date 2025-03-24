@@ -1,7 +1,6 @@
 from geci_plots import np, plt
 from geoambiental import PointArray, get_kernel_density_geographic
 import matplotlib.pyplot as mpl
-from matplotlib import cm
 from matplotlib.colors import ListedColormap
 import matplotlib.ticker as ticker
 
