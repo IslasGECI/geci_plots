@@ -12,7 +12,7 @@ import pandas as pd
 import geopandas as gpd
 
 
-def plot_kernel_density_gls(
+def _plot_kernel_density_gls(
     gls_data_path, global_shapefile_data_path, path_rose_wind, selected_contour, result_map_path
 ):
     hot = mpl.colormaps["hot_r"]
