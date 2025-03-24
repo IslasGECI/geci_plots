@@ -37,12 +37,10 @@ def X_plot_kernel_density_gls(
     rose_wind = Image.open(path_rose_wind)
 
     global_shapefile_translated = global_shapefile.translate(-360)
-    mask_datos_trand = albatros_gls_data.longitude > 0
-    albatros_gls_data.loc[mask_datos_trand, "longitude"] = (
-        albatros_gls_data[mask_datos_trand]["longitude"] - 360
-    )
+    mask_datos_trand = gls_data.longitude > 0
+    gls_data.loc[mask_datos_trand, "longitude"] = gls_data[mask_datos_trand]["longitude"] - 360
 
-    point_array = PointArray(albatros_gls_data["latitude"], albatros_gls_data["longitude"])
+    point_array = PointArray(gls_data["latitude"], gls_data["longitude"])
     kernel = get_kernel_density_geographic(point_array, bandwidth=0.04)
     normalized_kernel = np.array(kernel[2]) / np.nanmax(kernel[2])
 
@@ -51,7 +49,7 @@ def X_plot_kernel_density_gls(
     global_shapefile.plot(ax=ax, color=land_color, edgecolor="black", linewidth=0.3)
     global_shapefile_translated.plot(ax=ax, color=land_color, edgecolor="black", linewidth=0.3)
 
-    plt.plot(albatros_gls_data["longitude"], albatros_gls_data["latitude"], ".b", markersize=3)
+    plt.plot(gls_data["longitude"], gls_data["latitude"], ".b", markersize=3)
     if selected_contour == "All_contours":
         plt.contourf(kernel[0], kernel[1], normalized_kernel, 100, cmap=new_hor_r)
     elif selected_contour == "50_contour":
