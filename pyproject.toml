@@ -10,8 +10,10 @@ description-file = "README.md"
 home-page = "https://github.com/IslasGECI/geci_plots"
 module = "geci_plots"
 requires = [
+	"geoambiental @ git+https://git@github.com/islasgeci/geoambiental",
+	"geopandas",
 	"matplotlib",
-    "numpy",
-    "pandas",
+	"numpy",
+	"pandas",
 ]
 requires-python=">=3.9"
