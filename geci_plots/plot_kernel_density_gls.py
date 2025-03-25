@@ -81,13 +81,18 @@ def _plot_kernel_density_and_points(
 
 
 def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, selected_contour):
-    kernel = get_kernel_density(gls_data)
-    normalized_kernel = np.array(kernel[2]) / np.nanmax(kernel[2])
-
     fig, ax = plt.subplots(figsize=(14.3, 10.4))
-    format_plot(ax)
+    ax = format_plot(ax)
     plot_global_politic_division(global_shapefile_data_path, ax)
 
+    plot_kernel_contour(gls_data, selected_contour)
+    plot_windrose(path_rose_wind, fig)
+    return ax
+
+
+def plot_kernel_contour(gls_data, selected_contour):
+    kernel = get_kernel_density(gls_data)
+    normalized_kernel = np.array(kernel[2]) / np.nanmax(kernel[2])
     if selected_contour == "All_contours":
         hot = mpl.colormaps["hot_r"]
         new_hot = hot(np.linspace(0, 1, 256))
@@ -108,8 +113,6 @@ def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, s
             [0, np.max(normalized_kernel) / 2, np.max(normalized_kernel)],
             colors=colors,
         )
-    plot_windrose(path_rose_wind, fig)
-    return ax
 
 
 def format_plot(ax):
@@ -121,6 +124,7 @@ def format_plot(ax):
     plt.xticks(size=20)
     ax.xaxis.set_major_formatter(ticker.FormatStrFormatter("%d°"))
     ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%d°"))
+    return ax
 
 
 def get_kernel_density(gls_data):
