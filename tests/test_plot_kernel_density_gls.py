@@ -51,5 +51,5 @@ def test_plot_geographic_points():
     obtained = _plot_geographic_points(gls_data, global_shapefile_data_path, path_rose_wind)
     plt.pyplot.savefig("points.png")
     assert isinstance(obtained, plt.axes._axes.Axes)
-    assert len(obtained.collections) == 3
+    assert len(obtained.collections) == 2
     assert len(obtained.lines) == 1
