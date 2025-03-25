@@ -7,7 +7,7 @@ import matplotlib as plt
 import pandas as pd
 
 
-def test_plot_kernel_density_gls():
+def test_plot_kernel_density_and_gls_points():
     gls_data_path = "tests/data/gls_albatros_tests.csv"
     global_shapefile_data_path = "tests/data/division_politica_paises.shp"
     path_rose_wind = "tests/data/rosewind.png"
@@ -20,7 +20,7 @@ def test_plot_kernel_density_gls():
     assert isinstance(obtained, plt.axes._axes.Axes)
 
 
-def test_plot_kernel_density():
+def test_plot_kernel_density_and_points():
     gls_data_path = "tests/data/trips_geographic_points_tests.csv"
     global_shapefile_data_path = "tests/data/division_politica_paises.shp"
     path_rose_wind = "tests/data/rosewind.png"
@@ -33,3 +33,18 @@ def test_plot_kernel_density():
     assert isinstance(obtained, plt.axes._axes.Axes)
     assert len(obtained.collections) == 3
     assert len(obtained.lines) == 1
+
+
+def test_plot_kernel_density():
+    gls_data_path = "tests/data/trips_geographic_points_tests.csv"
+    global_shapefile_data_path = "tests/data/division_politica_paises.shp"
+    path_rose_wind = "tests/data/rosewind.png"
+    selected_contour = "50_contour"
+
+    gls_data = adapt_gls_data(gls_data_path)
+    obtained = _plot_kernel_density(
+        gls_data, global_shapefile_data_path, path_rose_wind, selected_contour
+    )
+    assert isinstance(obtained, plt.axes._axes.Axes)
+    assert len(obtained.collections) == 3
+    assert len(obtained.lines) == 0
