@@ -31,3 +31,5 @@ def test_plot_kernel_density():
         gls_data, global_shapefile_data_path, path_rose_wind, selected_contour
     )
     assert isinstance(obtained, plt.axes._axes.Axes)
+    assert len(obtained.collections) == 3
+    assert len(obtained.lines) == 1
