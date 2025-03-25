@@ -20,32 +20,36 @@ def adapt_gls_data(gls_data_path):
 def _plot_kernel_density_and_points(
     gls_data, global_shapefile_data_path, path_rose_wind, selected_contour
 ):
-    mask_datos_trand = gls_data.longitude > 0
-    gls_data.loc[mask_datos_trand, "longitude"] = gls_data[mask_datos_trand]["longitude"] - 360
+    gls_data_translated = translate_positive_longitudes(gls_data)
 
     fig, ax = plt.subplots(figsize=(14.3, 10.4))
     format_plot(ax)
     plot_global_politic_division(global_shapefile_data_path, ax)
-    plot_geographic_points(gls_data)
-    plot_kernel_contour(gls_data, selected_contour)
+    plot_geographic_points(gls_data_translated)
+    plot_kernel_contour(gls_data_translated, selected_contour)
     plot_windrose(path_rose_wind, fig)
     return ax
+
+
+def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, selected_contour):
+    gls_data_translated = translate_positive_longitudes(gls_data)
+
+    fig, ax = plt.subplots(figsize=(14.3, 10.4))
+    format_plot(ax)
+    plot_global_politic_division(global_shapefile_data_path, ax)
+    plot_kernel_contour(gls_data_translated, selected_contour)
+    plot_windrose(path_rose_wind, fig)
+    return ax
+
+
+def translate_positive_longitudes(gls_data):
+    mask_datos_trand = gls_data.longitude > 0
+    gls_data.loc[mask_datos_trand, "longitude"] = gls_data[mask_datos_trand]["longitude"] - 360
+    return gls_data
 
 
 def plot_geographic_points(gls_data):
     plt.plot(gls_data["longitude"], gls_data["latitude"], ".b", markersize=3)
-
-
-def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, selected_contour):
-    mask_datos_trand = gls_data.longitude > 0
-    gls_data.loc[mask_datos_trand, "longitude"] = gls_data[mask_datos_trand]["longitude"] - 360
-
-    fig, ax = plt.subplots(figsize=(14.3, 10.4))
-    format_plot(ax)
-    plot_global_politic_division(global_shapefile_data_path, ax)
-    plot_kernel_contour(gls_data, selected_contour)
-    plot_windrose(path_rose_wind, fig)
-    return ax
 
 
 def plot_kernel_contour(gls_data, selected_contour):
