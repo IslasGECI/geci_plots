@@ -6,7 +6,7 @@ cli = typer.Typer()
 
 
 @cli.command()
-def plot_kernel_density_gls(
+def plot_kernel_density_and_points(
     gls_data_path: str = typer.Option(),
     global_shapefile_data_path: str = typer.Option(),
     path_rose_wind: str = typer.Option(),

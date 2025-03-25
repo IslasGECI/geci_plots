@@ -8,7 +8,7 @@ runner = CliRunner()
 
 
 def test_plot_kernel_density_gls():
-    result = runner.invoke(cli, ["plot-kernel-density-gls", "--help"])
+    result = runner.invoke(cli, ["plot-kernel-density-and-points", "--help"])
     assert result.exit_code == 0
 
     gls_data_path = "tests/data/gls_albatros_tests.csv"
@@ -21,7 +21,7 @@ def test_plot_kernel_density_gls():
     result = runner.invoke(
         cli,
         [
-            "plot-kernel-density-gls",
+            "plot-kernel-density-and-points",
             "--gls-data-path",
             gls_data_path,
             "--global-shapefile-data-path",
@@ -43,7 +43,7 @@ def test_plot_kernel_density_gls():
     result = runner.invoke(
         cli,
         [
-            "plot-kernel-density-gls",
+            "plot-kernel-density-and-points",
             "--gls-data-path",
             gls_data_path,
             "--global-shapefile-data-path",
