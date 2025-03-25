@@ -43,6 +43,7 @@ def _plot_kernel_density_and_points(
     normalized_kernel = np.array(kernel[2]) / np.nanmax(kernel[2])
 
     fig, ax = plt.subplots(figsize=(14.3, 10.4))
+    format_plot(ax)
     land_color = "#FFFAE6"
     global_shapefile.plot(ax=ax, color=land_color, edgecolor="black", linewidth=0.3)
     global_shapefile_translated.plot(ax=ax, color=land_color, edgecolor="black", linewidth=0.3)
@@ -58,15 +59,6 @@ def _plot_kernel_density_and_points(
             [0, np.max(normalized_kernel) / 2, np.max(normalized_kernel)],
             colors=colors,
         )
-
-    sea_color = "#E6FFFF"
-    plt.gca().set_facecolor(sea_color)
-    plt.xlim(-180, -95)
-    plt.ylim(10, 65)
-    plt.yticks(size=20)
-    plt.xticks(size=20)
-    ax.xaxis.set_major_formatter(ticker.FormatStrFormatter("%d°"))
-    ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%d°"))
     plot_windrose(path_rose_wind, fig)
     return ax
 
