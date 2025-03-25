@@ -66,14 +66,15 @@ linter:
 	$(call lint, tests)
 
 mutants: setup
-	mutmut run --paths-to-mutate ${module}
+	mutmut run
+	expr "{mutmut results | wc -l}" == "0"
 
 setup: clean install
 	mkdir --parents tests/baseline
 	pytest --mpl-generate-path tests/baseline/
 
 tests:
-	pytest --mpl --verbose
+	pytest --mpl --verbose tests/
 
 red: format
 	pytest --verbose \
