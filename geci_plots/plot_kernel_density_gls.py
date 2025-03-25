@@ -11,7 +11,7 @@ import pandas as pd
 import geopandas as gpd
 
 
-def adapt_gls_data(gls_data_path):
+def adapt_geographic_data(gls_data_path):
     gls_data = pd.read_csv(gls_data_path)
     gls_data.rename(columns={"Latitude": "latitude", "Longitude": "longitude"}, inplace=True)
     return gls_data

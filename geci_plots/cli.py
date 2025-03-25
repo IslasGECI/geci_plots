@@ -1,5 +1,5 @@
 from geci_plots.plot_kernel_density_gls import (
-    adapt_gls_data,
+    adapt_geographic_data,
     _plot_geographic_points,
     _plot_kernel_density_and_points,
     _plot_kernel_density,
@@ -19,7 +19,7 @@ def plot_kernel_density_and_points(
     result_map_path: str = typer.Option(),
     bandwidth: float = typer.Option(),
 ):
-    geographic_data = adapt_gls_data(geographic_data_path)
+    geographic_data = adapt_geographic_data(geographic_data_path)
     _plot_kernel_density_and_points(
         geographic_data, global_shapefile_data_path, path_rose_wind, selected_contour, bandwidth
     )
@@ -35,7 +35,7 @@ def plot_kernel_density(
     result_map_path: str = typer.Option(),
     bandwidth: float = typer.Option(),
 ):
-    geographic_data = adapt_gls_data(geographic_data_path)
+    geographic_data = adapt_geographic_data(geographic_data_path)
     _plot_kernel_density(
         geographic_data, global_shapefile_data_path, path_rose_wind, selected_contour, bandwidth
     )
@@ -49,7 +49,7 @@ def plot_geographic_points(
     path_rose_wind: str = typer.Option(),
     result_map_path: str = typer.Option(),
 ):
-    geographic_data = adapt_gls_data(geographic_data_path)
+    geographic_data = adapt_geographic_data(geographic_data_path)
     _plot_geographic_points(geographic_data, global_shapefile_data_path, path_rose_wind)
     plt.savefig(result_map_path)
 

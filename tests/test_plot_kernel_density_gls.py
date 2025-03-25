@@ -1,5 +1,5 @@
 from geci_plots.plot_kernel_density_gls import (
-    adapt_gls_data,
+    adapt_geographic_data,
     _plot_kernel_density,
     _plot_kernel_density_and_points,
     _plot_geographic_points,
@@ -26,7 +26,7 @@ def test_plot_kernel_density_and_gls_points():
 
 
 def test_plot_kernel_density_and_points():
-    gps_data = adapt_gls_data(gps_data_path)
+    gps_data = adapt_geographic_data(gps_data_path)
     obtained = _plot_kernel_density_and_points(
         gps_data, global_shapefile_data_path, path_rose_wind, selected_contour, bandwidth
     )
@@ -36,7 +36,7 @@ def test_plot_kernel_density_and_points():
 
 
 def test_plot_kernel_density():
-    gps_data = adapt_gls_data(gps_data_path)
+    gps_data = adapt_geographic_data(gps_data_path)
     obtained = _plot_kernel_density(
         gps_data, global_shapefile_data_path, path_rose_wind, selected_contour, bandwidth
     )
