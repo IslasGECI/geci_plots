@@ -1,5 +1,5 @@
 """A custom matplotlib module"""
 
-__version__ = "0.4.1"
+__version__ = "0.5.0"
 from .geci_plots import *  # noqa
 from .cli import cli  # noqa

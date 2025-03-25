@@ -4,6 +4,7 @@ from geci_plots.plot_kernel_density_gls import (
     _plot_kernel_density_and_points,
     _plot_kernel_density,
 )
+import geci_plots as gp
 import typer
 import matplotlib.pyplot as plt
 
@@ -56,4 +57,4 @@ def plot_geographic_points(
 
 @cli.command()
 def version():
-    print("0.4.1")
+    print(gp.__version__)

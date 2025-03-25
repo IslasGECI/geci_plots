@@ -128,5 +128,5 @@ def test_plot_geographic_points():
 def test_version():
     result = runner.invoke(cli, ["version"])
     assert result.exit_code == 0
-    expected_version = "0.4.1"
+    expected_version = "0.5.0"
     assert expected_version in result.stdout
