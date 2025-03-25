@@ -109,6 +109,12 @@ def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, s
             colors=colors,
         )
 
+    format_plot(ax)
+    plot_windrose(path_rose_wind, fig)
+    return ax
+
+
+def format_plot(ax):
     sea_color = "#E6FFFF"
     plt.gca().set_facecolor(sea_color)
     plt.xlim(-180, -95)
@@ -117,8 +123,6 @@ def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, s
     plt.xticks(size=20)
     ax.xaxis.set_major_formatter(ticker.FormatStrFormatter("%d°"))
     ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%d°"))
-    plot_windrose(path_rose_wind, fig)
-    return ax
 
 
 def get_kernel_density(gls_data):
