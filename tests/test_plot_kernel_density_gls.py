@@ -14,13 +14,11 @@ def test_plot_kernel_density_and_gls_points():
     path_rose_wind = "tests/data/rosewind.png"
     selected_contour = "50_contour"
 
-    plt.pyplot.clf()
     gls_data = pd.read_csv(gls_data_path)
     obtained = _plot_kernel_density_and_points(
         gls_data, global_shapefile_data_path, path_rose_wind, selected_contour
     )
     assert isinstance(obtained, plt.axes._axes.Axes)
-    plt.pyplot.clf()
 
 
 def test_plot_kernel_density_and_points():
@@ -29,7 +27,6 @@ def test_plot_kernel_density_and_points():
     path_rose_wind = "tests/data/rosewind.png"
     selected_contour = "50_contour"
 
-    plt.pyplot.clf()
     gls_data = adapt_gls_data(gls_data_path)
     obtained = _plot_kernel_density_and_points(
         gls_data, global_shapefile_data_path, path_rose_wind, selected_contour
@@ -37,7 +34,6 @@ def test_plot_kernel_density_and_points():
     assert isinstance(obtained, plt.axes._axes.Axes)
     assert len(obtained.collections) == 3
     assert len(obtained.lines) == 1
-    plt.pyplot.clf()
 
 
 def test_plot_kernel_density():
@@ -45,8 +41,6 @@ def test_plot_kernel_density():
     global_shapefile_data_path = "tests/data/division_politica_paises.shp"
     path_rose_wind = "tests/data/rosewind.png"
     selected_contour = "50_contour"
-
-    plt.pyplot.clf()
 
     gls_data = adapt_gls_data(gls_data_path)
     obtained = _plot_kernel_density(
@@ -56,4 +50,3 @@ def test_plot_kernel_density():
     assert isinstance(obtained, plt.axes._axes.Axes)
     assert len(obtained.collections) == 3
     assert len(obtained.lines) == 0
-    plt.pyplot.clf()

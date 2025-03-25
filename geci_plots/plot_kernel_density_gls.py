@@ -81,11 +81,7 @@ def _plot_kernel_density_and_points(
 
 
 def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, selected_contour):
-    mask_datos_trand = gls_data.longitude > 0
-    gls_data.loc[mask_datos_trand, "longitude"] = gls_data[mask_datos_trand]["longitude"] - 360
-
-    point_array = PointArray(gls_data["latitude"], gls_data["longitude"])
-    kernel = get_kernel_density_geographic(point_array, bandwidth=0.04)
+    kernel = get_kernel_density(gls_data)
     normalized_kernel = np.array(kernel[2]) / np.nanmax(kernel[2])
 
     fig, ax = plt.subplots(figsize=(14.3, 10.4))
@@ -123,6 +119,15 @@ def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, s
     ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%d°"))
     plot_windrose(path_rose_wind, fig)
     return ax
+
+
+def get_kernel_density(gls_data):
+    mask_datos_trand = gls_data.longitude > 0
+    gls_data.loc[mask_datos_trand, "longitude"] = gls_data[mask_datos_trand]["longitude"] - 360
+
+    point_array = PointArray(gls_data["latitude"], gls_data["longitude"])
+    kernel = get_kernel_density_geographic(point_array, bandwidth=0.04)
+    return kernel
 
 
 def plot_windrose(path_rose_wind, fig):
