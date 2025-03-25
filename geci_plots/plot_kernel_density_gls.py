@@ -20,6 +20,8 @@ def adapt_gls_data(gls_data_path):
 def _plot_kernel_density_and_points(
     gls_data, global_shapefile_data_path, path_rose_wind, selected_contour
 ):
+    mask_datos_trand = gls_data.longitude > 0
+    gls_data.loc[mask_datos_trand, "longitude"] = gls_data[mask_datos_trand]["longitude"] - 360
     fig, ax = plt.subplots(figsize=(14.3, 10.4))
     format_plot(ax)
     plot_global_politic_division(global_shapefile_data_path, ax)
@@ -31,6 +33,8 @@ def _plot_kernel_density_and_points(
 
 
 def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, selected_contour):
+    mask_datos_trand = gls_data.longitude > 0
+    gls_data.loc[mask_datos_trand, "longitude"] = gls_data[mask_datos_trand]["longitude"] - 360
     fig, ax = plt.subplots(figsize=(14.3, 10.4))
     format_plot(ax)
     plot_global_politic_division(global_shapefile_data_path, ax)
@@ -77,9 +81,6 @@ def format_plot(ax):
 
 
 def get_kernel_density(gls_data):
-    mask_datos_trand = gls_data.longitude > 0
-    gls_data.loc[mask_datos_trand, "longitude"] = gls_data[mask_datos_trand]["longitude"] - 360
-
     point_array = PointArray(gls_data["latitude"], gls_data["longitude"])
     kernel = get_kernel_density_geographic(point_array, bandwidth=0.04)
     return kernel
