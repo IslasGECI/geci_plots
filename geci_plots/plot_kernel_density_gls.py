@@ -81,8 +81,6 @@ def _plot_kernel_density_and_points(
 
 
 def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, selected_contour):
-    rose_wind = Image.open(path_rose_wind)
-
     mask_datos_trand = gls_data.longitude > 0
     gls_data.loc[mask_datos_trand, "longitude"] = gls_data[mask_datos_trand]["longitude"] - 360
 
@@ -124,15 +122,19 @@ def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, s
     ax.xaxis.set_major_formatter(ticker.FormatStrFormatter("%d°"))
     ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%d°"))
 
-    img_x = 1150
-    img_y = 730
+    plot_windrose(path_rose_wind, fig)
+    return ax
 
+
+def plot_windrose(path_rose_wind, fig):
+    rose_wind = Image.open(path_rose_wind)
     width, height = rose_wind.size
     rescale_factor = 4
     new_size = (round(width / rescale_factor), round(height / rescale_factor))
     resized_rose_wind = rose_wind.resize(new_size)
+    img_x = 1150
+    img_y = 730
     fig.figimage(resized_rose_wind, img_x, img_y, zorder=100)
-    return ax
 
 
 def plot_global_politic_division(global_shapefile_data_path, ax):
