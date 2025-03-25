@@ -1,5 +1,6 @@
 from geci_plots.plot_kernel_density_gls import (
     adapt_gls_data,
+    _plot_kernel_density,
     _plot_kernel_density_and_points,
 )
 
