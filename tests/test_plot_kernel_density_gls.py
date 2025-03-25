@@ -20,6 +20,7 @@ def test_plot_kernel_density_and_gls_points():
         gls_data, global_shapefile_data_path, path_rose_wind, selected_contour
     )
     assert isinstance(obtained, plt.axes._axes.Axes)
+    plt.pyplot.clf()
 
 
 def test_plot_kernel_density_and_points():
@@ -36,6 +37,7 @@ def test_plot_kernel_density_and_points():
     assert isinstance(obtained, plt.axes._axes.Axes)
     assert len(obtained.collections) == 3
     assert len(obtained.lines) == 1
+    plt.pyplot.clf()
 
 
 def test_plot_kernel_density():
@@ -54,3 +56,4 @@ def test_plot_kernel_density():
     assert isinstance(obtained, plt.axes._axes.Axes)
     assert len(obtained.collections) == 3
     assert len(obtained.lines) == 0
+    plt.pyplot.clf()
