@@ -65,6 +65,11 @@ def test_plot_kernel_density_gls():
     gtt.assert_exist(result_map_path)
 
 
+def test_plot_kernel_density():
+    result = runner.invoke(cli, ["plot-kernel-density", "--help"])
+    assert result.exit_code == 0
+
+
 def test_version():
     result = runner.invoke(cli, ["version"])
     assert result.exit_code == 0
