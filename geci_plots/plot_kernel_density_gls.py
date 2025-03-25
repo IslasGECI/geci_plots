@@ -91,8 +91,8 @@ def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, s
     normalized_kernel = np.array(kernel[2]) / np.nanmax(kernel[2])
 
     fig, ax = plt.subplots(figsize=(14.3, 10.4))
-    land_color = "#FFFAE6"
-    plot_global_politic_division(global_shapefile_data_path, ax, land_color)
+
+    plot_global_politic_division(global_shapefile_data_path, ax)
 
     if selected_contour == "All_contours":
         hot = mpl.colormaps["hot_r"]
@@ -135,8 +135,9 @@ def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, s
     return ax
 
 
-def plot_global_politic_division(global_shapefile_data_path, ax, land_color):
+def plot_global_politic_division(global_shapefile_data_path, ax):
     global_shapefile = gpd.read_file(global_shapefile_data_path)
     global_shapefile_translated = global_shapefile.translate(-360)
+    land_color = "#FFFAE6"
     global_shapefile.plot(ax=ax, color=land_color, edgecolor="black", linewidth=0.3)
     global_shapefile_translated.plot(ax=ax, color=land_color, edgecolor="black", linewidth=0.3)
