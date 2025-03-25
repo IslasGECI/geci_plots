@@ -22,5 +22,17 @@ def plot_kernel_density_and_points(
 
 
 @cli.command()
+def plot_kernel_density(
+    gls_data_path: str = typer.Option(),
+    global_shapefile_data_path: str = typer.Option(),
+    path_rose_wind: str = typer.Option(),
+    selected_contour: str = typer.Option(),
+    result_map_path: str = typer.Option(),
+    bandwidth: float = typer.Option(),
+):
+    pass
+
+
+@cli.command()
 def version():
     print("0.4.1")
