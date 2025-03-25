@@ -81,18 +81,6 @@ def _plot_kernel_density_and_points(
 
 
 def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, selected_contour):
-    hot = mpl.colormaps["hot_r"]
-    new_hot = hot(np.linspace(0, 1, 256))
-    new_hot[0:15, 3] = 0
-    new_hot[15:-1, 3] = 0.3
-    new_hor_r = ListedColormap(new_hot)
-
-    colors = [
-        (0.1, 0.1, 0.5, 0),
-        (1, 0, 0, 0.5),
-        (1, 1, 1, 1),
-    ]
-
     global_shapefile = gpd.read_file(global_shapefile_data_path)
     rose_wind = Image.open(path_rose_wind)
 
@@ -110,8 +98,18 @@ def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, s
     global_shapefile_translated.plot(ax=ax, color=land_color, edgecolor="black", linewidth=0.3)
 
     if selected_contour == "All_contours":
+        hot = mpl.colormaps["hot_r"]
+        new_hot = hot(np.linspace(0, 1, 256))
+        new_hot[0:15, 3] = 0
+        new_hot[15:-1, 3] = 0.3
+        new_hor_r = ListedColormap(new_hot)
         plt.contourf(kernel[0], kernel[1], normalized_kernel, 100, cmap=new_hor_r)
     elif selected_contour == "50_contour":
+        colors = [
+            (0.1, 0.1, 0.5, 0),
+            (1, 0, 0, 0.5),
+            (1, 1, 1, 1),
+        ]
         plt.contourf(
             kernel[0],
             kernel[1],
