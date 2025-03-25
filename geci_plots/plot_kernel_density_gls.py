@@ -91,7 +91,6 @@ def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, s
     fig, ax = plt.subplots(figsize=(14.3, 10.4))
 
     plot_global_politic_division(global_shapefile_data_path, ax)
-    plot_windrose(path_rose_wind, fig)
 
     if selected_contour == "All_contours":
         hot = mpl.colormaps["hot_r"]
@@ -122,6 +121,8 @@ def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, s
     plt.xticks(size=20)
     ax.xaxis.set_major_formatter(ticker.FormatStrFormatter("%d°"))
     ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%d°"))
+
+    plot_windrose(path_rose_wind, fig)
     return ax
 
 
