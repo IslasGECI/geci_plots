@@ -25,7 +25,7 @@ def test_plot_kernel_density_gls():
         cli,
         [
             "plot-kernel-density-and-points",
-            "--gls-data-path",
+            "--geographic-data-path",
             gls_data_path,
             "--global-shapefile-data-path",
             global_shapefile_data_path,
@@ -49,7 +49,7 @@ def test_plot_kernel_density_gls():
         cli,
         [
             "plot-kernel-density-and-points",
-            "--gls-data-path",
+            "--geographic-data-path",
             gps_data_path,
             "--global-shapefile-data-path",
             global_shapefile_data_path,
@@ -83,7 +83,7 @@ def test_plot_kernel_density():
         cli,
         [
             "plot-kernel-density",
-            "--gls-data-path",
+            "--geographic-data-path",
             gls_data_path,
             "--global-shapefile-data-path",
             global_shapefile_data_path,
@@ -111,7 +111,7 @@ def test_plot_geographic_points():
         cli,
         [
             "plot-geographic-points",
-            "--gls-data-path",
+            "--geographic-data-path",
             gls_data_path,
             "--global-shapefile-data-path",
             global_shapefile_data_path,
