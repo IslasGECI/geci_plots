@@ -26,7 +26,7 @@ def _plot_kernel_density_and_points(
     format_plot(ax)
     plot_global_politic_division(global_shapefile_data_path, ax)
     plot_geographic_points(gls_data_translated)
-    plot_kernel_contour(gls_data_translated, selected_contour)
+    plot_kernel_contour(gls_data_translated, selected_contour, 0.04)
     plot_windrose(path_rose_wind, fig)
     return ax
 
@@ -37,7 +37,7 @@ def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, s
     fig, ax = plt.subplots(figsize=(14.3, 10.4))
     format_plot(ax)
     plot_global_politic_division(global_shapefile_data_path, ax)
-    plot_kernel_contour(gls_data_translated, selected_contour)
+    plot_kernel_contour(gls_data_translated, selected_contour, 0.04)
     plot_windrose(path_rose_wind, fig)
     return ax
 
@@ -52,8 +52,8 @@ def plot_geographic_points(gls_data):
     plt.plot(gls_data["longitude"], gls_data["latitude"], ".b", markersize=3)
 
 
-def plot_kernel_contour(gls_data, selected_contour):
-    kernel = get_kernel_density(gls_data, 0.04)
+def plot_kernel_contour(gls_data, selected_contour, bandwidth):
+    kernel = get_kernel_density(gls_data, bandwidth)
     normalized_kernel = np.array(kernel[2]) / np.nanmax(kernel[2])
     if selected_contour == "All_contours":
         hot = mpl.colormaps["hot_r"]
