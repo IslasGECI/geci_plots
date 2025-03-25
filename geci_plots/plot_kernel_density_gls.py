@@ -31,10 +31,6 @@ def _plot_kernel_density_and_points(
         (1, 0, 0, 0.5),
         (1, 1, 1, 1),
     ]
-
-    global_shapefile = gpd.read_file(global_shapefile_data_path)
-
-    global_shapefile_translated = global_shapefile.translate(-360)
     mask_datos_trand = gls_data.longitude > 0
     gls_data.loc[mask_datos_trand, "longitude"] = gls_data[mask_datos_trand]["longitude"] - 360
 
@@ -44,9 +40,7 @@ def _plot_kernel_density_and_points(
 
     fig, ax = plt.subplots(figsize=(14.3, 10.4))
     format_plot(ax)
-    land_color = "#FFFAE6"
-    global_shapefile.plot(ax=ax, color=land_color, edgecolor="black", linewidth=0.3)
-    global_shapefile_translated.plot(ax=ax, color=land_color, edgecolor="black", linewidth=0.3)
+    plot_global_politic_division(global_shapefile_data_path, ax)
 
     plt.plot(gls_data["longitude"], gls_data["latitude"], ".b", markersize=3)
     if selected_contour == "All_contours":
