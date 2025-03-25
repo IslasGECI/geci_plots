@@ -1,4 +1,8 @@
-from geci_plots.plot_kernel_density_gls import adapt_gls_data, _plot_kernel_density_and_points
+from geci_plots.plot_kernel_density_gls import (
+    adapt_gls_data,
+    _plot_kernel_density_and_points,
+    _plot_kernel_density,
+)
 import typer
 import matplotlib.pyplot as plt
 
@@ -30,7 +34,11 @@ def plot_kernel_density(
     result_map_path: str = typer.Option(),
     bandwidth: float = typer.Option(),
 ):
-    pass
+    gls_data = adapt_gls_data(gls_data_path)
+    _plot_kernel_density(
+        gls_data, global_shapefile_data_path, path_rose_wind, selected_contour, bandwidth
+    )
+    plt.savefig(result_map_path)
 
 
 @cli.command()
