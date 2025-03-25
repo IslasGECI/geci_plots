@@ -134,7 +134,7 @@ def plot_windrose(path_rose_wind, fig):
     resized_rose_wind = rose_wind.resize(new_size)
     img_x = 1150
     img_y = 730
-    fig.figimage(resized_rose_wind, img_x, img_y, zorder=100)
+    fig.figimage(resized_rose_wind, img_x, img_y, origin="upper", zorder=100)
     return fig
 
 
