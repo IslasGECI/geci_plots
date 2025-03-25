@@ -69,6 +69,35 @@ def test_plot_kernel_density():
     result = runner.invoke(cli, ["plot-kernel-density", "--help"])
     assert result.exit_code == 0
 
+    gls_data_path = "tests/data/gls_albatros_tests.csv"
+    global_shapefile_data_path = "tests/data/division_politica_paises.shp"
+    path_rose_wind = "tests/data/rosewind.png"
+    selected_contour = "All_contours"
+    result_map_path = "tests/kernel_100_percent_gls_albatros.png"
+    bandwidth = 0.1
+
+    gtt.if_exist_remove(result_map_path)
+    result = runner.invoke(
+        cli,
+        [
+            "plot-kernel-density",
+            "--gls-data-path",
+            gls_data_path,
+            "--global-shapefile-data-path",
+            global_shapefile_data_path,
+            "--path-rose-wind",
+            path_rose_wind,
+            "--selected-contour",
+            selected_contour,
+            "--result-map-path",
+            result_map_path,
+            "--bandwidth",
+            bandwidth,
+        ],
+    )
+    assert result.exit_code == 0
+    gtt.assert_exist(result_map_path)
+
 
 def test_version():
     result = runner.invoke(cli, ["version"])
