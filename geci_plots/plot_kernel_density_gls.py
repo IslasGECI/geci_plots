@@ -20,39 +20,12 @@ def adapt_gls_data(gls_data_path):
 def _plot_kernel_density_and_points(
     gls_data, global_shapefile_data_path, path_rose_wind, selected_contour
 ):
-    hot = mpl.colormaps["hot_r"]
-    new_hot = hot(np.linspace(0, 1, 256))
-    new_hot[0:15, 3] = 0
-    new_hot[15:-1, 3] = 0.3
-    new_hor_r = ListedColormap(new_hot)
-
-    colors = [
-        (0.1, 0.1, 0.5, 0),
-        (1, 0, 0, 0.5),
-        (1, 1, 1, 1),
-    ]
-    mask_datos_trand = gls_data.longitude > 0
-    gls_data.loc[mask_datos_trand, "longitude"] = gls_data[mask_datos_trand]["longitude"] - 360
-
-    point_array = PointArray(gls_data["latitude"], gls_data["longitude"])
-    kernel = get_kernel_density_geographic(point_array, bandwidth=0.04)
-    normalized_kernel = np.array(kernel[2]) / np.nanmax(kernel[2])
-
     fig, ax = plt.subplots(figsize=(14.3, 10.4))
     format_plot(ax)
     plot_global_politic_division(global_shapefile_data_path, ax)
 
     plt.plot(gls_data["longitude"], gls_data["latitude"], ".b", markersize=3)
-    if selected_contour == "All_contours":
-        plt.contourf(kernel[0], kernel[1], normalized_kernel, 100, cmap=new_hor_r)
-    elif selected_contour == "50_contour":
-        plt.contourf(
-            kernel[0],
-            kernel[1],
-            normalized_kernel,
-            [0, np.max(normalized_kernel) / 2, np.max(normalized_kernel)],
-            colors=colors,
-        )
+    plot_kernel_contour(gls_data, selected_contour)
     plot_windrose(path_rose_wind, fig)
     return ax
 
