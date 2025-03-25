@@ -16,6 +16,7 @@ def test_plot_kernel_density_gls():
     path_rose_wind = "tests/data/rosewind.png"
     selected_contour = "50_contour"
     result_map_path = "tests/kernel_50_percent_gls_albatros.png"
+    bandwidth = 0.04
 
     gtt.if_exist_remove(result_map_path)
     result = runner.invoke(
@@ -32,6 +33,8 @@ def test_plot_kernel_density_gls():
             selected_contour,
             "--result-map-path",
             result_map_path,
+            "--bandwidth",
+            bandwidth,
         ],
     )
     assert result.exit_code == 0
@@ -54,6 +57,8 @@ def test_plot_kernel_density_gls():
             selected_contour,
             "--result-map-path",
             result_map_path,
+            "--bandwidth",
+            bandwidth,
         ],
     )
     assert result.exit_code == 0

@@ -12,9 +12,9 @@ def plot_kernel_density_and_points(
     path_rose_wind: str = typer.Option(),
     selected_contour: str = typer.Option(),
     result_map_path: str = typer.Option(),
+    bandwidth: float = typer.Option(),
 ):
     gls_data = adapt_gls_data(gls_data_path)
-    bandwidth = 0.04
     _plot_kernel_density_and_points(
         gls_data, global_shapefile_data_path, path_rose_wind, selected_contour, bandwidth
     )
