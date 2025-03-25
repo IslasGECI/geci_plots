@@ -27,7 +27,6 @@ def test_plot_kernel_density():
     selected_contour = "50_contour"
 
     gls_data = adapt_gls_data(gls_data_path)
-    gls_data = gls_data.sample(frac=0.1)
     obtained = _plot_kernel_density_gls(
         gls_data, global_shapefile_data_path, path_rose_wind, selected_contour
     )
