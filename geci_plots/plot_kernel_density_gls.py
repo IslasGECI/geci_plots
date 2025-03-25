@@ -85,7 +85,7 @@ def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, s
     normalized_kernel = np.array(kernel[2]) / np.nanmax(kernel[2])
 
     fig, ax = plt.subplots(figsize=(14.3, 10.4))
-
+    format_plot(ax)
     plot_global_politic_division(global_shapefile_data_path, ax)
 
     if selected_contour == "All_contours":
@@ -108,8 +108,6 @@ def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, s
             [0, np.max(normalized_kernel) / 2, np.max(normalized_kernel)],
             colors=colors,
         )
-
-    format_plot(ax)
     plot_windrose(path_rose_wind, fig)
     return ax
 
