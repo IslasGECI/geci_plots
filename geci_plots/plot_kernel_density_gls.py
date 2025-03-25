@@ -18,7 +18,7 @@ def adapt_gls_data(gls_data_path):
 
 
 def _plot_kernel_density_and_points(
-    gls_data, global_shapefile_data_path, path_rose_wind, selected_contour
+    gls_data, global_shapefile_data_path, path_rose_wind, selected_contour, bandwidth
 ):
     gls_data_translated = translate_positive_longitudes(gls_data)
 
@@ -26,18 +26,20 @@ def _plot_kernel_density_and_points(
     format_plot(ax)
     plot_global_politic_division(global_shapefile_data_path, ax)
     plot_geographic_points(gls_data_translated)
-    plot_kernel_contour(gls_data_translated, selected_contour, 0.04)
+    plot_kernel_contour(gls_data_translated, selected_contour, bandwidth)
     plot_windrose(path_rose_wind, fig)
     return ax
 
 
-def _plot_kernel_density(gls_data, global_shapefile_data_path, path_rose_wind, selected_contour):
+def _plot_kernel_density(
+    gls_data, global_shapefile_data_path, path_rose_wind, selected_contour, bandwidth
+):
     gls_data_translated = translate_positive_longitudes(gls_data)
 
     fig, ax = plt.subplots(figsize=(14.3, 10.4))
     format_plot(ax)
     plot_global_politic_division(global_shapefile_data_path, ax)
-    plot_kernel_contour(gls_data_translated, selected_contour, 0.04)
+    plot_kernel_contour(gls_data_translated, selected_contour, bandwidth)
     plot_windrose(path_rose_wind, fig)
     return ax
 
