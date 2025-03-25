@@ -33,7 +33,6 @@ def _plot_kernel_density_and_points(
     ]
 
     global_shapefile = gpd.read_file(global_shapefile_data_path)
-    rose_wind = Image.open(path_rose_wind)
 
     global_shapefile_translated = global_shapefile.translate(-360)
     mask_datos_trand = gls_data.longitude > 0
@@ -68,15 +67,7 @@ def _plot_kernel_density_and_points(
     plt.xticks(size=20)
     ax.xaxis.set_major_formatter(ticker.FormatStrFormatter("%d°"))
     ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%d°"))
-
-    img_x = 1150
-    img_y = 730
-
-    width, height = rose_wind.size
-    rescale_factor = 4
-    new_size = (round(width / rescale_factor), round(height / rescale_factor))
-    resized_rose_wind = rose_wind.resize(new_size)
-    fig.figimage(resized_rose_wind, img_x, img_y, zorder=100)
+    plot_windrose(path_rose_wind, fig)
     return ax
 
 
