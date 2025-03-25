@@ -1,6 +1,6 @@
 from geci_plots.plot_kernel_density_gls import (
     adapt_gls_data,
-    _plot_kernel_density_gls,
+    _plot_kernel_density_and_points,
 )
 
 import matplotlib as plt
@@ -14,7 +14,7 @@ def test_plot_kernel_density_gls():
     selected_contour = "50_contour"
 
     gls_data = pd.read_csv(gls_data_path)
-    obtained = _plot_kernel_density_gls(
+    obtained = _plot_kernel_density_and_points(
         gls_data, global_shapefile_data_path, path_rose_wind, selected_contour
     )
     assert isinstance(obtained, plt.axes._axes.Axes)
@@ -27,7 +27,7 @@ def test_plot_kernel_density():
     selected_contour = "50_contour"
 
     gls_data = adapt_gls_data(gls_data_path)
-    obtained = _plot_kernel_density_gls(
+    obtained = _plot_kernel_density_and_points(
         gls_data, global_shapefile_data_path, path_rose_wind, selected_contour
     )
     assert isinstance(obtained, plt.axes._axes.Axes)

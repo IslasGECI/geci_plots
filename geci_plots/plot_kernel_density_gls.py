@@ -17,7 +17,7 @@ def adapt_gls_data(gls_data_path):
     return gls_data
 
 
-def _plot_kernel_density_gls(
+def _plot_kernel_density_and_points(
     gls_data, global_shapefile_data_path, path_rose_wind, selected_contour
 ):
     hot = mpl.colormaps["hot_r"]
