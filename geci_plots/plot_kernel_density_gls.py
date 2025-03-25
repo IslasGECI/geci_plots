@@ -53,7 +53,7 @@ def plot_geographic_points(gls_data):
 
 
 def plot_kernel_contour(gls_data, selected_contour):
-    kernel = get_kernel_density(gls_data)
+    kernel = get_kernel_density(gls_data, 0.04)
     normalized_kernel = np.array(kernel[2]) / np.nanmax(kernel[2])
     if selected_contour == "All_contours":
         hot = mpl.colormaps["hot_r"]
@@ -88,9 +88,9 @@ def format_plot(ax):
     ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%d°"))
 
 
-def get_kernel_density(gls_data):
+def get_kernel_density(gls_data, bandwidth):
     point_array = PointArray(gls_data["latitude"], gls_data["longitude"])
-    kernel = get_kernel_density_geographic(point_array, bandwidth=0.04)
+    kernel = get_kernel_density_geographic(point_array, bandwidth)
     return kernel
 
 

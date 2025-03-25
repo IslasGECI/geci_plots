@@ -6,7 +6,8 @@ import numpy as np
 
 def test_get_kernel_density():
     gls_data = pd.read_csv("tests/data/gls_albatros_tests.csv")
-    obtained = get_kernel_density(gls_data)
+    bandwidth = 0.04
+    obtained = get_kernel_density(gls_data, bandwidth)
     assert np.max(obtained[2]) < 3.95
     assert np.max(obtained[0]) < 179.8
     assert np.min(obtained[0]) > -179.54
