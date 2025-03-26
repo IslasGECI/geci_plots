@@ -23,7 +23,7 @@ def _plot_kernel_density_and_points(
     gls_data_translated = translate_positive_longitudes(gls_data)
 
     fig, ax = plt.subplots(figsize=(14.3, 10.4))
-    format_plot(ax)
+    format_plot(ax, gls_data_translated)
     plot_global_politic_division(global_shapefile_data_path, ax)
     plot_geographic_points(gls_data_translated)
     plot_kernel_contour(gls_data_translated, selected_contour, bandwidth)
@@ -37,7 +37,7 @@ def _plot_kernel_density(
     gls_data_translated = translate_positive_longitudes(gls_data)
 
     fig, ax = plt.subplots(figsize=(14.3, 10.4))
-    format_plot(ax)
+    format_plot(ax, gls_data_translated)
     plot_global_politic_division(global_shapefile_data_path, ax)
     plot_kernel_contour(gls_data_translated, selected_contour, bandwidth)
     plot_windrose(path_rose_wind, fig)
@@ -48,7 +48,7 @@ def _plot_geographic_points(gls_data, global_shapefile_data_path, path_rose_wind
     gls_data_translated = translate_positive_longitudes(gls_data)
 
     fig, ax = plt.subplots(figsize=(14.3, 10.4))
-    format_plot(ax)
+    format_plot(ax, gls_data_translated)
     plot_global_politic_division(global_shapefile_data_path, ax)
     plot_geographic_points(gls_data_translated)
     plot_windrose(path_rose_wind, fig)
@@ -59,7 +59,7 @@ def _plot_geographic_points_by_trip(gls_data, global_shapefile_data_path, path_r
     gls_data_translated = translate_positive_longitudes(gls_data)
 
     fig, ax = plt.subplots(figsize=(14.3, 10.4))
-    format_plot(ax)
+    format_plot(ax, gls_data_translated)
     plot_global_politic_division(global_shapefile_data_path, ax)
 
     for label, df in gls_data_translated.groupby("tripID"):
@@ -103,7 +103,7 @@ def plot_kernel_contour(gls_data, selected_contour, bandwidth):
         )
 
 
-def format_plot(ax):
+def format_plot(ax, track_data):
     sea_color = "#E6FFFF"
     plt.gca().set_facecolor(sea_color)
     plt.xlim(-180, -95)
