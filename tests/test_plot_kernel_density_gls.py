@@ -1,5 +1,6 @@
 from geci_plots.plot_kernel_density_gls import (
     adapt_geographic_data,
+    format_plot,
     _plot_kernel_density,
     _plot_kernel_density_and_points,
     _plot_geographic_points,
@@ -63,3 +64,9 @@ def test_plot_geographic_points_by_trip():
     assert isinstance(obtained, plt.axes._axes.Axes)
     assert len(obtained.collections) == 2
     assert len(obtained.lines) > 1
+
+
+def test_format_plot():
+    fig, ax = plt.pyplot.subplots(figsize=(14.3, 10.4))
+    format_plot(ax)
+    assert ax.get_ylim()[1] < 65
