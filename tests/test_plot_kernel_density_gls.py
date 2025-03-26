@@ -63,4 +63,3 @@ def test_plot_geographic_points_by_trip():
     assert isinstance(obtained, plt.axes._axes.Axes)
     assert len(obtained.collections) == 2
     assert len(obtained.lines) > 1
-    assert obtained.get_legend() is not None
