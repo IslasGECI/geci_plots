@@ -107,8 +107,11 @@ def format_plot(ax, track_data):
     sea_color = "#E6FFFF"
     plt.gca().set_facecolor(sea_color)
     y_max = track_data["latitude"].max()
-    plt.xlim(-180, -95)
-    plt.ylim(10, y_max)
+    y_min = track_data["latitude"].min()
+    x_max = track_data["longitude"].max()
+    x_min = track_data["longitude"].min()
+    plt.xlim(x_min, x_max)
+    plt.ylim(y_min, y_max)
     plt.yticks(size=20)
     plt.xticks(size=20)
     ax.xaxis.set_major_formatter(ticker.FormatStrFormatter("%d°"))
