@@ -106,16 +106,21 @@ def plot_kernel_contour(gls_data, selected_contour, bandwidth):
 def format_plot(ax, track_data):
     sea_color = "#E6FFFF"
     plt.gca().set_facecolor(sea_color)
-    y_max = track_data["latitude"].max()
-    y_min = track_data["latitude"].min()
-    x_max = track_data["longitude"].max()
-    x_min = track_data["longitude"].min()
-    plt.xlim(x_min, x_max)
-    plt.ylim(y_min, y_max)
+    limits = get_limits(track_data)
+    plt.xlim(limits["x_min"], limits["x_max"])
+    plt.ylim(limits["y_min"], limits["y_max"])
     plt.yticks(size=20)
     plt.xticks(size=20)
     ax.xaxis.set_major_formatter(ticker.FormatStrFormatter("%d°"))
     ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%d°"))
+
+
+def get_limits(track_data):
+    y_max = track_data["latitude"].max()
+    y_min = track_data["latitude"].min()
+    x_max = track_data["longitude"].max()
+    x_min = track_data["longitude"].min()
+    return {"y_max": y_max, "y_min": y_min, "x_max": x_max, "x_min": x_min}
 
 
 def get_kernel_density(gls_data, bandwidth):
