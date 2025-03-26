@@ -119,8 +119,8 @@ def get_limits(track_data):
     multiplier = 10
     y_max = roundup(track_data["latitude"].max(), multiplier)
     y_min = rounddown(track_data["latitude"].min(), multiplier)
-    x_max = track_data["longitude"].max()
-    x_min = track_data["longitude"].min()
+    x_max = roundup(track_data["longitude"].max(), multiplier)
+    x_min = rounddown(track_data["longitude"].min(), multiplier)
     return {"y_max": y_max, "y_min": y_min, "x_max": x_max, "x_min": x_min}
 
 
