@@ -106,8 +106,9 @@ def plot_kernel_contour(gls_data, selected_contour, bandwidth):
 def format_plot(ax, track_data):
     sea_color = "#E6FFFF"
     plt.gca().set_facecolor(sea_color)
+    y_max = track_data["latitude"].max()
     plt.xlim(-180, -95)
-    plt.ylim(10, 64)
+    plt.ylim(10, y_max)
     plt.yticks(size=20)
     plt.xticks(size=20)
     ax.xaxis.set_major_formatter(ticker.FormatStrFormatter("%d°"))
