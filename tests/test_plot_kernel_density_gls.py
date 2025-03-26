@@ -68,5 +68,6 @@ def test_plot_geographic_points_by_trip():
 
 def test_format_plot():
     fig, ax = plt.pyplot.subplots(figsize=(14.3, 10.4))
-    format_plot(ax)
+    gps_data = adapt_geographic_data(gps_data_path)
+    format_plot(ax, gps_data)
     assert ax.get_ylim()[1] < 65
