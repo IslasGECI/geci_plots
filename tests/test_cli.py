@@ -8,6 +8,7 @@ runner = CliRunner()
 
 
 gls_data_path = "tests/data/gls_albatros_tests.csv"
+gps_data_path = "tests/data/trips_geographic_points_tests.csv"
 global_shapefile_data_path = "tests/data/division_politica_paises.shp"
 path_rose_wind = "tests/data/rosewind.png"
 bandwidth = 0.04
@@ -42,7 +43,6 @@ def test_plot_kernel_density_gls():
     assert result.exit_code == 0
     gtt.assert_exist(result_map_path)
 
-    gps_data_path = "tests/data/trips_geographic_points_tests.csv"
     result_map_path = "tests/kernel_50_percent_gps_albatros.png"
     gtt.if_exist_remove(result_map_path)
     result = runner.invoke(
@@ -113,6 +113,30 @@ def test_plot_geographic_points():
             "plot-geographic-points",
             "--geographic-data-path",
             gls_data_path,
+            "--global-shapefile-data-path",
+            global_shapefile_data_path,
+            "--path-rose-wind",
+            path_rose_wind,
+            "--result-map-path",
+            result_map_path,
+        ],
+    )
+    assert result.exit_code == 0
+    gtt.assert_exist(result_map_path)
+
+
+def test_plot_geographic_points_by_trip():
+    result = runner.invoke(cli, ["plot-geographic-points-by-trip", "--help"])
+    assert result.exit_code == 0
+
+    result_map_path = "tests/geographic_points_gps_albatros_by_trip.png"
+    gtt.if_exist_remove(result_map_path)
+    result = runner.invoke(
+        cli,
+        [
+            "plot-geographic-points-by-trip",
+            "--geographic-data-path",
+            gps_data_path,
             "--global-shapefile-data-path",
             global_shapefile_data_path,
             "--path-rose-wind",
