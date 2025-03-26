@@ -72,5 +72,5 @@ def test_format_plot():
     format_plot(ax, gps_data)
     assert ax.get_ylim()[1] == 60
     assert ax.get_ylim()[0] == 20
-    assert ax.get_xlim()[0] == -110
-    assert ax.get_xlim()[1] == -160
+    assert ax.get_xlim()[1] == -110
+    assert ax.get_xlim()[0] == -160
