@@ -3,6 +3,7 @@ from geci_plots.plot_kernel_density_gls import (
     _plot_kernel_density,
     _plot_kernel_density_and_points,
     _plot_geographic_points,
+    _plot_geographic_points_by_trip,
 )
 
 import matplotlib as plt
@@ -53,3 +54,12 @@ def test_plot_geographic_points():
     assert isinstance(obtained, plt.axes._axes.Axes)
     assert len(obtained.collections) == 2
     assert len(obtained.lines) == 1
+
+
+def test_plot_geographic_points_by_trip():
+    gls_data = pd.read_csv(gls_data_path)
+    obtained = _plot_geographic_points_by_trip(gls_data, global_shapefile_data_path, path_rose_wind)
+    plt.pyplot.savefig("points.png")
+    assert isinstance(obtained, plt.axes._axes.Axes)
+    assert len(obtained.collections) == 2
+    assert len(obtained.lines) > 1
