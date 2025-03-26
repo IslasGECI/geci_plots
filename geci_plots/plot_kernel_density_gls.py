@@ -64,7 +64,7 @@ def _plot_geographic_points_by_trip(gls_data, global_shapefile_data_path, path_r
 
     for label, df in gls_data_translated.groupby("tripID"):
         plt.plot(df["longitude"], df["latitude"], label=label)
-
+    plt.legend()
     plot_windrose(path_rose_wind, fig)
     return ax
 
