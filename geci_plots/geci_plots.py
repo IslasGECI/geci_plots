@@ -63,6 +63,10 @@ def plot_histogram_with_limits(x, bins, limits=[], plot_options={}, lines_option
     return ax
 
 
+def rounddown(x, multiplier):
+    return np.floor(x / multiplier) * multiplier
+
+
 def roundup(x, multiplier):
     return np.ceil(x / multiplier) * multiplier
 

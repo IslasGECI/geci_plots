@@ -1,4 +1,4 @@
-from geci_plots import np, plt, roundup
+from geci_plots import np, plt, roundup, rounddown
 from geoambiental import PointArray, get_kernel_density_geographic
 import matplotlib.pyplot as mpl
 from matplotlib.colors import ListedColormap
@@ -118,7 +118,7 @@ def format_plot(ax, track_data):
 def get_limits(track_data):
     multiplier = 10
     y_max = roundup(track_data["latitude"].max(), multiplier)
-    y_min = roundup(track_data["latitude"].min(), multiplier)
+    y_min = rounddown(track_data["latitude"].min(), multiplier)
     x_max = track_data["longitude"].max()
     x_min = track_data["longitude"].min()
     return {"y_max": y_max, "y_min": y_min, "x_max": x_max, "x_min": x_min}
