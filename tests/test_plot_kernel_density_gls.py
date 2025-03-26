@@ -57,9 +57,9 @@ def test_plot_geographic_points():
 
 
 def test_plot_geographic_points_by_trip():
-    gls_data = pd.read_csv(gls_data_path)
-    obtained = _plot_geographic_points_by_trip(gls_data, global_shapefile_data_path, path_rose_wind)
-    plt.pyplot.savefig("points.png")
+    gps_data = adapt_geographic_data(gps_data_path)
+    obtained = _plot_geographic_points_by_trip(gps_data, global_shapefile_data_path, path_rose_wind)
+    plt.pyplot.savefig("points_by_trip.png")
     assert isinstance(obtained, plt.axes._axes.Axes)
     assert len(obtained.collections) == 2
     assert len(obtained.lines) > 1
