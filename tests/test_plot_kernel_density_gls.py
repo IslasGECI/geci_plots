@@ -58,7 +58,6 @@ def test_plot_geographic_points():
 
 
 def test_plot_geographic_points_by_trip():
-    gps_data_path = "trips_geographic_points.csv"
     gps_data = adapt_geographic_data(gps_data_path)
     obtained = _plot_geographic_points_by_trip(gps_data, global_shapefile_data_path, path_rose_wind)
     plt.pyplot.savefig("points_by_trip.png")
