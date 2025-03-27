@@ -66,7 +66,7 @@ def test_plot_geographic_points_by_trip():
     assert len(obtained.collections) == 2
     assert len(obtained.lines) > 1
     assert obtained.lines[0].get_marker() == "."
-    assert obtained.lines[0].get_markersize() == 3
+    assert obtained.lines[0].get_markersize() == 2
 
 
 def test_format_plot():

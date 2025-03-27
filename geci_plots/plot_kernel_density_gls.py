@@ -63,7 +63,7 @@ def _plot_geographic_points_by_trip(gls_data, global_shapefile_data_path, path_r
     plot_global_politic_division(global_shapefile_data_path, ax)
 
     for label, df in gls_data_translated.groupby("tripID"):
-        plt.plot(df["longitude"], df["latitude"], ".", markersize=3, label=label)
+        plt.plot(df["longitude"], df["latitude"], ".", markersize=2, label=label)
     plot_windrose(path_rose_wind, fig)
     return ax
 
