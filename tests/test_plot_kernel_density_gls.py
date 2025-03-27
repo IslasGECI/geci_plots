@@ -58,12 +58,15 @@ def test_plot_geographic_points():
 
 
 def test_plot_geographic_points_by_trip():
+    gps_data_path = "trips_geographic_points.csv"
     gps_data = adapt_geographic_data(gps_data_path)
     obtained = _plot_geographic_points_by_trip(gps_data, global_shapefile_data_path, path_rose_wind)
     plt.pyplot.savefig("points_by_trip.png")
     assert isinstance(obtained, plt.axes._axes.Axes)
     assert len(obtained.collections) == 2
     assert len(obtained.lines) > 1
+    assert obtained.lines[0].get_marker() == "."
+    assert obtained.lines[0].get_markersize() == 3
 
 
 def test_format_plot():
