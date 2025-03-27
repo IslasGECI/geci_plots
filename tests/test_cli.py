@@ -152,5 +152,5 @@ def test_plot_geographic_points_by_trip():
 def test_version():
     result = runner.invoke(cli, ["version"])
     assert result.exit_code == 0
-    expected_version = "0.5.0"
+    expected_version = "0.6.0"
     assert expected_version in result.stdout
