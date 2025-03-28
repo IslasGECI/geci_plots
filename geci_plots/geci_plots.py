@@ -508,8 +508,8 @@ def create_box_plot_data(data_feature, column_name):
     boxsplotdata = []
     seasons = data_feature["Temporada"].unique()
     for i in seasons:
-        mask = data_feature["Temporada"] == i
-        data_feature_per_season = data_feature[mask][column_name]
+        masked_data_feature = data_feature[data_feature["Temporada"] == i]
+        data_feature_per_season = masked_data_feature[column_name]
         boxsplotdata.append(data_feature_per_season)
     return boxsplotdata, seasons
 

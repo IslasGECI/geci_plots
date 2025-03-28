@@ -28,6 +28,7 @@ from geci_plots import (
     select_date_interval,
     sort_monthly_dataframe,
     ticks_positions_array,
+    create_box_plot,
 )
 
 random_state = np.random.RandomState(1)
