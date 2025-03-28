@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2025-03-28
+
+### Added
+- Command `plot-geographic-points-by-vessel` for geographic point plot
+
+### Changed
+- Command `plot-kernel-density` now have fixed axis limits to show area of interest
+
 ## [0.6.0] - 2025-03-27
 
 ### Added
@@ -35,7 +43,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 
-[unreleased]: https://github.com/IslasGECI/dimorfismo_py/compare/v0.6.0...HEAD
+[unreleased]: https://github.com/IslasGECI/dimorfismo_py/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/IslasGECI/dimorfismo_py/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/IslasGECI/dimorfismo_py/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/IslasGECI/dimorfismo_py/compare/v0.4.1...v0.5.0
 [0.4.1]: https://github.com/IslasGECI/dimorfismo_py/releases/tag/v0.4.1
