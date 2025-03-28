@@ -70,6 +70,19 @@ def _plot_geographic_points_by_trip(gls_data, global_shapefile_data_path, path_r
     return ax
 
 
+def _plot_geographic_points_by_vessel(gls_data, global_shapefile_data_path, path_rose_wind):
+    gls_data_translated = translate_positive_longitudes(gls_data)
+
+    fig, ax = plt.subplots(figsize=(14.3, 10.4))
+    format_plot(ax, gls_data_translated)
+    plot_global_politic_division(global_shapefile_data_path, ax)
+
+    for label, df in gls_data_translated.groupby("RNP"):
+        plt.plot(df["longitude"], df["latitude"], ".", markersize=2, label=label)
+    plot_windrose(path_rose_wind, fig)
+    return ax
+
+
 def translate_positive_longitudes(gls_data):
     mask_datos_trand = gls_data.longitude > 0
     gls_data.loc[mask_datos_trand, "longitude"] = gls_data[mask_datos_trand]["longitude"] - 360
