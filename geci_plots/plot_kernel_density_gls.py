@@ -80,6 +80,8 @@ def _plot_geographic_points_by_vessel(gls_data, global_shapefile_data_path, path
     for label, df in gls_data_translated.groupby("RNP"):
         plt.plot(df["longitude"], df["latitude"], ".", markersize=2, label=label)
     plot_windrose(path_rose_wind, fig)
+    plt.ylim(-10, 40)
+    plt.xlim(-150, -80)
     return ax
 
 
