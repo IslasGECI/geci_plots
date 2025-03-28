@@ -63,7 +63,8 @@ def test_plot_geographic_points():
 
 
 def test_plot_geographic_points_by_vessel():
-    fisheries_data = "tests/data/vessels_geographic_points_tests.csv"
+    fisheries_data_path = "tests/data/vessels_geographic_points_tests.csv"
+    fisheries_data = adapt_geographic_data(fisheries_data_path)
     obtained = _plot_geographic_points_by_vessel(
         fisheries_data, global_shapefile_data_path, path_rose_wind
     )
