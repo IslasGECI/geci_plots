@@ -514,6 +514,14 @@ def create_box_plot_data(data_feature, column_name):
     return boxsplotdata, seasons
 
 
+def create_box_plot_data_from_columns(df, columns):
+    box_plot_data = []
+    for column in columns:
+        data_feature = df[column]
+        box_plot_data.append(data_feature)
+    return box_plot_data
+
+
 def heatmap(
     data, row_labels, col_labels, labels_size=15, ax=None, cbar_kw={}, cbarlabel="", **kwargs
 ):
