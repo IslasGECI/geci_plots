@@ -48,7 +48,7 @@ def test_create_box_plot_data():
         pd.testing.assert_series_equal(obtained_box_plot_data[i], expected_box_plot_data[i])
 
 
-def test_create_box_plot_data():
+def test_create_box_plot_data_from_columns():
     df_test = pd.DataFrame(
         {
             "duracion": [90, 43, 160, 88],
