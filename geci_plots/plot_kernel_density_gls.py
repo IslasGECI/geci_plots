@@ -41,6 +41,8 @@ def _plot_kernel_density(
     plot_global_politic_division(global_shapefile_data_path, ax)
     plot_kernel_contour(gls_data_translated, selected_contour, bandwidth)
     plot_windrose(path_rose_wind, fig)
+    plt.ylim(20, 40)
+    plt.xlim(-130, -110)
     return ax
 
 
