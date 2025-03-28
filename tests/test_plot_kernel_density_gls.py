@@ -74,6 +74,10 @@ def test_plot_geographic_points_by_vessel():
     assert len(obtained.lines) > 1
     assert obtained.lines[0].get_marker() == "."
     assert obtained.lines[0].get_markersize() == 2
+    assert obtained.get_ylim()[1] == 40
+    assert obtained.get_ylim()[0] == -10
+    assert obtained.get_xlim()[1] == -80
+    assert obtained.get_xlim()[0] == -150
 
 
 def test_plot_geographic_points_by_trip():
