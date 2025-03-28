@@ -2,8 +2,9 @@ from geci_plots.geci_plots import geci_plot
 
 
 def create_box_plot(boxplotdata):
-    fig, ax = geci_plot()  # graf + grande y se remueva barras
-    ax.boxplot(boxplotdata)
+    labels = [serie.name for serie in boxplotdata]
+    fig, ax = geci_plot()
+    ax.boxplot(boxplotdata, tick_labels=labels)
     return fig, ax
 
 
