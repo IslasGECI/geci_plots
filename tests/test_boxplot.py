@@ -1,11 +1,23 @@
 import numpy as np
 import pandas as pd
+import matplotlib as plt
 
 
 from geci_plots.boxplots import (
+    create_box_plot,
     create_box_plot_data,
     create_box_plot_data_from_columns,
 )
+
+
+def test_create_box_plot():
+    boxplotdata = [
+        pd.Series(10, index=[0], name="Longitud"),
+        pd.Series([20, 40], index=[1, 3], name="Longitud"),
+        pd.Series(30, index=[2], name="Longitud"),
+    ]
+    _, obtained_ax = create_box_plot(boxplotdata)
+    assert isinstance(obtained_ax, plt.axes._axes.Axes)
 
 
 def test_create_box_plot_data():
