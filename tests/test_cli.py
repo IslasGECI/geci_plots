@@ -185,7 +185,7 @@ def test_boxplot():
     result = runner.invoke(
         cli,
         [
-            "plot-geographic-points-by-vessel",
+            "boxplot",
             "--data-path",
             data_path,
             "--columns-of-interest",
