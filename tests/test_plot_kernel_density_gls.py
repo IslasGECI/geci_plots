@@ -5,6 +5,7 @@ from geci_plots.plot_kernel_density_gls import (
     _plot_kernel_density_and_points,
     _plot_geographic_points,
     _plot_geographic_points_by_trip,
+    _plot_geographic_points_by_vessel,
 )
 
 import matplotlib as plt
@@ -59,6 +60,19 @@ def test_plot_geographic_points():
     assert isinstance(obtained, plt.axes._axes.Axes)
     assert len(obtained.collections) == 2
     assert len(obtained.lines) == 1
+
+
+def test_plot_geographic_points_by_vessel():
+    fisheries_data = "tests/data/vessels_geographic_points_tests.csv"
+    obtained = _plot_geographic_points_by_vessel(
+        fisheries_data, global_shapefile_data_path, path_rose_wind
+    )
+    plt.pyplot.savefig("points_by_vessel.png")
+    assert isinstance(obtained, plt.axes._axes.Axes)
+    assert len(obtained.collections) == 2
+    assert len(obtained.lines) > 1
+    assert obtained.lines[0].get_marker() == "."
+    assert obtained.lines[0].get_markersize() == 2
 
 
 def test_plot_geographic_points_by_trip():
