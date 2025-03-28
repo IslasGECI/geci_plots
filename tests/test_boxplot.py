@@ -11,13 +11,17 @@ from geci_plots.boxplots import (
 
 
 def test_create_box_plot():
+    columns_of_interest = ["distance", "time", "max_distance"]
     boxplotdata = [
-        pd.Series(10, index=[0], name="Longitud"),
-        pd.Series([20, 40], index=[1, 3], name="Longitud"),
-        pd.Series(30, index=[2], name="Longitud"),
+        pd.Series(10, index=[0], name=columns_of_interest[0]),
+        pd.Series([20, 40], index=[1, 3], name=columns_of_interest[1]),
+        pd.Series(30, index=[2], name=columns_of_interest[2]),
     ]
     _, obtained_ax = create_box_plot(boxplotdata)
     assert isinstance(obtained_ax, plt.axes._axes.Axes)
+    assert obtained_ax.get_xticklabels()[0].get_text() == columns_of_interest[0]
+    assert obtained_ax.get_xticklabels()[1].get_text() == columns_of_interest[1]
+    assert obtained_ax.get_xticklabels()[2].get_text() == columns_of_interest[2]
 
 
 def test_create_box_plot_data():
