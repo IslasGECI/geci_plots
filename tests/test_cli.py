@@ -174,6 +174,30 @@ def test_plot_geographic_points_by_vessel():
     gtt.assert_exist(result_map_path)
 
 
+def test_boxplot():
+    result = runner.invoke(cli, ["boxplot", "--help"])
+    assert result.exit_code == 0
+
+    data_path = "tests/data/summary_trips.csv"
+    boxplot_path = "tests/boxplot.png"
+    columns_of_interest = "duration,total_dist,max_dist"
+    gtt.if_exist_remove(boxplot_path)
+    result = runner.invoke(
+        cli,
+        [
+            "plot-geographic-points-by-vessel",
+            "--data-path",
+            data_path,
+            "--columns-of-interest",
+            columns_of_interest,
+            "--boxplot-path",
+            boxplot_path,
+        ],
+    )
+    assert result.exit_code == 0
+    gtt.assert_exist(boxplot_path)
+
+
 def test_version():
     result = runner.invoke(cli, ["version"])
     assert result.exit_code == 0
