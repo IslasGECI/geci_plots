@@ -46,6 +46,10 @@ def test_plot_kernel_density():
     assert isinstance(obtained, plt.axes._axes.Axes)
     assert len(obtained.collections) == 3
     assert len(obtained.lines) == 0
+    assert obtained.get_ylim()[1] == 40
+    assert obtained.get_ylim()[0] == 20
+    assert obtained.get_xlim()[1] == -110
+    assert obtained.get_xlim()[0] == -130
 
 
 def test_plot_geographic_points():
