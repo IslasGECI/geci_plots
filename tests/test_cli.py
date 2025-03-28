@@ -149,6 +149,31 @@ def test_plot_geographic_points_by_trip():
     gtt.assert_exist(result_map_path)
 
 
+def test_plot_geographic_points_by_vessel():
+    result = runner.invoke(cli, ["plot-geographic-points-by-vessel", "--help"])
+    assert result.exit_code == 0
+
+    vessels_gps_data_path = "tests/data/vessels_geographic_points_tests.csv"
+    result_map_path = "tests/geographic_points_gps_by_vessel.png"
+    gtt.if_exist_remove(result_map_path)
+    result = runner.invoke(
+        cli,
+        [
+            "plot-geographic-points-by-vessel",
+            "--geographic-data-path",
+            vessels_gps_data_path,
+            "--global-shapefile-data-path",
+            global_shapefile_data_path,
+            "--path-rose-wind",
+            path_rose_wind,
+            "--result-map-path",
+            result_map_path,
+        ],
+    )
+    assert result.exit_code == 0
+    gtt.assert_exist(result_map_path)
+
+
 def test_version():
     result = runner.invoke(cli, ["version"])
     assert result.exit_code == 0
