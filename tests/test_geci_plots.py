@@ -28,7 +28,7 @@ from geci_plots import (
     select_date_interval,
     sort_monthly_dataframe,
     ticks_positions_array,
-    create_box_plot,
+    create_box_plot_data_from_columns,
 )
 
 random_state = np.random.RandomState(1)
@@ -46,6 +46,19 @@ def test_create_box_plot_data():
     np.testing.assert_array_equal(obtained_seasons, expected_seasons)
     for i in range(3):
         pd.testing.assert_series_equal(obtained_box_plot_data[i], expected_box_plot_data[i])
+
+
+def test_create_box_plot_data():
+    df_test = pd.DataFrame(
+        {
+            "duracion": [90, 43, 160, 88],
+            "distancia_total": [10, 20, 30, 40],
+            "distancia_maxima": [3, 4, 5, 5],
+        }
+    )
+    columns = ["duracion", "distancia_total"]
+    obtained_box_plot_data = create_box_plot_data_from_columns(df_test, columns)
+    assert len(obtained_box_plot_data) == 2
 
 
 def test_historic_mean_effort():
