@@ -9,9 +9,9 @@ import numpy as np
 import pandas as pd
 
 
-def setup_matplotlib(fontfamily, dpi):
+def setup_matplotlib(font_family, dpi):
     matplotlib.rcParams["figure.dpi"] = dpi
-    matplotlib.rcParams["font.family"] = fontfamily
+    matplotlib.rcParams["font.family"] = font_family
     matplotlib.rcParams["mathtext.fontset"] = "stix"
     matplotlib.use("Agg")
 
@@ -46,8 +46,8 @@ islet_colors = {
 }
 
 
-def geci_plot(fontname="STIXGeneral", dpi=300, figsize=(11, 8)):
-    setup_matplotlib(fontname, dpi)
+def geci_plot(font_family="STIXGeneral", dpi=300, figsize=(11, 8)):
+    setup_matplotlib(font_family, dpi)
     fig, ax = plt.subplots(figsize=figsize)
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)
