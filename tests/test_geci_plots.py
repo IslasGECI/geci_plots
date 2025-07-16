@@ -188,7 +188,7 @@ def test_geci_plot():
     assert obtained_ax.get_xticklabels()[0].get_fontname() == "STIXGeneral"
 
     expected_dpi = 310
-    expected_fontname = "DejaVuSans"
+    expected_fontname = "DejaVu Sans"
     obtained_fig, obtained_ax = geci_plot(fontname=expected_fontname, dpi=expected_dpi)
     assert obtained_fig.get_dpi() == expected_dpi
     assert obtained_ax.get_xticklabels()[0].get_fontname() == expected_fontname
