@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2025-07-16
+### Added
+- Arguments `dpi` and `font_family` to function `geci_plots`.
+
 ## [0.7.0] - 2025-03-28
 
 ### Added
