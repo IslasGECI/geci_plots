@@ -13,6 +13,32 @@ path_rose_wind = "tests/data/rosewind.png"
 bandwidth = 0.04
 
 
+def test_cli_plot_monthly_cameras_effort_and_captures():
+    result = runner.invoke(cli, ["plot-monthly-cameras-effort-and-captures", "--help"])
+    assert result.exit_code == 0
+
+    cameras_data_path = "tests/data/weekly_cameras_effort.csv"
+    output_path = "tests/montlhy_cameras_effort_captures.png"
+
+    gtt.if_exist_remove(output_path)
+    result = runner.invoke(
+        cli,
+        [
+            "plot-monthly-cameras-effort-and-captures",
+            "--cameras-data-path",
+            cameras_data_path,
+            "--start-date",
+            "2025-11-02",
+            "--end-date",
+            "2026-01-04",
+            "--output-path",
+            output_path,
+        ],
+    )
+    assert result.exit_code == 0
+    gtt.assert_exist(output_path)
+
+
 def test_plot_kernel_density_gls():
     result = runner.invoke(cli, ["plot-kernel-density-and-points", "--help"])
     assert result.exit_code == 0
