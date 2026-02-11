@@ -33,6 +33,8 @@ check:
 	black --check --line-length 100 tests
 	flake8 --max-line-length 100 ${module}
 	flake8 --max-line-length 100 tests
+	mypy ${module}
+	mypy tests
 
 clean:
 	rm --force --recursive ${module}.egg-info
@@ -70,26 +72,28 @@ mutants: setup
 	expr "{mutmut results | wc -l}" == "0"
 
 setup: clean install
+	mypy --install-types
 	mkdir --parents tests/baseline
 	pytest --mpl-generate-path tests/baseline/
 
 tests:
 	pytest --mpl --verbose tests/
 
+tests_location = tests/
 red: format
-	pytest --verbose \
+	pytest --verbose ${tests_location} \
 	&& git restore tests/*.py \
 	|| (git add tests/*.py && git commit -m "🛑🧪 Fail tests")
 	chmod g+w -R .
 
 green: format
-	pytest --verbose \
+	pytest --verbose ${tests_location} \
 	&& (git add ${module}/*.py tests/*.py && git commit -m "✅ Pass tests") \
 	|| git restore ${module}/*.py
 	chmod g+w -R .
 
 refactor: format
-	pytest --verbose \
+	pytest --verbose ${tests_location} \
 	&& (git add ${module}/*.py tests/*.py && git commit -m "♻️  Refactor ${message}") \
 	|| git restore ${module}/*.py tests/*.py
 	chmod g+w -R .

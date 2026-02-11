@@ -24,3 +24,6 @@ geci-plot-cli = "geci_plots.cli:cli"
 [tool.mutmut]
 paths_to_mutate = [ "geci_plots/" ]
 tests_dir = [ "tests/" ]
+[[tool.mypy.overrides]]
+module = ["geoambiental.*","mpl_toolkits.axes_grid1.*"]
+ignore_missing_imports = true
