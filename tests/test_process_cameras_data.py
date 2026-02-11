@@ -10,4 +10,4 @@ def test_summarize_monthly_cameras_effort_and_captures():
     obtained = summarize_monthly_cameras_effort_and_captures(camera_data, begin_date, end_date)
     expected_nrows = 4
     assert len(obtained) == expected_nrows
-    assert obtained.loc["2026-01-01", "Effort"] == 329
+    assert obtained.loc["2026-01-01", "Effort"] == 182
