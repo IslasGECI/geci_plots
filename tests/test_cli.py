@@ -3,7 +3,6 @@ from geci_plots import cli
 import geci_test_tools as gtt
 from typer.testing import CliRunner
 
-
 runner = CliRunner()
 
 

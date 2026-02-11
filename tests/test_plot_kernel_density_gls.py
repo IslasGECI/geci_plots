@@ -11,7 +11,6 @@ from geci_plots.plot_kernel_density_gls import (
 import matplotlib as plt
 import pandas as pd
 
-
 global_shapefile_data_path = "tests/data/division_politica_paises.shp"
 path_rose_wind = "tests/data/rosewind.png"
 selected_contour = "50_contour"
