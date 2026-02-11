@@ -19,7 +19,7 @@ def _plot_monthly_cameras_effort_and_captures(cameras_data, begin_date, final_da
     x_ticks = generate_monthly_ticks(processed_cameras_data)
     fontsize = 20
 
-    fig, ax = geci_plot()
+    _, ax = geci_plot()
 
     annotated_bar_plot(ax, processed_cameras_data, x_ticks, column_key="Total_individuals", y_pos=1)
     ax.set_ylabel("Detections per month (cats in photos)", fontsize=fontsize)
@@ -36,7 +36,7 @@ def _plot_monthly_cameras_effort_and_captures(cameras_data, begin_date, final_da
     ax2.tick_params(axis="both", labelsize=fontsize, labelrotation=90)
     ax.tick_params(axis="both", labelsize=fontsize)
     plt.tight_layout()
-    return ax
+    return ax, ax2
 
 
 def summarize_monthly_cameras_effort_and_captures(cameras_data, begin_date, final_date):
