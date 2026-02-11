@@ -7,12 +7,26 @@ from geci_plots.plot_kernel_density_gls import (
     adapt_geographic_data,
 )
 from geci_plots.boxplots import create_box_plot, create_box_plot_data_from_columns
+from geci_plots.process_cameras_data import _plot_monthly_cameras_effort_and_captures
+
 import geci_plots as gp
 import matplotlib.pyplot as plt
 import pandas as pd
 import typer
 
 cli = typer.Typer()
+
+
+@cli.command()
+def plot_monthly_cameras_effort_and_captures(
+    cameras_data_path: str = typer.Option(),
+    start_date: str = typer.Option(),
+    end_date: str = typer.Option(),
+    output_path: str = typer.Option(),
+):
+    cameras_data = pd.read_csv(cameras_data_path)
+    ax, ax2 = _plot_monthly_cameras_effort_and_captures(cameras_data, start_date, end_date)
+    plt.savefig(output_path)
 
 
 @cli.command()
