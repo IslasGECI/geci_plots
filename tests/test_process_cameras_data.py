@@ -26,6 +26,14 @@ def test_plot_monthly_cameras_effort_and_captures():
     assert obtained_ax2.get_shared_x_axes().joined(obtained_ax, obtained_ax2)
     assert obtained_ax.bbox.bounds == obtained_ax2.bbox.bounds
 
+    assert obtained_ax2.get_ylim() == (0, 800)
+
+    expected_fontsize = 20
+    assert obtained_ax.get_yaxis().get_ticklabels()[0].get_fontsize() == expected_fontsize
+    assert obtained_ax2.get_yaxis().get_ticklabels()[0].get_fontsize() == expected_fontsize
+
+    assert obtained_ax2.get_yaxis().get_ticklabels()[0].get_rotation() == 90
+
 
 def test_summarize_monthly_cameras_effort_and_captures():
     obtained = summarize_monthly_cameras_effort_and_captures(camera_data, begin_date, end_date)
