@@ -18,12 +18,20 @@ requires = [
 	"typer[all]"
 ]
 requires-python=">=3.9"
-[tool.flit.scripts]
-geci-plot-cli = "geci_plots.cli:cli"
 
 [tool.mutmut]
 paths_to_mutate = [ "geci_plots/" ]
 tests_dir = [ "tests/" ]
+
+[tool.flit.scripts]
+geci-plot-cli = "geci_plots.cli:cli"
+
 [[tool.mypy.overrides]]
-module = ["geoambiental.*","mpl_toolkits.axes_grid1.*"]
-ignore_missing_imports = true
+module = [
+	"geci_test_tools.*",
+	"geoambiental.*",
+	"geopandas.*",
+	"mpl_toolkits.*",
+	"pandas.*",
+]
+follow_untyped_imports = true

@@ -1,10 +1,8 @@
-#!/usr/bin/env python
-
 from mpl_toolkits.axes_grid1.anchored_artists import AnchoredSizeBar
 
-import matplotlib
-import matplotlib.font_manager as fm
 import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
+import matplotlib
 import numpy as np
 import pandas as pd
 
@@ -16,7 +14,7 @@ def setup_matplotlib(font_family, dpi):
     matplotlib.use("Agg")
 
 
-cmap = plt.get_cmap("tab10")
+cmap = matplotlib.colormaps["tab10"]  # type: ignore[attr-defined]
 zones_colors = cmap(np.arange(9))
 
 islet_markers = {
