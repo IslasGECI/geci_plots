@@ -20,8 +20,6 @@ jobs:
       with:
         files: ./coverage.xml
         verbose: true
-    - name: Evalúa resistencia a mutaciones
-      run: docker run islasgeci/geci_plots:latest make mutants
     - name: Create/Update tag
       uses: rickstaa/action-create-tag@v1.5.4
       with:
@@ -39,6 +37,7 @@ jobs:
       run: docker push islasgeci/geci_plots:${GITHUB_SHA:0:4}
   build-n-publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI
+    needs: actions
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
@@ -65,3 +64,14 @@ jobs:
       with:
         password: ${{ secrets.PYPI_TOKEN }}
         skip-existing: true
+  mutation-testing:
+    name: Mutation testing 👾
+    needs: actions
+    runs-on: ubuntu-latest
+    steps:
+    - name: Copia repositorio
+      uses: actions/checkout@main
+    - name: Construye imagen
+      run: docker build --tag islasgeci/geci_plots:latest --tag islasgeci/geci_plots:${GITHUB_SHA:0:4} .
+    - name: Evalúa resistencia a mutaciones
+      run: docker run islasgeci/geci_plots:latest make mutants
