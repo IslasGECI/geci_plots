@@ -1,4 +1,4 @@
-from geci_plots.process_effort_and_capures_data import process_effort_and_captures_data_by_zone
+from geci_plots.process_effort_and_captures_data import process_effort_and_captures_data_by_zone
 import pandas as pd
 
 
