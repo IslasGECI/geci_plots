@@ -28,9 +28,7 @@ def plot_monthly_traps_effort_and_captures_by_zone(
     output_path: str = typer.Option(),
 ):
     effort_captures_data = pd.read_csv(effort_captures_data_path)
-    _plot_monthly_traps_effort_and_captures_by_zone(
-        effort_captures_data, start_date, end_date
-    )
+    _plot_monthly_traps_effort_and_captures_by_zone(effort_captures_data, start_date, end_date)
     plt.savefig(output_path, transparent=True)
 
 
@@ -43,7 +41,7 @@ def plot_monthly_cameras_effort_and_captures(
 ):
     cameras_data = pd.read_csv(cameras_data_path)
     _plot_monthly_cameras_effort_and_captures(cameras_data, start_date, end_date)
-    plt.savefig(output_path)
+    plt.savefig(output_path, transparent=True)
 
 
 @cli.command()
@@ -59,7 +57,7 @@ def plot_kernel_density_and_points(
     _plot_kernel_density_and_points(
         geographic_data, global_shapefile_data_path, path_rose_wind, selected_contour, bandwidth
     )
-    plt.savefig(result_map_path)
+    plt.savefig(result_map_path, transparent=True)
 
 
 @cli.command()
@@ -75,7 +73,7 @@ def plot_kernel_density(
     _plot_kernel_density(
         geographic_data, global_shapefile_data_path, path_rose_wind, selected_contour, bandwidth
     )
-    plt.savefig(result_map_path)
+    plt.savefig(result_map_path, transparent=True)
 
 
 @cli.command()
@@ -87,7 +85,7 @@ def plot_geographic_points(
 ):
     geographic_data = adapt_geographic_data(geographic_data_path)
     _plot_geographic_points(geographic_data, global_shapefile_data_path, path_rose_wind)
-    plt.savefig(result_map_path)
+    plt.savefig(result_map_path, transparent=True)
 
 
 @cli.command()
@@ -99,7 +97,7 @@ def plot_geographic_points_by_trip(
 ):
     geographic_data = adapt_geographic_data(geographic_data_path)
     _plot_geographic_points_by_trip(geographic_data, global_shapefile_data_path, path_rose_wind)
-    plt.savefig(result_map_path)
+    plt.savefig(result_map_path, transparent=True)
 
 
 @cli.command()
@@ -111,7 +109,7 @@ def plot_geographic_points_by_vessel(
 ):
     geographic_data = adapt_geographic_data(geographic_data_path)
     _plot_geographic_points_by_vessel(geographic_data, global_shapefile_data_path, path_rose_wind)
-    plt.savefig(result_map_path)
+    plt.savefig(result_map_path, transparent=True)
 
 
 @cli.command()
@@ -125,7 +123,7 @@ def boxplot(
     print(columns)
     data_for_boxplot = create_box_plot_data_from_columns(summary_data, columns)
     create_box_plot(data_for_boxplot)
-    plt.savefig(boxplot_path)
+    plt.savefig(boxplot_path, transparent=True)
 
 
 @cli.command()

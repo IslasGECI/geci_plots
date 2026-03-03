@@ -76,6 +76,7 @@ def test_cli_plot_monthly_cameras_effort_and_captures():
     )
     assert result.exit_code == 0
     gtt.assert_exist(output_path)
+    assert_transparent_figure(output_path)
 
 
 def test_plot_kernel_density_gls():
@@ -129,6 +130,7 @@ def test_plot_kernel_density_gls():
     )
     assert result.exit_code == 0
     gtt.assert_exist(result_map_path)
+    assert_transparent_figure(result_map_path)
 
 
 def test_plot_kernel_density():
@@ -163,6 +165,7 @@ def test_plot_kernel_density():
     )
     assert result.exit_code == 0
     gtt.assert_exist(result_map_path)
+    assert_transparent_figure(result_map_path)
 
 
 def test_plot_geographic_points():
@@ -187,6 +190,7 @@ def test_plot_geographic_points():
     )
     assert result.exit_code == 0
     gtt.assert_exist(result_map_path)
+    assert_transparent_figure(result_map_path)
 
 
 def test_plot_geographic_points_by_trip():
@@ -211,6 +215,7 @@ def test_plot_geographic_points_by_trip():
     )
     assert result.exit_code == 0
     gtt.assert_exist(result_map_path)
+    assert_transparent_figure(result_map_path)
 
 
 def test_plot_geographic_points_by_vessel():
@@ -236,6 +241,7 @@ def test_plot_geographic_points_by_vessel():
     )
     assert result.exit_code == 0
     gtt.assert_exist(result_map_path)
+    assert_transparent_figure(result_map_path)
 
 
 def test_boxplot():
@@ -260,6 +266,7 @@ def test_boxplot():
     )
     assert result.exit_code == 0
     gtt.assert_exist(boxplot_path)
+    assert_transparent_figure(boxplot_path)
 
 
 def test_version():
