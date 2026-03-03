@@ -11,4 +11,4 @@ def test_process_effort_and_captures_data_by_zone():
     )
     expected_number_of_months = 3
     expected_number_of_column_zones = 3
-    assert obtained.shape() == (expected_number_of_months, expected_number_of_column_zones)
+    assert obtained.shape == (expected_number_of_months, expected_number_of_column_zones)
