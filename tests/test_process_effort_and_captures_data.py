@@ -30,4 +30,3 @@ def test_plot_monthly_traps_effort_and_captures_by_zone():
 
     expected_ylabel2 = "Effort per month (night traps)"
     assert obtained_ax2.get_ylabel() == expected_ylabel2
-    obtained_ax.savefig("plot_monthly_traps_effort_and_captures_by_zone.png")
