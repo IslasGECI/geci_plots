@@ -5,7 +5,8 @@ from geci_plots.process_effort_and_captures_data import (
 import pandas as pd
 import matplotlib as plt
 
-effort_captures_data = pd.read_csv("tests/data/monthly_effort_and_captures_by_zone.csv")
+effort_captures_data = pd.read_csv(
+    "tests/data/monthly_effort_and_captures_by_zone.csv")
 starting_date = "2026-01-01"
 ending_date = "2026-03-31"
 
@@ -16,7 +17,8 @@ def test_process_effort_and_captures_data_by_zone():
     )
     expected_number_of_months = 3
     expected_number_of_column_zones = 3
-    assert obtained.shape == (expected_number_of_months, expected_number_of_column_zones)
+    assert obtained.shape == (
+        expected_number_of_months, expected_number_of_column_zones)
 
 
 def test_plot_monthly_traps_effort_and_captures_by_zone():
@@ -30,3 +32,4 @@ def test_plot_monthly_traps_effort_and_captures_by_zone():
 
     expected_ylabel2 = "Effort per month (night traps)"
     assert obtained_ax2.get_ylabel() == expected_ylabel2
+    obtained_ax.savefig("plot_monthly_traps_effort_and_captures_by_zone.png")
