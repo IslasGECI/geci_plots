@@ -25,8 +25,8 @@ def test_plot_monthly_traps_effort_and_captures_by_zone():
     )
     assert isinstance(obtained_ax, plt.axes._axes.Axes)
 
-    expected_ylabel = "Detections per month (cats in photos)"
+    expected_ylabel = "Captures per month (No. cats dispatched)"
     assert obtained_ax.get_ylabel() == expected_ylabel
 
-    expected_ylabel2 = "Effort per month (camera night traps)"
+    expected_ylabel2 = "Effort per month (night traps)"
     assert obtained_ax2.get_ylabel() == expected_ylabel2
