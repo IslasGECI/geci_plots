@@ -13,6 +13,35 @@ path_rose_wind = "tests/data/rosewind.png"
 bandwidth = 0.04
 
 
+def test_cli_plot_monthly_traps_effort_and_captures_by_zone():
+    result = runner.invoke(cli, ["plot-monthly-traps-effort-and-captures-by-zone", "--help"])
+    assert result.exit_code == 0
+
+    effort_captures_data_path = "tests/data/monthly_effort_and_captures_by_zone.csv"
+    starting_date = "2026-01-01"
+    ending_date = "2026-03-31"
+
+    output_path = "tests/montlhy_traps_effort_captures_by_zone.png"
+
+    gtt.if_exist_remove(output_path)
+    result = runner.invoke(
+        cli,
+        [
+            "plot-monthly-traps-effort-and-captures-by-zone",
+            "--effort-captures-data-path",
+            effort_captures_data_path,
+            "--start-date",
+            starting_date,
+            "--end-date",
+            ending_date,
+            "--output-path",
+            output_path,
+        ],
+    )
+    assert result.exit_code == 0
+    gtt.assert_exist(output_path)
+
+
 def test_cli_plot_monthly_cameras_effort_and_captures():
     result = runner.invoke(cli, ["plot-monthly-cameras-effort-and-captures", "--help"])
     assert result.exit_code == 0
