@@ -8,6 +8,9 @@ from geci_plots.plot_kernel_density_gls import (
 )
 from geci_plots.boxplots import create_box_plot, create_box_plot_data_from_columns
 from geci_plots.process_cameras_data import _plot_monthly_cameras_effort_and_captures
+from geci_plots.process_effort_and_captures_data import (
+    _plot_monthly_traps_effort_and_captures_by_zone,
+)
 
 import geci_plots as gp
 import matplotlib.pyplot as plt
@@ -15,6 +18,20 @@ import pandas as pd
 import typer
 
 cli = typer.Typer()
+
+
+@cli.command()
+def plot_monthly_traps_effort_and_captures_by_zone(
+    effort_captures_data_path: str = typer.Option(),
+    start_date: str = typer.Option(),
+    end_date: str = typer.Option(),
+    output_path: str = typer.Option(),
+):
+    effort_captures_data = pd.read_csv(effort_captures_data_path)
+    ax, ax2 = _plot_monthly_traps_effort_and_captures_by_zone(
+        effort_captures_data, start_date, end_date
+    )
+    plt.savefig(output_path)
 
 
 @cli.command()
