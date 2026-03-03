@@ -1,6 +1,7 @@
 from geci_plots import cli
 
 import geci_test_tools as gtt
+import matplotlib.pyplot as plt
 from typer.testing import CliRunner
 
 runner = CliRunner()
@@ -40,6 +41,15 @@ def test_cli_plot_monthly_traps_effort_and_captures_by_zone():
     )
     assert result.exit_code == 0
     gtt.assert_exist(output_path)
+    assert_transparent_figure(output_path)
+
+
+def assert_transparent_figure(output_path):
+    image = plt.imread(output_path)
+    proportion_of_transparent_pixels = len(image[image[:, :, 3] == 0]) / len(
+        image[:, :, 3].flatten()
+    )
+    assert proportion_of_transparent_pixels != 0
 
 
 def test_cli_plot_monthly_cameras_effort_and_captures():

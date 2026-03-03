@@ -28,10 +28,10 @@ def plot_monthly_traps_effort_and_captures_by_zone(
     output_path: str = typer.Option(),
 ):
     effort_captures_data = pd.read_csv(effort_captures_data_path)
-    ax, ax2 = _plot_monthly_traps_effort_and_captures_by_zone(
+    _plot_monthly_traps_effort_and_captures_by_zone(
         effort_captures_data, start_date, end_date
     )
-    plt.savefig(output_path)
+    plt.savefig(output_path, transparent=True)
 
 
 @cli.command()
@@ -42,7 +42,7 @@ def plot_monthly_cameras_effort_and_captures(
     output_path: str = typer.Option(),
 ):
     cameras_data = pd.read_csv(cameras_data_path)
-    ax, ax2 = _plot_monthly_cameras_effort_and_captures(cameras_data, start_date, end_date)
+    _plot_monthly_cameras_effort_and_captures(cameras_data, start_date, end_date)
     plt.savefig(output_path)
 
 
