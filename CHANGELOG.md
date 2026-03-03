@@ -14,6 +14,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.10.0] - 2026-03-03
+### Added
+- CLI command `plot-monthly-traps-effort-and-captures-by-zone` to plot montlhy traps effort and captures by zone.
+
+### Fixed
+- All plots generated from CLI commands are transparent.
+
 ## [0.9.0] - 2026-02-12
 ### Added
 - CLI command `plot-monthly-cameras-effort-and-captures` to plot montlhy cameras effort and detections.
