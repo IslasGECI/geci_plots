@@ -19,6 +19,7 @@ def test_plot_population_time_series():
                 "2021-10-01",
                 "2021-11-01",
                 "2021-12-01",
+                "2022-12-01",
             ],
             "population_size": [
                 215.99034,
@@ -32,6 +33,7 @@ def test_plot_population_time_series():
                 182.76378499999998,
                 183.719325,
                 180.631135,
+                180.566105,
                 180.566105,
             ],
             "population_size_percentile_95": [
@@ -47,6 +49,7 @@ def test_plot_population_time_series():
                 195.35084650000002,
                 192.499587,
                 192.783518,
+                192.783518,
             ],
             "Births": [
                 2.23487850679665,
@@ -61,8 +64,9 @@ def test_plot_population_time_series():
                 1.9009663613923125,
                 1.8690124811590374,
                 1.8683396077828625,
+                1.8683396077828625,
             ],
-            "Captures": [1, 12, 5, 18, 14, 0, 0, 0, 1, 5, 2, 3],
+            "Captures": [1, 12, 5, 18, 14, 0, 0, 0, 1, 5, 2, 3, 2],
         }
     )
     obtained = plot_population_time_series(data)
