@@ -81,7 +81,8 @@ def test_plot_population_time_series():
     expected_fontsize = 15
     assert obtained.get_xticklabels()[0].get_fontsize() == expected_fontsize
     assert obtained.get_yticklabels()[0].get_fontsize() == expected_fontsize
-    assert obtained.get_yaxis().get_label().get_fontsize() == expected_fontsize
+    expected_ylabel_fontsize = 20
+    assert obtained.get_yaxis().get_label().get_fontsize() == expected_ylabel_fontsize
 
     assert "o" in obtained.get_lines()[0].get_marker()
     assert obtained.get_legend().get_texts()[0].get_text() == "Captures"
