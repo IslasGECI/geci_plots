@@ -11,7 +11,7 @@ def plot_population_time_series(data):
     ax.plot(data["Date"], data["Captures"])
 
     plt.ylabel("Number of individuals")
-    ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m"))
+    ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
     plt.xticks(rotation=90)
 
     return ax
