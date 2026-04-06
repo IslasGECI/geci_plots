@@ -70,6 +70,7 @@ def test_plot_population_time_series():
         }
     )
     obtained = plot_population_time_series(data)
+    plt.pyplot.savefig("prueba.png")
     assert isinstance(obtained, plt.axes._axes.Axes)
 
     expected_ylabel = "Number of individuals"
