@@ -67,3 +67,6 @@ def test_plot_population_time_series():
     )
     obtained = plot_population_time_series(data)
     assert isinstance(obtained, plt.axes._axes.Axes)
+
+    expected_ylabel = "Number of individuals"
+    assert obtained.get_ylabel() == expected_ylabel
