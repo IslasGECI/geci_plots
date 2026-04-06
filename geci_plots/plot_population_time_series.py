@@ -8,7 +8,7 @@ def plot_population_time_series(data):
 
     data["Date"] = pd.to_datetime(data["Date"])
 
-    ax.plot(data["Date"], data["Captures"])
+    ax.plot(data["Date"], data["Captures"], marker=".")
 
     plt.ylabel("Number of individuals")
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
