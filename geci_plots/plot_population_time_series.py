@@ -11,7 +11,7 @@ def plot_population_time_series(data):
     ax.plot(data["Date"], data["Captures"], marker="o", label="Captures")
 
     fontsize = 15
-    plt.ylabel("Number of individuals", fontsize=fontsize)
+    plt.ylabel("Number of individuals", fontsize=fontsize + 5)
     ax.xaxis.set_major_locator(mdates.MonthLocator())
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
     loc, labels = plt.xticks()
