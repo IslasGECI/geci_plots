@@ -79,3 +79,4 @@ def test_plot_population_time_series():
     assert obtained.get_xticklabels()[-1].get_text() == "Dec 2022"
     assert "o" in obtained.get_lines()[0].get_marker()
     assert obtained.get_legend().get_texts()[0].get_text() == "Captures"
+    assert obtained.get_yaxis().get_label().get_fontsize() == 15.0
