@@ -14,6 +14,6 @@ def plot_population_time_series(data):
     ax.xaxis.set_major_locator(mdates.MonthLocator())
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
     loc, labels = plt.xticks()
-    plt.xticks(loc[1:], labels[1:], rotation=90)
+    plt.xticks(loc[1:-1], labels[1:-1], rotation=90)
 
     return ax
