@@ -16,6 +16,7 @@ def plot_population_time_series(data):
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
     loc, labels = plt.xticks()
     plt.xticks(loc[1:-1], labels[1:-1], rotation=90, fontsize=fontsize)
+    plt.yticks(fontsize=fontsize)
     plt.legend(fontsize="xx-large")
 
     return ax
