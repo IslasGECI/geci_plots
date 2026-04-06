@@ -76,7 +76,7 @@ def test_plot_population_time_series():
     expected_ylabel = "Number of individuals"
     assert obtained.get_ylabel() == expected_ylabel
     assert obtained.get_xticklabels()[0].get_text() == "Jan 2021"
-    assert obtained.get_xticklabels()[0].get_text().get_fontsize() == 15
+    assert obtained.get_xticklabels()[0].get_fontsize() == 15
     assert obtained.get_xticklabels()[-1].get_text() == "Dec 2022"
     assert "o" in obtained.get_lines()[0].get_marker()
     assert obtained.get_legend().get_texts()[0].get_text() == "Captures"
