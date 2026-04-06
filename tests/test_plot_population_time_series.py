@@ -88,3 +88,4 @@ def test_plot_population_time_series():
     assert obtained.get_legend().get_texts()[0].get_text() == "Captures"
 
     assert isinstance(obtained.get_children()[1], plt.collections.FillBetweenPolyCollection)
+    assert obtained.get_legend().get_texts()[1].get_text() == "Population_size"
