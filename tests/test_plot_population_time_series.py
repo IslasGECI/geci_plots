@@ -87,5 +87,7 @@ def test_plot_population_time_series():
     assert "o" in obtained.get_lines()[0].get_marker()
     assert obtained.get_legend().get_texts()[0].get_text() == "Captures"
 
-    assert isinstance(obtained.get_children()[1], plt.collections.FillBetweenPolyCollection)
+    obtained_fill_between = obtained.get_children()[1]
+    assert isinstance(obtained_fill_between, plt.collections.FillBetweenPolyCollection)
+    assert obtained_fill_between.get_alpha() == 0.5
     assert obtained.get_legend().get_texts()[1].get_text() == "Population size"
