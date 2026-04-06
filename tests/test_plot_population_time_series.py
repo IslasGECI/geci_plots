@@ -75,3 +75,4 @@ def test_plot_population_time_series():
     expected_ylabel = "Number of individuals"
     assert obtained.get_ylabel() == expected_ylabel
     assert obtained.get_xticklabels()[0].get_text() == "Jan 2021"
+    assert "." in obtained.get_lines()[0].get_marker()
