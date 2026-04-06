@@ -4,11 +4,12 @@ import pandas as pd
 
 
 def plot_population_time_series(data):
-    fig, ax = plt.subplots(figsize=(14.3, 10.4))
+    _, ax = plt.subplots(figsize=(14.3, 10.4))
 
     data["Date"] = pd.to_datetime(data["Date"])
 
     ax.plot(data["Date"], data["Captures"], marker="o", label="Captures")
+    ax.fill_between(data["Date"], data["population_size"], data["population_size_percentile_95"])
 
     fontsize = 15
     plt.ylabel("Number of individuals", fontsize=fontsize + 5)
