@@ -8,12 +8,13 @@ def plot_population_time_series(data):
 
     data["Date"] = pd.to_datetime(data["Date"])
 
-    ax.plot(data["Date"], data["Captures"], marker="o")
+    ax.plot(data["Date"], data["Captures"], marker="o", label="Captures")
 
     plt.ylabel("Number of individuals")
     ax.xaxis.set_major_locator(mdates.MonthLocator())
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
     loc, labels = plt.xticks()
     plt.xticks(loc[1:-1], labels[1:-1], rotation=90)
+    plt.legend()
 
     return ax
