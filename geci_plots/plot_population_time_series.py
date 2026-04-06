@@ -10,11 +10,12 @@ def plot_population_time_series(data):
 
     ax.plot(data["Date"], data["Captures"], marker="o", label="Captures")
 
-    plt.ylabel("Number of individuals")
+    fontsize = 15
+    plt.ylabel("Number of individuals", fontsize=fontsize)
     ax.xaxis.set_major_locator(mdates.MonthLocator())
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
     loc, labels = plt.xticks()
-    plt.xticks(loc[1:-1], labels[1:-1], rotation=90)
-    plt.legend()
+    plt.xticks(loc[1:-1], labels[1:-1], rotation=90, fontsize=20)
+    plt.legend(fontsize="xx-large")
 
     return ax
