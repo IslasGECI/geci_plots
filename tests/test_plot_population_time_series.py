@@ -95,3 +95,6 @@ def test_plot_population_time_series():
 
     assert obtained.get_legend().get_texts()[2].get_text() == "Births"
     assert "tab:red" == obtained.get_lines()[1].get_color()
+
+    assert obtained.get_yticks()[0] == 0
+    assert obtained.get_yticks()[-1] == 250
