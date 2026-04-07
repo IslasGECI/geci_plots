@@ -53,14 +53,6 @@ def geci_plot(font_family="STIXGeneral", dpi=300, figsize=(11, 8)):
     return fig, ax
 
 
-def plot_histogram_with_limits(x, bins, limits=[], plot_options={}, lines_options={}):
-    _, ax = geci_plot()
-    ax.hist(x, bins=bins, **plot_options)
-    for lines in limits:
-        ax.axvline(x=lines, **lines_options)
-    return ax
-
-
 def rounddown(x, multiplier):
     return np.floor(x / multiplier) * multiplier
 
