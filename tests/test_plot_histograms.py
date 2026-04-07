@@ -23,7 +23,6 @@ def test_plot_histogram_with_limits():
     assert isinstance(obtained, plt.axes._axes.Axes)
 
     assert obtained.get_xlabel() == column_name
-    plt.pyplot.savefig("histogram.png")
     assert obtained.get_lines()[0].get_data()[0][0] == limits[0]
     assert obtained.get_lines()[0].get_color() == color_line
     assert obtained.get_xaxis().get_label().get_fontsize() == expected_xlabel_fontsize

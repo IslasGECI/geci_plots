@@ -15,6 +15,28 @@ path_rose_wind = "tests/data/rosewind.png"
 bandwidth = 0.04
 
 
+def test_cli_render_histogram_with_median():
+    result = runner.invoke(cli, ["render-histogram-with-median", "--help"])
+    assert result.exit_code == 0
+
+    output_path = "tests/pop_histogram.png"
+    data_path = "tests/data/summary_trips.csv"
+    gtt.if_exist_remove(output_path)
+    result = runner.invoke(
+        cli,
+        [
+            "render-histogram-with-median",
+            "--data-path",
+            data_path,
+            "--column-name",
+            "max_dist" "--output-path",
+            output_path,
+        ],
+    )
+    assert result.exit_code == 0
+    gtt.assert_exist(output_path)
+
+
 def test_cli_render_population_time_series():
     result = runner.invoke(cli, ["render-population-time-series", "--help"])
     assert result.exit_code == 0
