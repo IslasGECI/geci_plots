@@ -29,7 +29,8 @@ def test_cli_render_histogram_with_median():
             "--data-path",
             data_path,
             "--column-name",
-            "max_dist" "--output-path",
+            "max_dist",
+            "--output-path",
             output_path,
         ],
     )
