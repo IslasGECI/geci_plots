@@ -14,6 +14,11 @@ path_rose_wind = "tests/data/rosewind.png"
 bandwidth = 0.04
 
 
+def test_cli_render_population_time_series():
+    result = runner.invoke(cli, ["render-population-time-series", "--help"])
+    assert result.exit_code == 0
+
+
 def test_cli_plot_monthly_traps_effort_and_captures_by_zone():
     result = runner.invoke(cli, ["plot-monthly-traps-effort-and-captures-by-zone", "--help"])
     assert result.exit_code == 0
