@@ -16,6 +16,7 @@ def plot_population_time_series(data):
         label="Population size",
         alpha=0.5,
     )
+    ax.plot(data["Date"], data["Births"], marker="o", label="Births")
 
     fontsize = 15
     plt.ylabel("Number of individuals", fontsize=fontsize + 5)
