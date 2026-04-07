@@ -7,6 +7,10 @@ def test_plot_histogram_with_limits():
     data = pd.read_csv("tests/data/monthly_data.csv")
     column_name = "Effort"
     x = data[column_name]
+
+    obtained = plot_histogram_with_limits(x, None)
+    assert isinstance(obtained, plt.axes._axes.Axes)
+
     expected_xlabel_fontsize = 20
     plot_options = {"label": column_name, "fontsize": expected_xlabel_fontsize}
     limits = [47698]
