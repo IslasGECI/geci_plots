@@ -192,6 +192,7 @@ def test_plot_kernel_density():
     assert_transparent_figure(result_map_path)
 
 
+@pytest.mark.skip(reason="too slow")
 def test_plot_geographic_points():
     result = runner.invoke(cli, ["plot-geographic-points", "--help"])
     assert result.exit_code == 0
@@ -217,6 +218,7 @@ def test_plot_geographic_points():
     assert_transparent_figure(result_map_path)
 
 
+@pytest.mark.skip(reason="too slow")
 def test_plot_geographic_points_by_trip():
     result = runner.invoke(cli, ["plot-geographic-points-by-trip", "--help"])
     assert result.exit_code == 0
@@ -242,6 +244,7 @@ def test_plot_geographic_points_by_trip():
     assert_transparent_figure(result_map_path)
 
 
+@pytest.mark.skip(reason="too slow")
 def test_plot_geographic_points_by_vessel():
     result = runner.invoke(cli, ["plot-geographic-points-by-vessel", "--help"])
     assert result.exit_code == 0

@@ -11,18 +11,31 @@ from geci_plots.process_cameras_data import _plot_monthly_cameras_effort_and_cap
 from geci_plots.process_effort_and_captures_data import (
     _plot_monthly_traps_effort_and_captures_by_zone,
 )
+from geci_plots.plot_population_time_series import plot_population_time_series
 
 import geci_plots as gp
 import matplotlib.pyplot as plt
 import pandas as pd
 import typer
+import json
 
 cli = typer.Typer()
 
 
 @cli.command()
-def render_population_time_series():
-    pass
+def render_population_time_series(
+    data_path: str = typer.Option(), output_path: str = typer.Option()
+):
+    data_dictionary = read_json(data_path)
+    data = pd.DataFrame(data_dictionary["time_series"])
+    plot_population_time_series(data)
+    plt.savefig(output_path, transparent=True)
+
+
+def read_json(path):
+    with open(path, "r") as read_file:
+        data = json.load(read_file)
+    return data
 
 
 @cli.command()
