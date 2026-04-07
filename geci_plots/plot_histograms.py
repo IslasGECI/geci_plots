@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 def plot_histogram_with_limits(x, bins, limits=[], plot_options={}, lines_options={}):
     _, ax = geci_plot()
-    plt.xlabel(plot_options.pop("label", None), fontsize=plot_options.pop("fontsize", None))
+    plt.xlabel(plot_options.pop("label", None), fontsize=plot_options.pop("fontsize", 20))
     ticks_fontsize = 15
     plt.xticks(fontsize=ticks_fontsize)
     plt.yticks(fontsize=ticks_fontsize)

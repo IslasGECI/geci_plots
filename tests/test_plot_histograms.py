@@ -10,8 +10,9 @@ def test_plot_histogram_with_limits():
 
     obtained = plot_histogram_with_limits(x, None)
     assert isinstance(obtained, plt.axes._axes.Axes)
+    assert obtained.get_xaxis().get_label().get_fontsize() == 20
 
-    expected_xlabel_fontsize = 20
+    expected_xlabel_fontsize = 16
     plot_options = {"label": column_name, "fontsize": expected_xlabel_fontsize}
     limits = [47698]
     color_line = "r"
