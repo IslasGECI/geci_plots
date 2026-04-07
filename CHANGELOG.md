@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.11.0] - 2026-04-07
+### Added
+- CLI command `render-histogram-with-median` to write an histogram of a CSV file given a column name.
+- CLI command `render-population-time-series` to write a time series of captures, births and population size interval given a posterior summary JSON file.
+
 ## [0.10.0] - 2026-03-03
 ### Added
 - CLI command `plot-monthly-traps-effort-and-captures-by-zone` to plot montlhy traps effort and captures by zone.
