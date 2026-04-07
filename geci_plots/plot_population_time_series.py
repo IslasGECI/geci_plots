@@ -1,6 +1,8 @@
 from geci_plots import plt
+from geci_plots.geci_plots import roundup
 import matplotlib.dates as mdates
 import pandas as pd
+import numpy as np
 
 
 def plot_population_time_series(data):
@@ -24,7 +26,8 @@ def plot_population_time_series(data):
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
     loc, labels = plt.xticks()
     plt.xticks(loc[1:-1], labels[1:-1], rotation=90, fontsize=fontsize)
-    plt.yticks(fontsize=fontsize)
+    ticks = [ytick for ytick in plt.yticks()[0] if ytick >= 0]
+    plt.yticks(ticks, fontsize=fontsize)
     plt.legend(fontsize="xx-large")
 
     return ax
