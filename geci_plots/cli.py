@@ -12,6 +12,7 @@ from geci_plots.process_effort_and_captures_data import (
     _plot_monthly_traps_effort_and_captures_by_zone,
 )
 from geci_plots.plot_population_time_series import plot_population_time_series
+from geci_plots.plot_histograms import plot_histogram_with_limits
 
 import geci_plots as gp
 import matplotlib.pyplot as plt
@@ -29,6 +30,23 @@ def render_population_time_series(
     data_dictionary = read_json(data_path)
     data = pd.DataFrame(data_dictionary["time_series"])
     plot_population_time_series(data)
+    plt.savefig(output_path, transparent=True)
+
+
+@cli.command()
+def render_histogram_with_median(
+    data_path: str = typer.Option(),
+    column_name: str = typer.Option(),
+    output_path: str = typer.Option(),
+):
+    data_df = pd.read_csv(data_path)
+    x_values = data_df[column_name]
+    limits = [x_values.median()]
+    plot_options = {"label": column_name}
+    lines_options = {"color": "r"}
+    plot_histogram_with_limits(
+        x_values, None, limits=limits, plot_options=plot_options, lines_options=lines_options
+    )
     plt.savefig(output_path, transparent=True)
 
 
