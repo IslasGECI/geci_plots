@@ -26,3 +26,7 @@ def test_plot_histogram_with_limits():
     assert obtained.get_lines()[0].get_data()[0][0] == limits[0]
     assert obtained.get_lines()[0].get_color() == color_line
     assert obtained.get_xaxis().get_label().get_fontsize() == expected_xlabel_fontsize
+
+    expected_fontsize = 15
+    assert obtained.get_xticklabels()[0].get_fontsize() == expected_fontsize
+    assert obtained.get_yticklabels()[0].get_fontsize() == expected_fontsize
