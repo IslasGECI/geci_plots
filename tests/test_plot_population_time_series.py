@@ -92,3 +92,5 @@ def test_plot_population_time_series():
     assert isinstance(obtained_fill_between, plt.collections.FillBetweenPolyCollection)
     assert obtained_fill_between.get_alpha() == 0.5
     assert obtained.get_legend().get_texts()[1].get_text() == "Population size"
+
+    assert obtained.get_legend().get_texts()[2].get_text() == "Births"
