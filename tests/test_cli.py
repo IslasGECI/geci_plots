@@ -19,10 +19,25 @@ def test_cli_render_population_time_series():
     result = runner.invoke(cli, ["render-population-time-series", "--help"])
     assert result.exit_code == 0
 
+    output_path = "tests/pop_time_series.png"
+    data_path = "tests/data/posterior_summary_for_tests.json"
+    gtt.if_exist_remove(output_path)
+    result = runner.invoke(
+        cli,
+        [
+            "render-population-time-series",
+            "--data-path",
+            data_path,
+            "--output-path",
+            output_path,
+        ],
+    )
+    assert result.exit_code == 0
+    gtt.assert_exist(output_path)
+
 
 def test_cli_plot_monthly_traps_effort_and_captures_by_zone():
-    result = runner.invoke(
-        cli, ["plot-monthly-traps-effort-and-captures-by-zone", "--help"])
+    result = runner.invoke(cli, ["plot-monthly-traps-effort-and-captures-by-zone", "--help"])
     assert result.exit_code == 0
 
     effort_captures_data_path = "tests/data/monthly_effort_and_captures_by_zone.csv"
@@ -60,8 +75,7 @@ def assert_transparent_figure(output_path):
 
 
 def test_cli_plot_monthly_cameras_effort_and_captures():
-    result = runner.invoke(
-        cli, ["plot-monthly-cameras-effort-and-captures", "--help"])
+    result = runner.invoke(cli, ["plot-monthly-cameras-effort-and-captures", "--help"])
     assert result.exit_code == 0
 
     cameras_data_path = "tests/data/weekly_cameras_effort.csv"
