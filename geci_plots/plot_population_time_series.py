@@ -8,7 +8,7 @@ def plot_population_time_series(data):
 
     data["Date"] = pd.to_datetime(data["Date"])
 
-    ax.plot(data["Date"], data["Captures"], marker="o", label="Captures")
+    ax.plot(data["Date"], data["Captures"], marker="o", label="Captures", color="g")
     ax.fill_between(
         data["Date"],
         data["population_size"],
