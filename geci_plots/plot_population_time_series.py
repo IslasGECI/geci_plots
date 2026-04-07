@@ -14,6 +14,7 @@ def plot_population_time_series(data):
         data["population_size"],
         data["population_size_percentile_95"],
         label="Population size",
+        alpha=0.5,
     )
 
     fontsize = 15
