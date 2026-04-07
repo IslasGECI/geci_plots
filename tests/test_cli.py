@@ -3,7 +3,6 @@ from geci_plots import cli
 import geci_test_tools as gtt
 import matplotlib.pyplot as plt
 from typer.testing import CliRunner
-import pytest
 
 runner = CliRunner()
 
@@ -124,7 +123,6 @@ def test_cli_plot_monthly_cameras_effort_and_captures():
     assert_transparent_figure(output_path)
 
 
-@pytest.mark.skip(reason="too slow")
 def test_plot_kernel_density_gls():
     result = runner.invoke(cli, ["plot-kernel-density-and-points", "--help"])
     assert result.exit_code == 0
@@ -179,7 +177,6 @@ def test_plot_kernel_density_gls():
     assert_transparent_figure(result_map_path)
 
 
-@pytest.mark.skip(reason="too slow")
 def test_plot_kernel_density():
     result = runner.invoke(cli, ["plot-kernel-density", "--help"])
     assert result.exit_code == 0
@@ -215,7 +212,6 @@ def test_plot_kernel_density():
     assert_transparent_figure(result_map_path)
 
 
-@pytest.mark.skip(reason="too slow")
 def test_plot_geographic_points():
     result = runner.invoke(cli, ["plot-geographic-points", "--help"])
     assert result.exit_code == 0
@@ -241,7 +237,6 @@ def test_plot_geographic_points():
     assert_transparent_figure(result_map_path)
 
 
-@pytest.mark.skip(reason="too slow")
 def test_plot_geographic_points_by_trip():
     result = runner.invoke(cli, ["plot-geographic-points-by-trip", "--help"])
     assert result.exit_code == 0
@@ -267,7 +262,6 @@ def test_plot_geographic_points_by_trip():
     assert_transparent_figure(result_map_path)
 
 
-@pytest.mark.skip(reason="too slow")
 def test_plot_geographic_points_by_vessel():
     result = runner.invoke(cli, ["plot-geographic-points-by-vessel", "--help"])
     assert result.exit_code == 0
@@ -322,5 +316,5 @@ def test_boxplot():
 def test_version():
     result = runner.invoke(cli, ["version"])
     assert result.exit_code == 0
-    expected_version = "0.10.0"
+    expected_version = "0.11.0"
     assert expected_version in result.stdout
