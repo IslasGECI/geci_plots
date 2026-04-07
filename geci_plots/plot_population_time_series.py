@@ -1,8 +1,6 @@
 from geci_plots import plt
-from geci_plots.geci_plots import roundup
 import matplotlib.dates as mdates
 import pandas as pd
-import numpy as np
 
 
 def plot_population_time_series(data):
