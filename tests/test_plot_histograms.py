@@ -7,7 +7,8 @@ def test_plot_histogram_with_limits():
     data = pd.read_csv("tests/data/monthly_data.csv")
     column_name = "Effort"
     x = data[column_name]
-    plot_options = {"label": column_name}
+    expected_xlabel_fontsize = 20
+    plot_options = {"label": column_name, "fontsize": expected_xlabel_fontsize}
     limits = [47698]
     color_line = "r"
     lines_options = {"color": color_line}
@@ -20,3 +21,4 @@ def test_plot_histogram_with_limits():
     plt.pyplot.savefig("histogram.png")
     assert obtained.get_lines()[0].get_data()[0][0] == limits[0]
     assert obtained.get_lines()[0].get_color() == color_line
+    assert obtained.get_xaxis().get_label().get_fontsize() == expected_xlabel_fontsize
