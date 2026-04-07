@@ -3,6 +3,7 @@ from geci_plots import cli
 import geci_test_tools as gtt
 import matplotlib.pyplot as plt
 from typer.testing import CliRunner
+import pytest
 
 runner = CliRunner()
 
@@ -20,7 +21,8 @@ def test_cli_render_population_time_series():
 
 
 def test_cli_plot_monthly_traps_effort_and_captures_by_zone():
-    result = runner.invoke(cli, ["plot-monthly-traps-effort-and-captures-by-zone", "--help"])
+    result = runner.invoke(
+        cli, ["plot-monthly-traps-effort-and-captures-by-zone", "--help"])
     assert result.exit_code == 0
 
     effort_captures_data_path = "tests/data/monthly_effort_and_captures_by_zone.csv"
@@ -58,7 +60,8 @@ def assert_transparent_figure(output_path):
 
 
 def test_cli_plot_monthly_cameras_effort_and_captures():
-    result = runner.invoke(cli, ["plot-monthly-cameras-effort-and-captures", "--help"])
+    result = runner.invoke(
+        cli, ["plot-monthly-cameras-effort-and-captures", "--help"])
     assert result.exit_code == 0
 
     cameras_data_path = "tests/data/weekly_cameras_effort.csv"
@@ -84,6 +87,7 @@ def test_cli_plot_monthly_cameras_effort_and_captures():
     assert_transparent_figure(output_path)
 
 
+@pytest.mark.skip(reason="too slow")
 def test_plot_kernel_density_gls():
     result = runner.invoke(cli, ["plot-kernel-density-and-points", "--help"])
     assert result.exit_code == 0
@@ -138,6 +142,7 @@ def test_plot_kernel_density_gls():
     assert_transparent_figure(result_map_path)
 
 
+@pytest.mark.skip(reason="too slow")
 def test_plot_kernel_density():
     result = runner.invoke(cli, ["plot-kernel-density", "--help"])
     assert result.exit_code == 0

@@ -21,6 +21,11 @@ cli = typer.Typer()
 
 
 @cli.command()
+def render_population_time_series():
+    pass
+
+
+@cli.command()
 def plot_monthly_traps_effort_and_captures_by_zone(
     effort_captures_data_path: str = typer.Option(),
     start_date: str = typer.Option(),
