@@ -16,7 +16,10 @@ def plot_radar_signal_geographic_points(
         radar_signal_points_data["longitude"],
         radar_signal_points_data["latitude"],
         c=radar_signal_points_data["radar_signal"],
-        alpha=0.3,
+        alpha=0.9,
+        cmap="cool",
+        s=radar_signal_points_data["radar_signal"] * 0.1,
+        norm="log",
     )
     plot_windrose(path_rose_wind, fig)
     plt.colorbar(label="Radar Signal Strength", ax=ax)
