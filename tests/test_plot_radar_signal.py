@@ -20,3 +20,8 @@ def test_plot_radar_signal_geographic_points():
         radar_signal_points_data["radar_signal"].max(),
     )
     assert scatter_collection.get_clim() == expected_colormap_limits
+
+    colorbar_object = obtained.get_figure().get_children()[2]
+    colorbar_object_label = colorbar_object.get_ylabel()
+    expected_colorbal_label = "Radar Signal Strength"
+    assert colorbar_object_label == expected_colorbal_label
