@@ -212,6 +212,12 @@ def test_plot_kernel_density():
     assert_transparent_figure(result_map_path)
 
 
+def test_render_radar_signal_geographic_points():
+    command = "render-radar-signal-geographic-points"
+    result = runner.invoke(cli, [command, "--help"])
+    assert result.exit_code == 0
+
+
 def test_plot_geographic_points():
     result = runner.invoke(cli, ["plot-geographic-points", "--help"])
     assert result.exit_code == 0
