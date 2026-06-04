@@ -2,7 +2,6 @@ from geci_plots import plt
 from geci_plots.plot_kernel_density_gls import (
     format_plot,
     plot_global_politic_division,
-    plot_geographic_points,
     plot_windrose,
 )
 
@@ -20,4 +19,5 @@ def plot_radar_signal_geographic_points(
         alpha=0.3,
     )
     plot_windrose(path_rose_wind, fig)
+    plt.colorbar(label="Radar Signal Strength", ax=ax)
     return ax
