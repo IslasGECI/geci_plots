@@ -24,6 +24,11 @@ cli = typer.Typer()
 
 
 @cli.command()
+def render_radar_signal_geographic_points():
+    pass
+
+
+@cli.command()
 def render_population_time_series(
     data_path: str = typer.Option(), output_path: str = typer.Option()
 ):
