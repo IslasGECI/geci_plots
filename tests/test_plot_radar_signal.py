@@ -11,4 +11,12 @@ def test_plot_radar_signal_geographic_points():
     obtained = plot_radar_signal_geographic_points(
         radar_signal_points_data, global_shapefile_data_path, path_rose_wind
     )
+    plt.pyplot.savefig("radar_signal.png")
     assert isinstance(obtained, plt.axes._axes.Axes)
+    assert len(obtained.collections) == 3
+    scatter_collection = obtained.collections[2]
+    expected_colormap_limits = (
+        radar_signal_points_data["radar_signal"].min(),
+        radar_signal_points_data["radar_signal"].max(),
+    )
+    assert scatter_collection.get_clim() == expected_colormap_limits
