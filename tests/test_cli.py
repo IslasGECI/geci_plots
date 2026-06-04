@@ -217,6 +217,27 @@ def test_render_radar_signal_geographic_points():
     result = runner.invoke(cli, [command, "--help"])
     assert result.exit_code == 0
 
+    radar_signal_data_path = "tests/data/radar_signal_with_coordinates.csv"
+    result_map_path = "tests/radar_signal_geographic_points.png"
+    gtt.if_exist_remove(result_map_path)
+    result = runner.invoke(
+        cli,
+        [
+            command,
+            "--radar-signal-data-path",
+            radar_signal_data_path,
+            "--global-shapefile-data-path",
+            global_shapefile_data_path,
+            "--path-rose-wind",
+            path_rose_wind,
+            "--result-map-path",
+            result_map_path,
+        ],
+    )
+    assert result.exit_code == 0
+    gtt.assert_exist(result_map_path)
+    assert_transparent_figure(result_map_path)
+
 
 def test_plot_geographic_points():
     result = runner.invoke(cli, ["plot-geographic-points", "--help"])
