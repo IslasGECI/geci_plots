@@ -22,7 +22,7 @@ def test_plot_radar_signal_geographic_points():
     assert scatter_collection.get_clim() == expected_colormap_limits
     assert scatter_collection.get_cmap().name == "cool"
     assert scatter_collection.get_alpha() == 0.9
-    assert scatter_collection.get_sizes().min() == expected_colormap_limits[0] * 0.1
+    assert scatter_collection.get_sizes().min() == expected_colormap_limits[0] * 0.5
     assert isinstance(scatter_collection.norm, plt.colors.LogNorm)
 
     colorbar_object = obtained.get_figure().get_children()[2]
