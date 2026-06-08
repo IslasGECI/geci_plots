@@ -18,7 +18,7 @@ def plot_radar_signal_geographic_points(
         c=radar_signal_points_data["radar_signal"],
         alpha=0.9,
         cmap="cool",
-        s=radar_signal_points_data["radar_signal"] * 0.1,
+        s=radar_signal_points_data["radar_signal"] * 0.5,
         norm="log",
     )
     plot_windrose(path_rose_wind, fig)
