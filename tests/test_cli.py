@@ -3,7 +3,6 @@ from geci_plots import cli
 import geci_test_tools as gtt
 import matplotlib.pyplot as plt
 from typer.testing import CliRunner
-import pytest
 
 runner = CliRunner()
 
@@ -213,7 +212,6 @@ def test_plot_kernel_density():
     assert_transparent_figure(result_map_path)
 
 
-@pytest.mark.skip(reason="Not yet implemented")
 def test_render_radar_signal_geographic_points():
     command = "render-radar-signal-geographic-points"
     result = runner.invoke(cli, [command, "--help"])
