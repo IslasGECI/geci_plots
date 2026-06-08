@@ -13,6 +13,7 @@ from geci_plots.process_effort_and_captures_data import (
 )
 from geci_plots.plot_population_time_series import plot_population_time_series
 from geci_plots.plot_histograms import plot_histogram_with_limits
+from geci_plots.plot_radar_signal import plot_radar_signal_geographic_points
 
 import geci_plots as gp
 import matplotlib.pyplot as plt
@@ -24,8 +25,15 @@ cli = typer.Typer()
 
 
 @cli.command()
-def render_radar_signal_geographic_points():
-    pass
+def render_radar_signal_geographic_points(
+    radar_signal_data_path: str = typer.Option(),
+    global_shapefile_data_path: str = typer.Option(),
+    path_rose_wind: str = typer.Option(),
+    result_map_path: str = typer.Option(),
+):
+    geographic_data = pd.read_csv(radar_signal_data_path)
+    plot_radar_signal_geographic_points(geographic_data, global_shapefile_data_path, path_rose_wind)
+    plt.savefig(result_map_path, transparent=True)
 
 
 @cli.command()
