@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+
+## [0.12.0] - 2026-06-08
+### Added
+- CLI command `render-radar-signal-geographic-points` to write a bubble chart from radar signal data.
+
 ## [0.11.0] - 2026-04-07
 ### Added
 - CLI command `render-histogram-with-median` to write an histogram of a CSV file given a column name.
