@@ -8,10 +8,12 @@ def test_plot_radar_signal_geographic_points():
     radar_signal_points_data = pd.read_csv("tests/data/radar_signal_with_coordinates.csv")
     global_shapefile_data_path = "tests/data/division_politica_paises.shp"
     path_rose_wind = "tests/data/rosewind.png"
+    plt.pyplot.close()
     obtained = plot_radar_signal_geographic_points(
         radar_signal_points_data, global_shapefile_data_path, path_rose_wind
     )
     plt.pyplot.savefig("radar_signal.png")
+    plt.pyplot.close()
     assert isinstance(obtained, plt.axes._axes.Axes)
     assert len(obtained.collections) == 3
     scatter_collection = obtained.collections[2]
