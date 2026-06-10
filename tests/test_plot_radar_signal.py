@@ -30,6 +30,6 @@ def test_plot_radar_signal_geographic_points():
     expected_colorbal_label = "Radar Signal Strength"
     assert colorbar_object_label == expected_colorbal_label
     expected_colorbar_fontsize = 20
-    assert colorbar_object.get_yaxis().label.get_fontsize() == expected_colorbal_label
+    assert colorbar_object.get_yaxis().label.get_fontsize() == expected_colorbar_fontsize
     assert colorbar_object._colorbar_info["location"] == "left"
     assert colorbar_object.get_yticklabels()[0].get_fontsize() == expected_colorbar_fontsize
