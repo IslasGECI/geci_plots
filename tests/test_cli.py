@@ -343,5 +343,5 @@ def test_boxplot():
 def test_version():
     result = runner.invoke(cli, ["version"])
     assert result.exit_code == 0
-    expected_version = "0.12.0"
+    expected_version = "0.12.1"
     assert expected_version in result.stdout
