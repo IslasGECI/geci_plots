@@ -22,5 +22,8 @@ def plot_radar_signal_geographic_points(
         norm="log",
     )
     plot_windrose(path_rose_wind, fig)
-    plt.colorbar(label="Radar Signal Strength", ax=ax)
+    cbar = plt.colorbar(ax=ax, location="left")
+    fontsize = 20
+    cbar.set_label("Radar Signal Strength", fontsize=fontsize)
+    cbar.ax.tick_params(labelsize=fontsize)
     return ax
