@@ -12,7 +12,6 @@ def test_plot_radar_signal_geographic_points():
     obtained = plot_radar_signal_geographic_points(
         radar_signal_points_data, global_shapefile_data_path, path_rose_wind
     )
-    plt.pyplot.savefig("radar_signal.png")
     plt.pyplot.close()
     assert isinstance(obtained, plt.axes._axes.Axes)
     assert len(obtained.collections) == 3
