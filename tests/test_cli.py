@@ -35,6 +35,7 @@ def test_cli_render_histogram_with_median():
     )
     assert result.exit_code == 0
     gtt.assert_exist(output_path)
+    gtt.if_exist_remove(output_path)
 
 
 def test_cli_render_population_time_series():
@@ -56,6 +57,7 @@ def test_cli_render_population_time_series():
     )
     assert result.exit_code == 0
     gtt.assert_exist(output_path)
+    gtt.if_exist_remove(output_path)
 
 
 def test_cli_plot_monthly_traps_effort_and_captures_by_zone():
@@ -86,6 +88,7 @@ def test_cli_plot_monthly_traps_effort_and_captures_by_zone():
     assert result.exit_code == 0
     gtt.assert_exist(output_path)
     assert_transparent_figure(output_path)
+    gtt.if_exist_remove(output_path)
 
 
 def assert_transparent_figure(output_path):
@@ -121,6 +124,7 @@ def test_cli_plot_monthly_cameras_effort_and_captures():
     assert result.exit_code == 0
     gtt.assert_exist(output_path)
     assert_transparent_figure(output_path)
+    gtt.if_exist_remove(output_path)
 
 
 def test_plot_kernel_density_gls():
@@ -151,6 +155,7 @@ def test_plot_kernel_density_gls():
     )
     assert result.exit_code == 0
     gtt.assert_exist(result_map_path)
+    gtt.if_exist_remove(result_map_path)
 
     result_map_path = "tests/kernel_50_percent_gps_albatros.png"
     gtt.if_exist_remove(result_map_path)
@@ -175,6 +180,7 @@ def test_plot_kernel_density_gls():
     assert result.exit_code == 0
     gtt.assert_exist(result_map_path)
     assert_transparent_figure(result_map_path)
+    gtt.if_exist_remove(result_map_path)
 
 
 def test_plot_kernel_density():
@@ -210,6 +216,7 @@ def test_plot_kernel_density():
     assert result.exit_code == 0
     gtt.assert_exist(result_map_path)
     assert_transparent_figure(result_map_path)
+    gtt.if_exist_remove(result_map_path)
 
 
 def test_render_radar_signal_geographic_points():
@@ -237,6 +244,7 @@ def test_render_radar_signal_geographic_points():
     assert result.exit_code == 0
     gtt.assert_exist(result_map_path)
     assert_transparent_figure(result_map_path)
+    gtt.if_exist_remove(result_map_path)
 
 
 def test_plot_geographic_points():
@@ -262,6 +270,7 @@ def test_plot_geographic_points():
     assert result.exit_code == 0
     gtt.assert_exist(result_map_path)
     assert_transparent_figure(result_map_path)
+    gtt.if_exist_remove(result_map_path)
 
 
 def test_plot_geographic_points_by_trip():
@@ -287,6 +296,7 @@ def test_plot_geographic_points_by_trip():
     assert result.exit_code == 0
     gtt.assert_exist(result_map_path)
     assert_transparent_figure(result_map_path)
+    gtt.if_exist_remove(result_map_path)
 
 
 def test_plot_geographic_points_by_vessel():
@@ -313,6 +323,7 @@ def test_plot_geographic_points_by_vessel():
     assert result.exit_code == 0
     gtt.assert_exist(result_map_path)
     assert_transparent_figure(result_map_path)
+    gtt.if_exist_remove(result_map_path)
 
 
 def test_boxplot():
@@ -338,6 +349,7 @@ def test_boxplot():
     assert result.exit_code == 0
     gtt.assert_exist(boxplot_path)
     assert_transparent_figure(boxplot_path)
+    gtt.if_exist_remove(boxplot_path)
 
 
 def test_version():
