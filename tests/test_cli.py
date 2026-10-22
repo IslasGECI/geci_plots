@@ -7,7 +7,7 @@ from typer.testing import CliRunner
 runner = CliRunner()
 
 
-gls_data_path = "tests/data/gls_albatros_tests.csv"
+gls_data_path = "tests/data/gls_albatros_tests_not_adapted.csv"
 gps_data_path = "tests/data/trips_geographic_points_tests.csv"
 global_shapefile_data_path = "tests/data/division_politica_paises.shp"
 path_rose_wind = "tests/data/rosewind.png"
@@ -187,7 +187,6 @@ def test_plot_kernel_density():
     result = runner.invoke(cli, ["plot-kernel-density", "--help"])
     assert result.exit_code == 0
 
-    gls_data_path = "tests/data/gls_albatros_tests.csv"
     global_shapefile_data_path = "tests/data/division_politica_paises.shp"
     path_rose_wind = "tests/data/rosewind.png"
     selected_contour = "All_contours"

@@ -1,5 +1,4 @@
 from geci_plots.plot_kernel_density_gls import (
-    adapt_geographic_data,
     format_plot,
     _plot_kernel_density,
     _plot_kernel_density_and_points,
@@ -17,10 +16,11 @@ selected_contour = "50_contour"
 bandwidth = 0.04
 gls_data_path = "tests/data/gls_albatros_tests.csv"
 gps_data_path = "tests/data/trips_geographic_points_tests.csv"
+gls_data = pd.read_csv(gls_data_path)
+gps_data = pd.read_csv(gps_data_path)
 
 
 def test_plot_kernel_density_and_gls_points():
-    gls_data = pd.read_csv(gls_data_path)
     obtained = _plot_kernel_density_and_points(
         gls_data, global_shapefile_data_path, path_rose_wind, selected_contour, bandwidth
     )
@@ -28,7 +28,6 @@ def test_plot_kernel_density_and_gls_points():
 
 
 def test_plot_kernel_density_and_points():
-    gps_data = adapt_geographic_data(gps_data_path)
     obtained = _plot_kernel_density_and_points(
         gps_data, global_shapefile_data_path, path_rose_wind, selected_contour, bandwidth
     )
@@ -38,7 +37,6 @@ def test_plot_kernel_density_and_points():
 
 
 def test_plot_kernel_density():
-    gps_data = adapt_geographic_data(gps_data_path)
     obtained = _plot_kernel_density(
         gps_data, global_shapefile_data_path, path_rose_wind, selected_contour, bandwidth
     )
@@ -52,7 +50,6 @@ def test_plot_kernel_density():
 
 
 def test_plot_geographic_points():
-    gls_data = pd.read_csv(gls_data_path)
     obtained = _plot_geographic_points(gls_data, global_shapefile_data_path, path_rose_wind)
     assert isinstance(obtained, plt.axes._axes.Axes)
     assert len(obtained.collections) == 2
@@ -61,7 +58,7 @@ def test_plot_geographic_points():
 
 def test_plot_geographic_points_by_vessel():
     fisheries_data_path = "tests/data/vessels_geographic_points_tests.csv"
-    fisheries_data = adapt_geographic_data(fisheries_data_path)
+    fisheries_data = pd.read_csv(fisheries_data_path)
     obtained = _plot_geographic_points_by_vessel(
         fisheries_data, global_shapefile_data_path, path_rose_wind
     )
@@ -77,7 +74,6 @@ def test_plot_geographic_points_by_vessel():
 
 
 def test_plot_geographic_points_by_trip():
-    gps_data = adapt_geographic_data(gps_data_path)
     obtained = _plot_geographic_points_by_trip(gps_data, global_shapefile_data_path, path_rose_wind)
     assert isinstance(obtained, plt.axes._axes.Axes)
     assert len(obtained.collections) == 2
@@ -88,7 +84,6 @@ def test_plot_geographic_points_by_trip():
 
 def test_format_plot():
     fig, ax = plt.pyplot.subplots(figsize=(14.3, 10.4))
-    gps_data = adapt_geographic_data(gps_data_path)
     format_plot(ax, gps_data)
     assert ax.get_ylim()[1] == 60
     assert ax.get_ylim()[0] == 20
