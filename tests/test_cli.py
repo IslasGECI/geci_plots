@@ -216,7 +216,7 @@ def test_plot_kernel_density():
     assert result.exit_code == 0
     gtt.assert_exist(result_map_path)
     assert_transparent_figure(result_map_path)
-    gtt.if_exist_remove(result_map_path)
+    # gtt.if_exist_remove(result_map_path)
 
 
 def test_render_radar_signal_geographic_points():
@@ -270,7 +270,7 @@ def test_plot_geographic_points():
     assert result.exit_code == 0
     gtt.assert_exist(result_map_path)
     assert_transparent_figure(result_map_path)
-    gtt.if_exist_remove(result_map_path)
+    # gtt.if_exist_remove(result_map_path)
 
 
 def test_plot_geographic_points_by_trip():

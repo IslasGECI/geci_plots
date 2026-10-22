@@ -13,8 +13,7 @@ import geopandas as gpd
 
 def adapt_geographic_data(gls_data_path):
     gls_data = pd.read_csv(gls_data_path)
-    gls_data.rename(columns={"Latitude": "latitude", "Longitude": "longitude"}, inplace=True)
-    return gls_data
+    return gls_data.rename(columns={"Latitude": "latitude", "Longitude": "longitude"})
 
 
 def _plot_kernel_density_and_points(
