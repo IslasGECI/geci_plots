@@ -7,3 +7,14 @@ services:
     command: bash
     volumes:
       - $PWD:/workdir
+
+  opencode:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: islasgeci/geci_plots_develop:latest
+    command: opencode
+    volumes:
+      - $PWD:/workdir
+    stdin_open: true
+    tty: true
