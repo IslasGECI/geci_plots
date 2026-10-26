@@ -183,6 +183,21 @@ def test_annotated_bar_plot():
     return fig
 
 
+def test_annotated_bar_plot_by_columns():
+    quadrants_samples = pd.DataFrame(
+        {
+            "Cuadrante": [1, 2, 3],
+            "Waltheria": [10, 30, 50],
+            "Tribulus": [80, 60, 40],
+            "Suelo": [10, 10, 10],
+        }
+    ).set_index("Cuadrante")
+    _, ax = geci_plot()
+    xticks = [quadrants_samples.index, quadrants_samples.index]
+    obtained_ax = annotated_bar_plot_by_columns(ax, quadrants_samples, xticks)
+    assert isinstance(obtained_ax, plt.axes._axes.Axes)
+
+
 def test_geci_plot():
     obtained_fig, obtained_ax = geci_plot()
     assert obtained_fig.get_dpi() == 300
