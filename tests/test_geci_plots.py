@@ -7,6 +7,7 @@ from pandas._testing import assert_frame_equal
 from geci_plots import (
     annotate_heatmap,
     annotate_pie_chart,
+    annotated_bar_plot_by_columns,
     annotated_bar_plot,
     calculate_values_for_age_pie_chart,
     calculate_values_for_sex_pie_chart,
