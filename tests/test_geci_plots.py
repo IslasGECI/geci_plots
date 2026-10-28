@@ -20,6 +20,7 @@ from geci_plots import (
     islet_colors,
     islet_markers,
     order_magnitude,
+    percentage_bar_plot_by_columns,
     plot_comparative_annual_effort_by_zone,
     plot_points_with_labels,
     prepare_cats_by_zone_and_age,
@@ -184,20 +185,21 @@ def test_annotated_bar_plot():
     return fig
 
 
+quadrants_samples = pd.DataFrame(
+    {
+        "Cuadrante": [1, 2, 3],
+        "Waltheria": [10, 30, 50],
+        "Tribulus": [80, 60, 40],
+        "Suelo": [10, 10, 10],
+    }
+).set_index("Cuadrante")
+
+
 def test_annotated_bar_plot_by_columns():
-    quadrants_samples = pd.DataFrame(
-        {
-            "Cuadrante": [1, 2, 3],
-            "Waltheria": [10, 30, 50],
-            "Tribulus": [80, 60, 40],
-            "Suelo": [10, 10, 10],
-        }
-    ).set_index("Cuadrante")
     _, ax = geci_plot()
     xticks = [quadrants_samples.index, quadrants_samples.index]
     obtained_ax = annotated_bar_plot_by_columns(ax, quadrants_samples, xticks, bar_gap=1)
     assert isinstance(obtained_ax, mpl.axes._axes.Axes)
-    plt.savefig("tests/annotated_bar_plot_by_columns.png", dpi=300)
     obtained_number_of_rectangles = sum(
         [isinstance(i, mpl.patches.Rectangle) for i in obtained_ax.get_children()]
     )
@@ -232,6 +234,17 @@ def test_annotated_bar_plot_by_columns():
     obtained_first_legend = obtained_ax.get_legend().get_texts()[0]
     assert obtained_first_legend.get_text() == "Waltheria"
     assert obtained_first_legend.get_fontsize() == 15
+
+
+def test_percentage_bar_plot_by_columns():
+    _, ax = geci_plot()
+    xticks = [quadrants_samples.index, quadrants_samples.index]
+    obtained_ax = percentage_bar_plot_by_columns(ax, quadrants_samples, xticks, bar_gap=1)
+    assert isinstance(obtained_ax, mpl.axes._axes.Axes)
+
+    obtained_ylims = obtained_ax.get_ylim()
+    expected_ylims = (0, 110)
+    assert obtained_ylims == expected_ylims
 
 
 def test_geci_plot():
