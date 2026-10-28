@@ -293,6 +293,44 @@ def config_xticks_for_annotated_bar_plot(ax, x_ticks, fontsize):
     ax.tick_params(labelsize=fontsize)
 
 
+def percentage_bar_plot_by_columns(
+    ax,
+    df,
+    x_ticks,
+    colors_array=zones_colors,
+    fontsize=15,
+    bar_label_size=15,
+    bar_gap=2,
+    x_pos=-0.5,
+    y_pos=200,
+):
+    data_length = len(df)
+    bottom_values = data_length * [0]
+    column_names = df.columns
+    for i, column_name in enumerate(column_names):
+        column_values = df[column_name]
+        label = column_name.replace("_", " ")
+        ax.bar(
+            x_ticks[0],
+            column_values,
+            bottom=bottom_values,
+            label=label,
+            color=colors_array[i],
+        )
+        bottom_values = bottom_values + column_values
+    bar_positions = x_ticks[0]
+    last_xtick_position = bar_positions[-1] + 1
+    ax.set_xticks(
+        [*bar_positions, last_xtick_position], [*x_ticks[1], ""], rotation=90, size=fontsize
+    )
+    ax.tick_params(labelsize=fontsize)
+    annotate_bars_with_values(bottom_values, x_ticks, x_pos, y_pos, fontsize=bar_label_size)
+    ax.set_xlim(0.5, data_length * bar_gap + 0.5)
+    ax.set_ylim(0, 110)
+    ax.legend(ncol=4, frameon=False, fontsize=fontsize, loc="upper center")
+    return ax
+
+
 def plot_comparative_annual_effort_by_zone(
     ax, df, fontsize=15, bar_label_size=15, bar_gap=3, column_key="Effort"
 ):
