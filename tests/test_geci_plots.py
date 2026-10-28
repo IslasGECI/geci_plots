@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 
 from pandas._testing import assert_frame_equal
 from geci_plots import (
@@ -195,7 +196,7 @@ def test_annotated_bar_plot_by_columns():
     _, ax = geci_plot()
     xticks = [quadrants_samples.index, quadrants_samples.index]
     obtained_ax = annotated_bar_plot_by_columns(ax, quadrants_samples, xticks)
-    assert isinstance(obtained_ax, plt.axes._axes.Axes)
+    assert isinstance(obtained_ax, mpl.axes._axes.Axes)
 
 
 def test_geci_plot():
