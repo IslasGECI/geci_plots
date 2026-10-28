@@ -264,23 +264,23 @@ def annotated_bar_plot_by_columns(
     y_pos=200,
 ):
     data_length = len(df)
-    bottom = data_length * [0]
+    bottom_values = data_length * [0]
     column_names = df.columns
     for i, column_name in enumerate(column_names):
         df_column = df[column_name]
         ax.bar(
             x_ticks[0],
             df_column,
-            bottom=bottom,
+            bottom=bottom_values,
             label=column_name.replace("_", " "),
             color=colors_array[i],
         )
-        bottom = bottom + df_column
+        bottom_values = bottom_values + df_column
     xticks_lim = x_ticks[0][-1] + 1
     ax.set_xticks([*x_ticks[0], xticks_lim], [*x_ticks[1], ""], rotation=90, size=fontsize)
-    annotate_bars_with_values(bottom, x_ticks, x_pos, y_pos, fontsize=bar_label_size)
+    annotate_bars_with_values(bottom_values, x_ticks, x_pos, y_pos, fontsize=bar_label_size)
     ax.set_xlim(0.5, data_length * bar_gap + 1)
-    ax.set_ylim(0, roundup(bottom.max() * 1.3, 10 ** order_magnitude(bottom)))
+    ax.set_ylim(0, roundup(bottom_values.max() * 1.3, 10 ** order_magnitude(bottom_values)))
     ax.tick_params(labelsize=fontsize)
     ax.legend(ncol=4, frameon=False, fontsize=fontsize, loc="upper center")
     return ax
