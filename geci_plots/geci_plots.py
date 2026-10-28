@@ -304,7 +304,12 @@ def plot_percentage_bar_by_columns(
     colors_array=zones_colors,
     fontsize=15,
 ):
-    ax = df.plot.bar(stacked=True, ax=ax, color=colors_array, fontsize=fontsize)
+    columns_list = list(df.columns)
+    suelo_index = columns_list.index("Suelo")
+    columns_list.pop(suelo_index)
+    columns_list.append("Suelo")
+    ordered_df = df.loc[:, columns_list]
+    ax = ordered_df.plot.bar(stacked=True, ax=ax, color=colors_array, fontsize=fontsize)
     ax.set_ylim(0, 110)
     ax.legend(ncol=4, frameon=False, fontsize=fontsize, loc="upper center")
     return ax

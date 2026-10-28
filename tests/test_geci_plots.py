@@ -189,8 +189,8 @@ quadrants_samples = pd.DataFrame(
     {
         "Cuadrante": [1, 2, 3],
         "Waltheria": [10, 30, 50],
-        "Tribulus": [80, 60, 40],
         "Suelo": [10, 10, 10],
+        "Tribulus": [80, 60, 40],
     }
 ).set_index("Cuadrante")
 
@@ -256,6 +256,9 @@ def test_percentage_bar_plot_by_columns():
     obtained_first_legend = obtained_ax.get_legend().get_texts()[0]
     assert obtained_first_legend.get_text() == "Waltheria"
     assert obtained_first_legend.get_fontsize() == 15
+
+    obtained_last_legend = obtained_ax.get_legend().get_texts()[-1]
+    assert obtained_last_legend.get_text() == "Suelo"
 
     first_xtick_label = obtained_ax.get_xticklabels()[0]
     expected_fontsize = 15
