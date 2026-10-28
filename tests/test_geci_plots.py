@@ -238,13 +238,31 @@ def test_annotated_bar_plot_by_columns():
 
 def test_percentage_bar_plot_by_columns():
     _, ax = geci_plot()
-    xticks = [quadrants_samples.index, quadrants_samples.index]
-    obtained_ax = percentage_bar_plot_by_columns(ax, quadrants_samples, xticks, bar_gap=1)
+    obtained_ax = percentage_bar_plot_by_columns(ax, quadrants_samples)
     assert isinstance(obtained_ax, mpl.axes._axes.Axes)
+
+    obtained_number_of_rectangles = sum(
+        [isinstance(i, mpl.patches.Rectangle) for i in obtained_ax.get_children()]
+    )
+    number_of_columns = len(quadrants_samples.columns)
+    number_of_rows = len(quadrants_samples)
+    expected_number_of_rectangles = 1 + number_of_columns * number_of_rows
+    assert obtained_number_of_rectangles == expected_number_of_rectangles
 
     obtained_ylims = obtained_ax.get_ylim()
     expected_ylims = (0, 110)
     assert obtained_ylims == expected_ylims
+
+    obtained_first_legend = obtained_ax.get_legend().get_texts()[0]
+    assert obtained_first_legend.get_text() == "Waltheria"
+    assert obtained_first_legend.get_fontsize() == 15
+
+    first_xtick_label = obtained_ax.get_xticklabels()[0]
+    expected_fontsize = 15
+    assert first_xtick_label.get_fontsize() == expected_fontsize
+
+    expected_ticks_rotation = 90.0
+    assert first_xtick_label.get_rotation() == expected_ticks_rotation
 
 
 def test_geci_plot():

@@ -285,20 +285,10 @@ def config_xticks_for_annotated_bar_plot(ax, x_ticks, fontsize):
 def percentage_bar_plot_by_columns(
     ax,
     df,
-    x_ticks,
     colors_array=zones_colors,
     fontsize=15,
-    bar_label_size=15,
-    bar_gap=2,
-    x_pos=-0.5,
-    y_pos=200,
 ):
-    data_length = len(df)
-    bottom_values = data_length * [0]
-    bottom_values = plot_columns_as_bars(ax, df, x_ticks, colors_array, bottom_values)
-    config_xticks_for_annotated_bar_plot(ax, x_ticks, fontsize)
-    annotate_bars_with_values(bottom_values, x_ticks, x_pos, y_pos, fontsize=bar_label_size)
-    ax.set_xlim(0.5, data_length * bar_gap + 0.5)
+    ax = df.plot.bar(stacked=True, ax=ax, color=colors_array, fontsize=fontsize)
     ax.set_ylim(0, 110)
     ax.legend(ncol=4, frameon=False, fontsize=fontsize, loc="upper center")
     return ax
