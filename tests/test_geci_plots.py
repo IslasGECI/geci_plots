@@ -197,6 +197,7 @@ def test_annotated_bar_plot_by_columns():
     xticks = [quadrants_samples.index, quadrants_samples.index]
     obtained_ax = annotated_bar_plot_by_columns(ax, quadrants_samples, xticks)
     assert isinstance(obtained_ax, mpl.axes._axes.Axes)
+    plt.savefig("tests/annotated_bar_plot_by_columns.png", dpi=300)
 
 
 def test_geci_plot():
