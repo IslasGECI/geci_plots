@@ -206,6 +206,9 @@ def test_annotated_bar_plot_by_columns():
     obtained_ylims = obtained_ax.get_ylim()
     expected_ylims = (0, 200)
     assert obtained_ylims == expected_ylims
+    obtained_xticks = obtained_ax.get_xticks()
+    expected_number_of_ticks = 4
+    assert len(obtained_xticks) == expected_number_of_ticks
 
 
 def test_geci_plot():
