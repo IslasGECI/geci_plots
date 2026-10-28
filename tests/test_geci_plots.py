@@ -206,9 +206,21 @@ def test_annotated_bar_plot_by_columns():
     obtained_ylims = obtained_ax.get_ylim()
     expected_ylims = (0, 200)
     assert obtained_ylims == expected_ylims
+
     obtained_xticks = obtained_ax.get_xticks()
     expected_number_of_ticks = 4
     assert len(obtained_xticks) == expected_number_of_ticks
+
+    first_xtick_label = ax.get_xticklabels()[0]
+    expected_fontsize = 15
+    assert first_xtick_label.get_fontsize() == expected_fontsize
+
+    expected_ticks_rotation = 90.0
+    assert first_xtick_label.get_rotation() == expected_ticks_rotation
+
+    obtained_last_xtick_text = first_xtick_label.get_text()
+    expected_last_xtick_text = "1"
+    assert obtained_last_xtick_text == expected_last_xtick_text
 
 
 def test_geci_plot():
