@@ -14,6 +14,29 @@ path_rose_wind = "tests/data/rosewind.png"
 bandwidth = 0.04
 
 
+def test_cli_render_species_percentage_coverage_by_quadrant():
+    result = runner.invoke(cli, ["render-species-percentage-coverage-by-quadrant", "--help"])
+    assert result.exit_code == 0
+
+    output_path = "tests/species_percentage_coverage_by_quadrant.png"
+    data_path = "tests/data/quadrants_vegetation_sampling.csv"
+    gtt.if_exist_remove(output_path)
+    result = runner.invoke(
+        cli,
+        [
+            "render-species-percentage-coverage-by-quadrant",
+            "--data-path",
+            data_path,
+            "--enclosure",
+            "Cerco_1",
+            "--output-path",
+            output_path,
+        ],
+    )
+    assert result.exit_code == 0
+    gtt.assert_exist(output_path)
+
+
 def test_cli_render_histogram_with_median():
     result = runner.invoke(cli, ["render-histogram-with-median", "--help"])
     assert result.exit_code == 0
@@ -215,7 +238,7 @@ def test_plot_kernel_density():
     assert result.exit_code == 0
     gtt.assert_exist(result_map_path)
     assert_transparent_figure(result_map_path)
-    # gtt.if_exist_remove(result_map_path)
+    gtt.if_exist_remove(result_map_path)
 
 
 def test_render_radar_signal_geographic_points():
