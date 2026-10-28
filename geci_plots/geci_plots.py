@@ -318,12 +318,7 @@ def percentage_bar_plot_by_columns(
             color=colors_array[i],
         )
         bottom_values = bottom_values + column_values
-    bar_positions = x_ticks[0]
-    last_xtick_position = bar_positions[-1] + 1
-    ax.set_xticks(
-        [*bar_positions, last_xtick_position], [*x_ticks[1], ""], rotation=90, size=fontsize
-    )
-    ax.tick_params(labelsize=fontsize)
+    config_xticks_for_annotated_bar_plot(ax, x_ticks, fontsize)
     annotate_bars_with_values(bottom_values, x_ticks, x_pos, y_pos, fontsize=bar_label_size)
     ax.set_xlim(0.5, data_length * bar_gap + 0.5)
     ax.set_ylim(0, 110)
