@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.13.0] - 2026-10-28
+### Added
+- CLI command `render-species-percentage-coverage-by-quadrant` to render the species percentage coverage by quadrant for a given enclosure.
+
 ## [0.12.1] - 2026-06-10
 ### Fixed
 - Figure generated from CLI command `render-radar-signal-geographic-points` displays colorbar on the left side.
