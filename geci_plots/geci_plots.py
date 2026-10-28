@@ -212,10 +212,9 @@ def annotated_bar_plot(
 ):
     data_length = len(df)
     ax.bar(x_ticks[0], df[column_key], alpha=1, width=0.9, zorder=0)
-    plt.xticks(x_ticks[0], x_ticks[1], rotation=90, size=fontsize)
+    config_xticks_for_annotated_bar_plot(ax, x_ticks, fontsize)
     ax.set_ylim(0, roundup(df[column_key].max(), 10 ** order_magnitude(df[column_key])))
     annotate_bars_with_values(df[column_key], x_ticks, x_pos, y_pos, bar_label_size)
-    ax.tick_params(labelsize=fontsize)
     plt.xlim(0.5, data_length * bar_gap + 1)
 
 
