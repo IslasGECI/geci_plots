@@ -304,15 +304,22 @@ def plot_percentage_bar_by_columns(
     colors_array=zones_colors,
     fontsize=15,
 ):
-    columns_list = list(df.columns)
-    suelo_index = columns_list.index("Suelo")
-    columns_list.pop(suelo_index)
-    columns_list.append("Suelo")
-    ordered_df = df.loc[:, columns_list]
+    ordered_df = order_ground_column_at_last(df)
     ax = ordered_df.plot.bar(stacked=True, ax=ax, color=colors_array, fontsize=fontsize)
     ax.set_ylim(0, 110)
     ax.legend(ncol=4, frameon=False, fontsize=fontsize, loc="upper center")
     return ax
+
+
+def order_ground_column_at_last(df):
+    ground_column = "Suelo"
+    columns_list = list(df.columns)
+    if ground_column in columns_list:
+        ground_index = columns_list.index(ground_column)
+        columns_list.pop(ground_index)
+        columns_list.append(ground_column)
+    ordered_df = df.loc[:, columns_list]
+    return ordered_df
 
 
 def plot_comparative_annual_effort_by_zone(
