@@ -198,6 +198,9 @@ def test_annotated_bar_plot_by_columns():
     obtained_ax = annotated_bar_plot_by_columns(ax, quadrants_samples, xticks, bar_gap=1)
     assert isinstance(obtained_ax, mpl.axes._axes.Axes)
     plt.savefig("tests/annotated_bar_plot_by_columns.png", dpi=300)
+    obtained_xlims = obtained_ax.get_xlim()
+    expected_xlims = (0.5, 3.5)
+    assert obtained_xlims == expected_xlims
 
 
 def test_geci_plot():
