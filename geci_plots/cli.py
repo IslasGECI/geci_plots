@@ -14,6 +14,7 @@ from geci_plots.process_effort_and_captures_data import (
 from geci_plots.plot_population_time_series import plot_population_time_series
 from geci_plots.plot_histograms import plot_histogram_with_limits
 from geci_plots.plot_radar_signal import plot_radar_signal_geographic_points
+from geci_plots.vegetation_coverage import transform_quadrants_vegetation_data
 
 import geci_plots as gp
 import matplotlib.pyplot as plt
@@ -44,6 +45,21 @@ def render_population_time_series(
     data_dictionary = read_json(data_path)
     data = pd.DataFrame(data_dictionary["time_series"])
     plot_population_time_series(data)
+    plt.savefig(output_path, transparent=True)
+    plt.close()
+
+
+@cli.command()
+def render_species_percentage_coverage_by_quadrant(
+    data_path: str = typer.Option(),
+    enclosure: str = typer.Option(),
+    output_path: str = typer.Option(),
+):
+    data = pd.read_csv(data_path)
+    enclosure_data = data[data["Cerco"] == enclosure]
+    quadrants_data = transform_quadrants_vegetation_data(enclosure_data)
+    _, ax = gp.geci_plot()
+    gp.plot_percentage_bar_by_columns(ax, quadrants_data)
     plt.savefig(output_path, transparent=True)
     plt.close()
 
