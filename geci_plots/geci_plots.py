@@ -282,6 +282,7 @@ def annotated_bar_plot_by_columns(
     ax.tick_params(labelsize=fontsize)
     plt.legend(ncol=4, frameon=False, fontsize=fontsize, loc="upper center")
     plt.xlim(0.5, data_length * bar_gap + 1)
+    return ax
 
 
 def plot_comparative_annual_effort_by_zone(
