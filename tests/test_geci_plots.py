@@ -211,7 +211,7 @@ def test_annotated_bar_plot_by_columns():
     expected_number_of_ticks = 4
     assert len(obtained_xticks) == expected_number_of_ticks
 
-    first_xtick_label = ax.get_xticklabels()[0]
+    first_xtick_label = obtained_ax.get_xticklabels()[0]
     expected_fontsize = 15
     assert first_xtick_label.get_fontsize() == expected_fontsize
 
@@ -221,6 +221,9 @@ def test_annotated_bar_plot_by_columns():
     obtained_last_xtick_text = first_xtick_label.get_text()
     expected_last_xtick_text = "1"
     assert obtained_last_xtick_text == expected_last_xtick_text
+
+    assert obtained_ax.get_legend().get_texts()[0].get_text() == "Waltheria"
+    assert obtained_ax.get_legend().get_texts()[0].get_fontsize() == 15
 
 
 def test_geci_plot():
