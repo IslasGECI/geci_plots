@@ -301,13 +301,22 @@ def plot_columns_as_bars(ax, df, x_ticks, colors_array):
 def plot_percentage_bar_by_columns(
     ax,
     df,
-    colors_array=zones_colors,
     fontsize=15,
 ):
     ordered_df = order_ground_column_at_last(df)
+    species_colors = {
+        "Waltheria indica": "lightblue",
+        "Tribulus cistoides": "lightgreen",
+        "Canavalia rosea": "yellow",
+        "Brickellia peninsularis": "lightcoral",
+        "Suelo": "gray",
+    }
+    colors_array = [species_colors[s] for s in ordered_df.columns]
     ax = ordered_df.plot.bar(stacked=True, ax=ax, color=colors_array, fontsize=fontsize)
+    ax.set_xlabel("Cuadrante", fontsize=fontsize)
     ax.set_ylim(0, 110)
-    ax.legend(ncol=4, frameon=False, fontsize=fontsize, loc="upper center")
+    ax.set_ylabel("Cobertura (%)", fontsize=fontsize)
+    ax.legend(fontsize=fontsize)
     return ax
 
 

@@ -188,9 +188,9 @@ def test_annotated_bar_plot():
 quadrants_samples = pd.DataFrame(
     {
         "Cuadrante": [1, 2, 3],
-        "Waltheria": [10, 30, 50],
+        "Waltheria indica": [10, 30, 50],
         "Suelo": [10, 10, 10],
-        "Tribulus": [80, 60, 40],
+        "Tribulus cistoides": [80, 60, 40],
     }
 ).set_index("Cuadrante")
 
@@ -232,7 +232,7 @@ def test_annotated_bar_plot_by_columns():
     assert obtained_last_xtick_text == expected_last_xtick_text
 
     obtained_first_legend = obtained_ax.get_legend().get_texts()[0]
-    assert obtained_first_legend.get_text() == "Waltheria"
+    assert obtained_first_legend.get_text() == "Waltheria indica"
     assert obtained_first_legend.get_fontsize() == 15
 
 
@@ -254,7 +254,7 @@ def test_percentage_bar_plot_by_columns():
     assert obtained_ylims == expected_ylims
 
     obtained_first_legend = obtained_ax.get_legend().get_texts()[0]
-    assert obtained_first_legend.get_text() == "Waltheria"
+    assert obtained_first_legend.get_text() == "Waltheria indica"
     assert obtained_first_legend.get_fontsize() == 15
 
     obtained_last_legend = obtained_ax.get_legend().get_texts()[-1]
@@ -266,6 +266,9 @@ def test_percentage_bar_plot_by_columns():
 
     expected_ticks_rotation = 90.0
     assert first_xtick_label.get_rotation() == expected_ticks_rotation
+
+    obtained_x_label = obtained_ax.get_xlabel()
+    assert obtained_x_label == "Cuadrante"
 
 
 def test_geci_plot():
