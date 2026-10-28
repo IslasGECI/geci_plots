@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 
 from pandas._testing import assert_frame_equal
-from geci_plots import (
+from geci_plots.geci_plots import (
     annotate_heatmap,
     annotate_pie_chart,
     annotated_bar_plot_by_columns,
@@ -20,7 +20,7 @@ from geci_plots import (
     islet_colors,
     islet_markers,
     order_magnitude,
-    percentage_bar_plot_by_columns,
+    plot_percentage_bar_by_columns,
     plot_comparative_annual_effort_by_zone,
     plot_points_with_labels,
     prepare_cats_by_zone_and_age,
@@ -238,7 +238,7 @@ def test_annotated_bar_plot_by_columns():
 
 def test_percentage_bar_plot_by_columns():
     _, ax = geci_plot()
-    obtained_ax = percentage_bar_plot_by_columns(ax, quadrants_samples)
+    obtained_ax = plot_percentage_bar_by_columns(ax, quadrants_samples)
     assert isinstance(obtained_ax, mpl.axes._axes.Axes)
 
     obtained_number_of_rectangles = sum(

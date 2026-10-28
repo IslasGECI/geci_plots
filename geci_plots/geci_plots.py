@@ -282,18 +282,6 @@ def config_xticks_for_annotated_bar_plot(ax, x_ticks, fontsize):
     ax.tick_params(labelsize=fontsize)
 
 
-def percentage_bar_plot_by_columns(
-    ax,
-    df,
-    colors_array=zones_colors,
-    fontsize=15,
-):
-    ax = df.plot.bar(stacked=True, ax=ax, color=colors_array, fontsize=fontsize)
-    ax.set_ylim(0, 110)
-    ax.legend(ncol=4, frameon=False, fontsize=fontsize, loc="upper center")
-    return ax
-
-
 def plot_columns_as_bars(ax, df, x_ticks, colors_array, bottom_values):
     column_names = df.columns
     for i, column_name in enumerate(column_names):
@@ -308,6 +296,18 @@ def plot_columns_as_bars(ax, df, x_ticks, colors_array, bottom_values):
         )
         bottom_values = bottom_values + column_values
     return bottom_values
+
+
+def plot_percentage_bar_by_columns(
+    ax,
+    df,
+    colors_array=zones_colors,
+    fontsize=15,
+):
+    ax = df.plot.bar(stacked=True, ax=ax, color=colors_array, fontsize=fontsize)
+    ax.set_ylim(0, 110)
+    ax.legend(ncol=4, frameon=False, fontsize=fontsize, loc="upper center")
+    return ax
 
 
 def plot_comparative_annual_effort_by_zone(
