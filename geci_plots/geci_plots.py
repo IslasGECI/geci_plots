@@ -263,8 +263,7 @@ def annotated_bar_plot_by_columns(
     y_pos=200,
 ):
     data_length = len(df)
-    bottom_values = data_length * [0]
-    bottom_values = plot_columns_as_bars(ax, df, x_ticks, colors_array, bottom_values)
+    bottom_values = plot_columns_as_bars(ax, df, x_ticks, colors_array)
     config_xticks_for_annotated_bar_plot(ax, x_ticks, fontsize)
     annotate_bars_with_values(bottom_values, x_ticks, x_pos, y_pos, fontsize=bar_label_size)
     ax.set_xlim(0.5, data_length * bar_gap + 0.5)
@@ -282,7 +281,8 @@ def config_xticks_for_annotated_bar_plot(ax, x_ticks, fontsize):
     ax.tick_params(labelsize=fontsize)
 
 
-def plot_columns_as_bars(ax, df, x_ticks, colors_array, bottom_values):
+def plot_columns_as_bars(ax, df, x_ticks, colors_array):
+    bottom_values = len(df) * [0]
     column_names = df.columns
     for i, column_name in enumerate(column_names):
         column_values = df[column_name]
