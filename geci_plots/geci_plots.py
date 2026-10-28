@@ -264,18 +264,7 @@ def annotated_bar_plot_by_columns(
 ):
     data_length = len(df)
     bottom_values = data_length * [0]
-    column_names = df.columns
-    for i, column_name in enumerate(column_names):
-        df_column = df[column_name]
-        column_label = column_name.replace("_", " ")
-        ax.bar(
-            x_ticks[0],
-            df_column,
-            bottom=bottom_values,
-            label=column_label,
-            color=colors_array[i],
-        )
-        bottom_values = bottom_values + df_column
+    bottom_values = plot_columns_as_bars(ax, df, x_ticks, colors_array, bottom_values)
     config_xticks_for_annotated_bar_plot(ax, x_ticks, fontsize)
     annotate_bars_with_values(bottom_values, x_ticks, x_pos, y_pos, fontsize=bar_label_size)
     ax.set_xlim(0.5, data_length * bar_gap + 0.5)
@@ -306,6 +295,16 @@ def percentage_bar_plot_by_columns(
 ):
     data_length = len(df)
     bottom_values = data_length * [0]
+    bottom_values = plot_columns_as_bars(ax, df, x_ticks, colors_array, bottom_values)
+    config_xticks_for_annotated_bar_plot(ax, x_ticks, fontsize)
+    annotate_bars_with_values(bottom_values, x_ticks, x_pos, y_pos, fontsize=bar_label_size)
+    ax.set_xlim(0.5, data_length * bar_gap + 0.5)
+    ax.set_ylim(0, 110)
+    ax.legend(ncol=4, frameon=False, fontsize=fontsize, loc="upper center")
+    return ax
+
+
+def plot_columns_as_bars(ax, df, x_ticks, colors_array, bottom_values):
     column_names = df.columns
     for i, column_name in enumerate(column_names):
         column_values = df[column_name]
@@ -318,12 +317,7 @@ def percentage_bar_plot_by_columns(
             color=colors_array[i],
         )
         bottom_values = bottom_values + column_values
-    config_xticks_for_annotated_bar_plot(ax, x_ticks, fontsize)
-    annotate_bars_with_values(bottom_values, x_ticks, x_pos, y_pos, fontsize=bar_label_size)
-    ax.set_xlim(0.5, data_length * bar_gap + 0.5)
-    ax.set_ylim(0, 110)
-    ax.legend(ncol=4, frameon=False, fontsize=fontsize, loc="upper center")
-    return ax
+    return bottom_values
 
 
 def plot_comparative_annual_effort_by_zone(
