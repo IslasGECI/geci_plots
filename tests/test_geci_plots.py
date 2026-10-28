@@ -198,6 +198,13 @@ def test_annotated_bar_plot_by_columns():
     obtained_ax = annotated_bar_plot_by_columns(ax, quadrants_samples, xticks, bar_gap=1)
     assert isinstance(obtained_ax, mpl.axes._axes.Axes)
     plt.savefig("tests/annotated_bar_plot_by_columns.png", dpi=300)
+    obtained_number_of_rectangles = sum(
+        [isinstance(i, mpl.patches.Rectangle) for i in obtained_ax.get_children()]
+    )
+    number_of_columns = len(quadrants_samples.columns)
+    number_of_rows = len(quadrants_samples)
+    expected_number_of_rectangles = 1 + number_of_columns * number_of_rows
+    assert obtained_number_of_rectangles == expected_number_of_rectangles
 
     obtained_xlims = obtained_ax.get_xlim()
     expected_xlims = (0.5, 3.5)

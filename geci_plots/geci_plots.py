@@ -279,10 +279,10 @@ def annotated_bar_plot_by_columns(
         bottom_values = bottom_values + df_column
     last_xtick_position = x_ticks[0][-1] + 1
     ax.set_xticks([*x_ticks[0], last_xtick_position], [*x_ticks[1], ""], rotation=90, size=fontsize)
+    ax.tick_params(labelsize=fontsize)
     annotate_bars_with_values(bottom_values, x_ticks, x_pos, y_pos, fontsize=bar_label_size)
     ax.set_xlim(0.5, data_length * bar_gap + 0.5)
     ax.set_ylim(0, roundup(bottom_values.max() * 1.3, 10 ** order_magnitude(bottom_values)))
-    ax.tick_params(labelsize=fontsize)
     ax.legend(ncol=4, frameon=False, fontsize=fontsize, loc="upper center")
     return ax
 
