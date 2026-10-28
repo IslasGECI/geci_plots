@@ -1,4 +1,4 @@
-from geci_plots import cli
+from geci_plots import cli, __version__
 
 import geci_test_tools as gtt
 import matplotlib.pyplot as plt
@@ -379,5 +379,4 @@ def test_boxplot():
 def test_version():
     result = runner.invoke(cli, ["version"])
     assert result.exit_code == 0
-    expected_version = "0.12.1"
-    assert expected_version in result.stdout
+    assert __version__ in result.stdout
