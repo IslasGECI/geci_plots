@@ -222,8 +222,9 @@ def test_annotated_bar_plot_by_columns():
     expected_last_xtick_text = "1"
     assert obtained_last_xtick_text == expected_last_xtick_text
 
-    assert obtained_ax.get_legend().get_texts()[0].get_text() == "Waltheria"
-    assert obtained_ax.get_legend().get_texts()[0].get_fontsize() == 15
+    obtained_first_legend = obtained_ax.get_legend().get_texts()[0]
+    assert obtained_first_legend.get_text() == "Waltheria"
+    assert obtained_first_legend.get_fontsize() == 15
 
 
 def test_geci_plot():
