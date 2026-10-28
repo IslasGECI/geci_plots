@@ -195,7 +195,7 @@ def test_annotated_bar_plot_by_columns():
     ).set_index("Cuadrante")
     _, ax = geci_plot()
     xticks = [quadrants_samples.index, quadrants_samples.index]
-    obtained_ax = annotated_bar_plot_by_columns(ax, quadrants_samples, xticks)
+    obtained_ax = annotated_bar_plot_by_columns(ax, quadrants_samples, xticks, bar_gap=1)
     assert isinstance(obtained_ax, mpl.axes._axes.Axes)
     plt.savefig("tests/annotated_bar_plot_by_columns.png", dpi=300)
 
