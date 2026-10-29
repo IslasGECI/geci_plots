@@ -316,7 +316,7 @@ def plot_percentage_bar_by_columns(
     ax.set_xlabel("Quadrant", fontsize=fontsize)
     ax.set_ylim(0, 110)
     ax.set_ylabel("Coverage (%)", fontsize=fontsize)
-    ax.legend(fontsize=fontsize)
+    ax.legend(ncol=5, frameon=False, fontsize=11)
     return ax
 
 

@@ -255,7 +255,7 @@ def test_percentage_bar_plot_by_columns():
 
     obtained_first_legend = obtained_ax.get_legend().get_texts()[0]
     assert obtained_first_legend.get_text() == "Waltheria indica"
-    assert obtained_first_legend.get_fontsize() == 15
+    assert obtained_first_legend.get_fontsize() == 11
 
     obtained_last_legend = obtained_ax.get_legend().get_texts()[-1]
     assert obtained_last_legend.get_text() == "Ground"
@@ -263,6 +263,10 @@ def test_percentage_bar_plot_by_columns():
     first_xtick_label = obtained_ax.get_xticklabels()[0]
     expected_fontsize = 15
     assert first_xtick_label.get_fontsize() == expected_fontsize
+
+    first_ytick_label = obtained_ax.get_yticklabels()[0]
+    expected_fontsize = 15
+    assert first_ytick_label.get_fontsize() == expected_fontsize
 
     expected_ticks_rotation = 90.0
     assert first_xtick_label.get_rotation() == expected_ticks_rotation
