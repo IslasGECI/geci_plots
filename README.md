@@ -2,9 +2,20 @@
 
 # geci_plots
 
-A collection of plotting utilities and a Typer-based CLI for generating geographic, temporal, and statistical visualizations from CSV/JSON data. Built on matplotlib, pandas, geopandas, and geoambiental.
+One command, one figure: turn monitoring data into images ready for a report.
 
-## CLI Commands (`geci-plot-cli`)
+## What it does
+
+`geci_plots` reads the CSV and JSON files produced by GECI's data pipelines and draws the figure a report, a paper, or a talk needs. Every figure is written as a transparent image, so it sits on any background without a white box.
+
+It draws four families of figures:
+
+- **Where things happened:** bubble charts and maps of observations, coloured by trip or by vessel.
+- **When things happened:** monthly effort and capture series for traps and cameras, and population trends.
+- **How the data is distributed:** histograms with a median line, boxplots, and kernel density maps.
+- **Coverage:** the percentage of each species covering each quadrant of an enclosure.
+
+## Usage (`geci-plot-cli`)
 
 | Command | Description | Options |
 | --- | --- | --- |
@@ -22,4 +33,35 @@ A collection of plotting utilities and a Typer-based CLI for generating geograph
 | `boxplot` | Boxplot from selected columns (comma-separated) | `--data-path`, `--columns-of-interest`, `--boxplot-path` |
 | `version` | Display package version | None |
 
-All plots are saved as transparent images by default.
+Every plotting command saves a transparent image; `version` only prints the package version. Run `geci-plot-cli <command> --help` to see the options of a single command.
+
+## Before you start
+
+- The data file for the figure you want. The Options column says which file each command expects: a CSV exported from our databases, or a JSON summary.
+- The folder where the image should be written.
+- Docker, or Python 3.9 or newer.
+
+## Run the project
+
+### With Docker (recommended)
+
+From the folder that contains the repository:
+
+```bash
+docker compose run --rm islasgeci bash -c "make install && geci-plot-cli version"
+```
+
+Replace `version` with the command you need, for example:
+
+```bash
+docker compose run --rm islasgeci bash -c "make install && geci-plot-cli boxplot --data-path captures.csv --columns-of-interest weight,length --boxplot-path boxplot.png"
+```
+
+### Without Docker
+
+```bash
+pip install geci_plots
+geci-plot-cli version
+```
+
+Then call any command from the table above, substituting your own file names.
