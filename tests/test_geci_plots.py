@@ -268,7 +268,10 @@ def test_percentage_bar_plot_by_columns():
     assert first_xtick_label.get_rotation() == expected_ticks_rotation
 
     obtained_x_label = obtained_ax.get_xlabel()
-    assert obtained_x_label == "Cuadrante"
+    assert obtained_x_label == "Quadrant"
+
+    obtained_y_label = obtained_ax.get_ylabel()
+    assert obtained_x_label == "Coverage (%)"
 
 
 def test_geci_plot():

@@ -36,7 +36,7 @@ def test_cli_render_species_percentage_coverage_by_quadrant():
     assert result.exit_code == 0
     assert_transparent_figure(output_path)
     gtt.assert_exist(output_path)
-    gtt.if_exist_remove(output_path)
+    # gtt.if_exist_remove(output_path)
 
 
 def test_cli_render_histogram_with_median():
