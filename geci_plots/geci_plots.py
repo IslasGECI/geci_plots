@@ -313,9 +313,9 @@ def plot_percentage_bar_by_columns(
     }
     colors_array = [species_colors[s] for s in ordered_df.columns]
     ax = ordered_df.plot.bar(stacked=True, ax=ax, color=colors_array, fontsize=fontsize)
-    ax.set_xlabel("Cuadrante", fontsize=fontsize)
+    ax.set_xlabel("Quadrant", fontsize=fontsize)
     ax.set_ylim(0, 110)
-    ax.set_ylabel("Cobertura (%)", fontsize=fontsize)
+    ax.set_ylabel("Coverage (%)", fontsize=fontsize)
     ax.legend(fontsize=fontsize)
     return ax
 
