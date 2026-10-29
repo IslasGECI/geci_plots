@@ -11,6 +11,7 @@ A collection of plotting utilities and a Typer-based CLI for generating geograph
 | `render-radar-signal-geographic-points` | Bubble chart of radar signal geographic points | `--radar-signal-data-path`, `--global-shapefile-data-path`, `--path-rose-wind`, `--result-map-path` |
 | `render-population-time-series` | Time series of captures, births, and population size | `--data-path` (JSON), `--output-path` |
 | `render-histogram-with-median` | Histogram with a median line for a CSV column | `--data-path`, `--column-name`, `--output-path` |
+| `render-species-percentage-coverage-by-quadrant` | Stacked bar chart of species percentage coverage by quadrant for a given enclosure | `--data-path`, `--enclosure`, `--output-path` |
 | `plot-monthly-traps-effort-and-captures-by-zone` | Monthly trap effort and captures by zone | `--effort-captures-data-path`, `--start-date`, `--end-date`, `--output-path` |
 | `plot-monthly-cameras-effort-and-captures` | Monthly camera effort and detections | `--cameras-data-path`, `--start-date`, `--end-date`, `--output-path` |
 | `plot-kernel-density-and-points` | Kernel density with overlayed geographic points | `--geographic-data-path`, `--global-shapefile-data-path`, `--path-rose-wind`, `--selected-contour`, `--result-map-path`, `--bandwidth` |
