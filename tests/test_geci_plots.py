@@ -271,7 +271,7 @@ def test_percentage_bar_plot_by_columns():
     assert obtained_x_label == "Quadrant"
 
     obtained_y_label = obtained_ax.get_ylabel()
-    assert obtained_x_label == "Coverage (%)"
+    assert obtained_y_label == "Coverage (%)"
 
 
 def test_geci_plot():
