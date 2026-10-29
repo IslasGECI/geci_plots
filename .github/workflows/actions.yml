@@ -9,6 +9,7 @@ jobs:
     environment: pypi_token
     permissions:
       id-token: write
+      contents: write
     steps:
     - name: Copia repositorio
       uses: actions/checkout@main
