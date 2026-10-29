@@ -6,10 +6,6 @@ on:
 jobs:
   actions:
     runs-on: ubuntu-latest
-    environment: pypi_token
-    permissions:
-      id-token: write
-      contents: write
     steps:
     - name: Copia repositorio
       uses: actions/checkout@main
@@ -43,6 +39,9 @@ jobs:
     name: Build and publish Python 🐍 distributions 📦 to PyPI
     needs: actions
     runs-on: ubuntu-latest
+    environment: pypi_token
+    permissions:
+      id-token: write
     steps:
     - uses: actions/checkout@main
     - name: Set up Python 3.x
