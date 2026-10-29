@@ -309,7 +309,7 @@ def plot_percentage_bar_by_columns(
         "Tribulus cistoides": "lightgreen",
         "Canavalia rosea": "yellow",
         "Brickellia peninsularis": "lightcoral",
-        "Suelo": "gray",
+        "Ground": "gray",
     }
     colors_array = [species_colors[s] for s in ordered_df.columns]
     ax = ordered_df.plot.bar(stacked=True, ax=ax, color=colors_array, fontsize=fontsize)
@@ -328,7 +328,7 @@ def order_ground_column_at_last(df):
         columns_list.pop(ground_index)
         columns_list.append(ground_column)
     ordered_df = df.loc[:, columns_list]
-    return ordered_df
+    return ordered_df.rename(columns={ground_column: "Ground"})
 
 
 def plot_comparative_annual_effort_by_zone(
