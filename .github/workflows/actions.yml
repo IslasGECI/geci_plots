@@ -6,6 +6,9 @@ on:
 jobs:
   actions:
     runs-on: ubuntu-latest
+    environment: pypi_token
+    permissions:
+      id-token: write
     steps:
     - name: Copia repositorio
       uses: actions/checkout@main
@@ -16,12 +19,12 @@ jobs:
     - name: Corre pruebas y evalúa cobertura
       run: docker run --volume $PWD:/workdir islasgeci/geci_plots:latest make coverage
     - name: Upload coverage reports to Codecov with GitHub Action
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@main
       with:
         files: ./coverage.xml
         verbose: true
     - name: Create/Update tag
-      uses: rickstaa/action-create-tag@v1.5.4
+      uses: rickstaa/action-create-tag@v1
       with:
         tag: "latest"
         message: "Latest release"
@@ -42,7 +45,7 @@ jobs:
     steps:
     - uses: actions/checkout@main
     - name: Set up Python 3.x
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@main
       with:
         python-version: 3.x
     - name: Install pypa/build
@@ -60,9 +63,8 @@ jobs:
         --outdir dist/
         .
     - name: Publish distribution 📦 to PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1.12
+      uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        password: ${{ secrets.PYPI_TOKEN }}
         skip-existing: true
   mutation-testing:
     name: Mutation testing 👾
